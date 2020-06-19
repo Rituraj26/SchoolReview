@@ -3,10 +3,12 @@ const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const colors = require('colors');
 
 // Importing local files
 const connectDB = require('./config/db');
 const school = require('./routes/school');
+const errorHandler = require('./middleware/error');
 
 // Load env var
 dotenv.config({ path: './config/config.env' });
@@ -24,6 +26,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // Using routes middleware
 app.use('/schools', school);
+
+// Using Error Handler
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

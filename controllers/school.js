@@ -29,8 +29,8 @@ exports.getSchool = async (req, res, next) => {
             success: true,
             data: school,
         });
-    } catch (error) {
-        res.status(400).json({ success: false });
+    } catch (err) {
+        next(err);
     }
 };
 
