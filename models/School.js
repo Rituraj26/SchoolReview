@@ -44,13 +44,15 @@ const SchoolSchema = new mongoose.Schema({
         zipcode: String,
         country: String,
     },
-    awards: {
-        title: String,
-        photo: {
-            type: String,
-            default: 'no-photo.jpg',
+    awards: [
+        {
+            title: String,
+            photo: {
+                type: String,
+                default: 'no-photo.jpg',
+            },
         },
-    },
+    ],
     toppers: {
         name: String,
         photo: {

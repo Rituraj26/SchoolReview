@@ -1,0 +1,35 @@
+const fs = require('fs');
+const colors = require('colors');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+
+// Load env vars
+dotenv.config({ path: './config/config.env' });
+
+const School = require('./models/School');
+
+// Connect Database
+connectDB();
+
+// Read Json Files
+const schools = JSON.parse(
+    fs.readFileSync(`${__dirname}/_data/schools.json`, 'utf-8')
+);
+
+// Import to DB
+const importData = async () => {
+    await School.create(schools);
+    console.log('Data Imported Succesfully'.blue.bgWhite);
+};
+
+// Delete data
+const deleteData = async () => {
+    await School.deleteMany();
+    console.log('Data Deleted Succesfully'.red.bgWhite);
+};
+
+if (process.argv[2] === '-i') {
+    importData();
+} else if (process.argv[2] === '-d') {
+    deleteData();
+}
