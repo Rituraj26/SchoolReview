@@ -1,13 +1,12 @@
 // Importing external packages
+const path = require('path');
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const colors = require('colors');
 
-// Importing local files
 const connectDB = require('./config/db');
-const school = require('./routes/school');
 const errorHandler = require('./middleware/error');
 
 // Load env var
@@ -16,10 +15,13 @@ dotenv.config({ path: './config/config.env' });
 // Connect Database
 connectDB();
 
+// Importing route files
+const school = require('./routes/school');
+
 // Use BodyParser
 app.use(express.json());
 
-//
+// Development logging middleware
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }

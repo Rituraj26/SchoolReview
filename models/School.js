@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
+
+const geocoder = require('../utils/geocoder');
 
 const SchoolSchema = new mongoose.Schema({
     name: {
@@ -24,25 +27,23 @@ const SchoolSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add an address'],
     },
-    // location: {
-    //     //Geojson Point
-    //     type: {
-    //         type: String,
-    //         enum: ['Point'],
-    //         required: true,
-    //     },
-    //     coordinates: {
-    //         type: [Number],
-    //         required: true,
-    //         index: '2dsphere',
-    //     },
-    //     formattedAddress: String,
-    //     street: String,
-    //     city: String,
-    //     state: String,
-    //     zipcode: String,
-    //     country: String,
-    // },
+    location: {
+        //Geojson Point
+        type: {
+            type: String,
+            enum: ['Point'],
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+        },
+        formattedAddress: String,
+        street: String,
+        city: String,
+        state: String,
+        zipcode: String,
+        country: String,
+    },
     awards: {
         title: String,
         photo: {
@@ -92,6 +93,25 @@ const SchoolSchema = new mongoose.Schema({
 
 SchoolSchema.pre('save', function (next) {
     this.slug = slugify(this.name, { lower: true });
+    next();
+});
+
+SchoolSchema.pre('save', async function (next) {
+    const loc = await geocoder.geocode(this.address);
+
+    this.location = {
+        type: 'Point',
+        coordinates: [loc[0].longitude, loc[0].latitude],
+        formattedAddress: loc[0].formattedAddress,
+        street: loc[0].streetName,
+        city: loc[0].city,
+        state: loc[0].stateCode,
+        zipcode: loc[0].zipcode,
+        country: loc[0].countryCode,
+    };
+
+    // Donot save address in DB
+    this.address = undefined;
     next();
 });
 
