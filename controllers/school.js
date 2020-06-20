@@ -2,6 +2,7 @@ const colors = require('colors');
 const School = require('../models/School');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
+const geocoder = require('../utils/geocoder');
 
 // @desc Get all schools
 // @route GET /schools
@@ -74,4 +75,33 @@ exports.deleteSchool = asyncHandler(async (req, res, next) => {
     }
 
     res.status(200).json({ success: true, data: {} });
+});
+
+// @desc Get schools within a radius
+// @route GET /schools/radius/:zipcode/:distance
+// @access Public
+
+exports.getSchoolInRadius = asyncHandler(async (req, res, next) => {
+    const { zipcode, distance } = req.params;
+
+    const result = await geocoder.geocode(zipcode);
+    const lon = result[0].longitude;
+    const lat = result[0].latitude;
+
+    // Calc radius using radians
+    // distance / earths radius
+    const radius = distance / 6378;
+    const schools = await School.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [[lon, lat], radius],
+            },
+        },
+    });
+
+    res.status(200).json({
+        success: true,
+        count: schools.length,
+        data: schools,
+    });
 });
