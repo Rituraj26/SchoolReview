@@ -1,5 +1,6 @@
 const colors = require('colors');
 const School = require('../models/School');
+const ErrorResponse = require('../utils/errorResponse');
 
 // @desc Get all schools
 // @route GET /schools
@@ -25,6 +26,12 @@ exports.getSchools = async (req, res, next) => {
 exports.getSchool = async (req, res, next) => {
     try {
         const school = await School.findById(req.params.id);
+
+        // To handle properly formatted invalid id
+        if (!school) {
+            return next(new ErrorResponse(`Resource not found`, 404));
+        }
+
         res.status(200).json({
             success: true,
             data: school,
@@ -43,7 +50,7 @@ exports.createSchool = async (req, res, next) => {
         const school = await School.create(req.body);
         res.status(201).json({ success: true, data: school });
     } catch (err) {
-        res.status(400).json({ success: false });
+        next(err);
     }
 };
 
@@ -57,9 +64,15 @@ exports.updateSchool = async (req, res, next) => {
             new: true,
             runValidators: true,
         });
+
+        // To handle properly formatted invalid id
+        if (!school) {
+            return next(new ErrorResponse(`Resource not found`, 404));
+        }
+
         res.status(201).json({ success: true, data: school });
     } catch (err) {
-        res.status(400).json({ success: false });
+        next(err);
     }
 };
 
@@ -70,8 +83,14 @@ exports.updateSchool = async (req, res, next) => {
 exports.deleteSchool = async (req, res, next) => {
     try {
         const school = await School.findByIdAndDelete(req.params.id);
+
+        // To handle properly formatted invalid id
+        if (!school) {
+            return next(new ErrorResponse(`Resource not found`, 404));
+        }
+
         res.status(200).json({ success: true, data: {} });
     } catch (err) {
-        res.status(400).json({ success: false });
+        next(err);
     }
 };
