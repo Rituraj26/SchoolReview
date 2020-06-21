@@ -15,7 +15,7 @@ exports.getSchools = asyncHandler(async (req, res, next) => {
     let reqQuery = { ...req.query };
 
     // Fields to exclude so that it doesnot try to match DB model
-    const removeFields = ['select', 'sort'];
+    const removeFields = ['select', 'sort', 'page', 'limit'];
 
     // Delete the removeFields from query
     removeFields.forEach((param) => delete reqQuery[param]);
@@ -34,21 +34,46 @@ exports.getSchools = asyncHandler(async (req, res, next) => {
     if (req.query.select) {
         const fields = req.query.select.split(',').join(' ');
         query = query.select(fields);
-        // console.log(query);
     }
 
     if (req.query.sort) {
         const sortBy = req.query.sort.split(',').join(' ');
         query = query.sort(sortBy);
-        // console.log(query);
     } else {
         query = query.sort('-createdAt');
     }
 
+    // Pagination
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 1;
+    const startInd = (page - 1) * limit;
+    const endInd = page * limit;
+    const total = await School.countDocuments();
+
+    const pagination = {};
+
+    if (startInd > 0) {
+        pagination.prev = {
+            page: page - 1,
+            limit,
+        };
+    }
+    if (endInd < total) {
+        pagination.next = {
+            page: page + 1,
+            limit,
+        };
+    }
+
+    // Skip will skip n documents from the arg
+    query = query.skip(startInd).limit(limit);
+
     const school = await School.find(query);
+
     res.status(200).json({
         success: true,
         count: school.length,
+        pagination,
         data: school,
     });
 });
