@@ -3,95 +3,101 @@ const slugify = require('slugify');
 
 const geocoder = require('../utils/geocoder');
 
-const SchoolSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, 'Please add a school name'],
-        unique: true,
-        trim: true,
-        maxlength: [50, 'Name cannot be more than 50 characters'],
-    },
-    slug: String,
-    mainPhoto: {
-        type: String,
-        default: 'no-photo.jpg',
-    },
-    founded: Number,
-    fees: {
-        busFee: Number,
-        tutionFee: Number,
-        admissionFee: Number,
-        hostelFee: Number,
-    },
-    address: {
-        type: String,
-        required: [true, 'Please add an address'],
-    },
-    location: {
-        //Geojson Point
-        type: {
+const SchoolSchema = new mongoose.Schema(
+    {
+        name: {
             type: String,
-            enum: ['Point'],
+            required: [true, 'Please add a school name'],
+            unique: true,
+            trim: true,
+            maxlength: [50, 'Name cannot be more than 50 characters'],
         },
-        coordinates: {
-            type: [Number],
-            required: true,
+        slug: String,
+        mainPhoto: {
+            type: String,
+            default: 'no-photo.jpg',
         },
-        formattedAddress: String,
-        street: String,
-        city: String,
-        state: String,
-        zipcode: String,
-        country: String,
-    },
-    awards: [
-        {
-            title: String,
+        founded: Number,
+        fees: {
+            busFee: Number,
+            tutionFee: Number,
+            admissionFee: Number,
+            hostelFee: Number,
+        },
+        address: {
+            type: String,
+            required: [true, 'Please add an address'],
+        },
+        location: {
+            //Geojson Point
+            type: {
+                type: String,
+                enum: ['Point'],
+            },
+            coordinates: {
+                type: [Number],
+                required: true,
+            },
+            formattedAddress: String,
+            street: String,
+            city: String,
+            state: String,
+            zipcode: String,
+            country: String,
+        },
+        awards: [
+            {
+                title: String,
+                photo: {
+                    type: String,
+                    default: 'no-photo.jpg',
+                },
+            },
+        ],
+        toppers: {
+            name: String,
             photo: {
                 type: String,
                 default: 'no-photo.jpg',
             },
+            percentage: Number,
         },
-    ],
-    toppers: {
-        name: String,
-        photo: {
-            type: String,
-            default: 'no-photo.jpg',
+        scholarshipAvailable: {
+            type: Boolean,
+            default: false,
         },
-        percentage: Number,
-    },
-    scholarshipAvailable: {
-        type: Boolean,
-        default: false,
-    },
-    averageRating: {
-        type: Number,
-        min: [1, 'Rating must be at least 1'],
-        max: [10, 'Rating must not be more than 10'],
-    },
-    contactUs: {
-        email: {
-            type: String,
-            match: [
-                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                'Please add a valid email',
-            ],
+        averageRating: {
+            type: Number,
+            min: [1, 'Rating must be at least 1'],
+            max: [10, 'Rating must not be more than 10'],
         },
-        website: {
-            type: String,
-            match: [
-                /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-                'Please use a valid URL with HTTP or HTTPS',
-            ],
+        contactUs: {
+            email: {
+                type: String,
+                match: [
+                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                    'Please add a valid email',
+                ],
+            },
+            website: {
+                type: String,
+                match: [
+                    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+                    'Please use a valid URL with HTTP or HTTPS',
+                ],
+            },
+            phoneNo: Number,
         },
-        phoneNo: Number,
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        },
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-});
+    {
+        toObject: { virtuals: true },
+        toJSON: { virtuals: true },
+    }
+);
 
 SchoolSchema.pre('save', function (next) {
     this.slug = slugify(this.name, { lower: true });
@@ -115,6 +121,22 @@ SchoolSchema.pre('save', async function (next) {
     // Donot save address in DB
     this.address = undefined;
     next();
+});
+
+// Cascade Delete Teachers when a school is deleted
+SchoolSchema.pre('remove', async function (next) {
+    await this.model('Teacher').deleteMany({
+        school: this._id,
+    });
+    next();
+});
+
+// Reverse Populate using virtuals
+SchoolSchema.virtual('teachers', {
+    ref: 'Teacher',
+    localField: '_id',
+    foreignField: 'school',
+    justOne: false,
 });
 
 module.exports = mongoose.model('School', SchoolSchema);

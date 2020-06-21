@@ -23,16 +23,26 @@ const teachers = JSON.parse(
 
 // Import to DB
 const importData = async () => {
-    await School.create(schools);
-    await Teacher.create(teachers);
-    console.log('Data Imported Succesfully'.blue.bgWhite);
+    try {
+        await School.create(schools);
+        await Teacher.create(teachers);
+        console.log('Data Imported Succesfully'.blue.bgWhite);
+        process.exit();
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 // Delete data
 const deleteData = async () => {
-    await School.deleteMany();
-    await Teacher.deleteMany();
-    console.log('Data Deleted Succesfully'.red.bgWhite);
+    try {
+        await School.deleteMany();
+        await Teacher.deleteMany();
+        console.log('Data Deleted Succesfully'.red.bgWhite);
+        process.exit();
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 if (process.argv[2] === '-i') {

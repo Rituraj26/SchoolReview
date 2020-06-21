@@ -29,7 +29,10 @@ exports.getSchools = asyncHandler(async (req, res, next) => {
     );
 
     // Mongoose queries
-    query = School.find(JSON.parse(queryStr));
+    query = School.find(JSON.parse(queryStr)).populate({
+        path: 'teachers',
+        select: 'name dept exp',
+    });
 
     if (req.query.select) {
         const fields = req.query.select.split(',').join(' ');
@@ -128,12 +131,14 @@ exports.updateSchool = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.deleteSchool = asyncHandler(async (req, res, next) => {
-    const school = await School.findByIdAndDelete(req.params.id);
+    const school = await School.findById(req.params.id);
 
     // To handle properly formatted invalid id
     if (!school) {
         return next(new ErrorResponse(`Resource not found`, 404));
     }
+
+    school.remove();
 
     res.status(200).json({ success: true, data: {} });
 });
