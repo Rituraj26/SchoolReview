@@ -3,13 +3,23 @@ const School = require('../models/School');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const geocoder = require('../utils/geocoder');
+const { query } = require('express');
 
 // @desc Get all schools
 // @route GET /schools
 // @access Public
 
 exports.getSchools = asyncHandler(async (req, res, next) => {
-    const school = await School.find();
+    console.log(req.query);
+    let queryStr = JSON.stringify(req.query);
+
+    // Replace gt with $gt
+    queryStr = queryStr.replace(
+        /\b(gt|gte|lt|lte|in)\b/g,
+        (match) => `$${match}`
+    );
+    console.log(JSON.parse(queryStr));
+    const school = await School.find(JSON.parse(queryStr));
     res.status(200).json({
         success: true,
         count: school.length,
