@@ -4,7 +4,7 @@ const router = express.Router();
 const {
     getSchools,
     getSchool,
-    createSchool,
+    addSchool,
     updateSchool,
     deleteSchool,
     getSchoolInRadius,
@@ -16,7 +16,7 @@ const teacherRouter = require('./teacher');
 // Re-route into other resources
 router.use('/:schoolId/teachers', teacherRouter);
 
-router.route('/').get(getSchools).post(createSchool);
+router.route('/').get(getSchools).post(addSchool);
 
 router.route('/radius/:zipcode/:distance').get(getSchoolInRadius);
 

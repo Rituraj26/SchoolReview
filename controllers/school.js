@@ -103,7 +103,7 @@ exports.getSchool = asyncHandler(async (req, res, next) => {
 // @route POST /schools
 // @access Private
 
-exports.createSchool = asyncHandler(async (req, res, next) => {
+exports.addSchool = asyncHandler(async (req, res, next) => {
     const school = await School.create(req.body);
     res.status(201).json({ success: true, data: school });
 });
@@ -123,7 +123,7 @@ exports.updateSchool = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse(`Resource not found`, 404));
     }
 
-    res.status(201).json({ success: true, data: school });
+    res.status(200).json({ success: true, data: school });
 });
 
 // @desc Delete a school
