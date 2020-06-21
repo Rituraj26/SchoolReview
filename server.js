@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const colors = require('colors');
+const fileUpload = require('express-fileupload');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
@@ -15,12 +16,18 @@ dotenv.config({ path: './config/config.env' });
 // Connect Database
 connectDB();
 
+// Use BodyParser
+app.use(express.json());
+
+// File upload middleware
+app.use(fileUpload());
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Importing route files
 const school = require('./routes/school');
 const teacher = require('./routes/teacher');
-
-// Use BodyParser
-app.use(express.json());
 
 // Development logging middleware
 if (process.env.NODE_ENV === 'development') {

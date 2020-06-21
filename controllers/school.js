@@ -1,4 +1,5 @@
 const colors = require('colors');
+const path = require('path');
 const School = require('../models/School');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
@@ -170,4 +171,46 @@ exports.getSchoolInRadius = asyncHandler(async (req, res, next) => {
         count: schools.length,
         data: schools,
     });
+});
+
+// @desc Upload school photo
+// @route PUT /schools/:id/photo
+// @access Private
+
+exports.uploadPhoto = asyncHandler(async (req, res, next) => {
+    const school = await School.findById(req.params.id);
+    console.log(req.files.file);
+
+    if (!school) {
+        return next(new ErrorResponse(`Resouce not found`), 404);
+    }
+
+    if (!req.files) {
+        return next(new ErrorResponse(`Please upload a photo`), 400);
+    }
+
+    const file = req.files.file;
+
+    if (!file.mimetype.startsWith('image')) {
+        return next(new ErrorResponse(`Please upload an image file`), 400);
+    }
+
+    if (file.size > process.env.MAX_IMAGE_UPLOAD_SIZE) {
+        return next(
+            new ErrorResponse(`Please upload an image less than 1MB`),
+            400
+        );
+    }
+
+    file.name = `photo_${school._id}${path.parse(file.name).ext}`;
+    console.log(file.name);
+
+    file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+        if (err) {
+            return next(new ErrorResponse(`Problem with the file upload`), 500);
+        }
+        await School.findByIdAndUpdate(req.params.id, { photo: file.name });
+    });
+
+    res.status(200).json({ success: true, data: file.name });
 });

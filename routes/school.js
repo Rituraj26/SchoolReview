@@ -8,6 +8,7 @@ const {
     updateSchool,
     deleteSchool,
     getSchoolInRadius,
+    uploadPhoto,
 } = require('../controllers/school');
 
 // Include other resource router
@@ -21,5 +22,7 @@ router.route('/').get(getSchools).post(addSchool);
 router.route('/radius/:zipcode/:distance').get(getSchoolInRadius);
 
 router.route('/:id').get(getSchool).put(updateSchool).delete(deleteSchool);
+
+router.route('/:id/photo').put(uploadPhoto);
 
 module.exports = router;
