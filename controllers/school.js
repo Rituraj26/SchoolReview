@@ -68,7 +68,7 @@ exports.getSchools = asyncHandler(async (req, res, next) => {
     // Skip will skip n documents from the arg
     query = query.skip(startInd).limit(limit);
 
-    const school = await School.find(query);
+    const school = await query;
 
     res.status(200).json({
         success: true,

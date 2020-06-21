@@ -17,6 +17,7 @@ connectDB();
 
 // Importing route files
 const school = require('./routes/school');
+const teacher = require('./routes/teacher');
 
 // Use BodyParser
 app.use(express.json());
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Using routes middleware
 app.use('/schools', school);
+app.use('/teachers', teacher);
 
 // Using Error Handler
 app.use(errorHandler);
