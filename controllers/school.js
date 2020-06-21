@@ -10,16 +10,42 @@ const { query } = require('express');
 // @access Public
 
 exports.getSchools = asyncHandler(async (req, res, next) => {
-    console.log(req.query);
-    let queryStr = JSON.stringify(req.query);
+    let query;
+
+    let reqQuery = { ...req.query };
+
+    // Fields to exclude so that it doesnot try to match DB model
+    const removeFields = ['select', 'sort'];
+
+    // Delete the removeFields from query
+    removeFields.forEach((param) => delete reqQuery[param]);
+
+    let queryStr = JSON.stringify(reqQuery);
 
     // Replace gt with $gt
     queryStr = queryStr.replace(
         /\b(gt|gte|lt|lte|in)\b/g,
         (match) => `$${match}`
     );
-    console.log(JSON.parse(queryStr));
-    const school = await School.find(JSON.parse(queryStr));
+
+    // Mongoose queries
+    query = School.find(JSON.parse(queryStr));
+
+    if (req.query.select) {
+        const fields = req.query.select.split(',').join(' ');
+        query = query.select(fields);
+        // console.log(query);
+    }
+
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(' ');
+        query = query.sort(sortBy);
+        // console.log(query);
+    } else {
+        query = query.sort('-createdAt');
+    }
+
+    const school = await School.find(query);
     res.status(200).json({
         success: true,
         count: school.length,
