@@ -10,6 +10,8 @@ const {
     getSchoolInRadius,
     uploadPhoto,
 } = require('../controllers/school');
+const School = require('../models/School');
+const advancedResults = require('../middleware/advancedResults');
 
 // Include other resource router
 const teacherRouter = require('./teacher');
@@ -17,7 +19,16 @@ const teacherRouter = require('./teacher');
 // Re-route into other resources
 router.use('/:schoolId/teachers', teacherRouter);
 
-router.route('/').get(getSchools).post(addSchool);
+router
+    .route('/')
+    .get(
+        advancedResults(School, {
+            path: 'teachers',
+            select: 'name dept exp',
+        }),
+        getSchools
+    )
+    .post(addSchool);
 
 router.route('/radius/:zipcode/:distance').get(getSchoolInRadius);
 
