@@ -26,6 +26,7 @@ app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Importing route files
+const auth = require('./routes/auth');
 const school = require('./routes/school');
 const teacher = require('./routes/teacher');
 
@@ -35,6 +36,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Using routes middleware
+app.use('/auth/', auth);
 app.use('/schools', school);
 app.use('/teachers', teacher);
 
