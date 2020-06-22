@@ -36,9 +36,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Using routes middleware
-app.use('/auth/', auth);
 app.use('/schools', school);
 app.use('/teachers', teacher);
+app.use('/auth/', auth);
 
 // Using Error Handler
 app.use(errorHandler);
