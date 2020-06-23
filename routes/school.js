@@ -11,6 +11,8 @@ const {
     uploadPhoto,
 } = require('../controllers/school');
 const School = require('../models/School');
+
+const { protect } = require('../middleware/auth');
 const advancedResults = require('../middleware/advancedResults');
 
 // Include other resource router
@@ -28,12 +30,16 @@ router
         }),
         getSchools
     )
-    .post(addSchool);
+    .post(protect, addSchool);
 
 router.route('/radius/:zipcode/:distance').get(getSchoolInRadius);
 
-router.route('/:id').get(getSchool).put(updateSchool).delete(deleteSchool);
+router
+    .route('/:id')
+    .get(getSchool)
+    .put(protect, updateSchool)
+    .delete(protect, deleteSchool);
 
-router.route('/:id/photo').put(uploadPhoto);
+router.route('/:id/photo').put(protect, uploadPhoto);
 
 module.exports = router;
