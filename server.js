@@ -25,6 +25,8 @@ app.use(fileUpload());
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Cookie Parser middleware
+
 // Importing route files
 const auth = require('./routes/auth');
 const school = require('./routes/school');
