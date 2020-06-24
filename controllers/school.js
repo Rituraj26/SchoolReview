@@ -111,7 +111,6 @@ exports.getSchoolInRadius = asyncHandler(async (req, res, next) => {
 
 exports.uploadPhoto = asyncHandler(async (req, res, next) => {
     const school = await School.findById(req.params.id);
-    console.log(req.files.file);
 
     if (!school) {
         return next(new ErrorResponse(`Resouce not found`), 404);

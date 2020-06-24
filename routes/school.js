@@ -12,7 +12,7 @@ const {
 } = require('../controllers/school');
 const School = require('../models/School');
 
-const { protect } = require('../middleware/auth');
+const { protect, authorization } = require('../middleware/auth');
 const advancedResults = require('../middleware/advancedResults');
 
 // Include other resource router
@@ -30,16 +30,18 @@ router
         }),
         getSchools
     )
-    .post(protect, addSchool);
+    .post(protect, authorization('publisher', 'admin'), addSchool);
 
 router.route('/radius/:zipcode/:distance').get(getSchoolInRadius);
 
 router
+    .route('/:id/photo')
+    .put(protect, authorization('publisher', 'admin'), uploadPhoto);
+
+router
     .route('/:id')
     .get(getSchool)
-    .put(protect, updateSchool)
-    .delete(protect, deleteSchool);
-
-router.route('/:id/photo').put(protect, uploadPhoto);
+    .put(protect, authorization('publisher', 'admin'), updateSchool)
+    .delete(protect, authorization('publisher', 'admin'), deleteSchool);
 
 module.exports = router;
