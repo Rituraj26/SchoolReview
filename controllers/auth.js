@@ -1,7 +1,7 @@
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
-const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 // @desc Register User
 // @route /auth/register
@@ -53,9 +53,18 @@ exports.login = asyncHandler(async (req, res, next) => {
     sendTokenReponse(user, 200, res);
 });
 
+// @desc Get current logged in user
+// @route POST /auth/me
+// @access Private
+
+exports.getMe = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({ success: true, data: user });
+});
+
 // Get token from model, create cookie, send response
 
-const sendTokenReponse = (model, statusCode, res) => {
+const sendTokenReponse = async (model, statusCode, res) => {
     // Create Token
     const token = model.getSignedJwtToken();
 
