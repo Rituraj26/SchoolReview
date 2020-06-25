@@ -1,5 +1,5 @@
 const router = require('express').Router({ mergeParams: true });
-const { protect } = require('../middleware/auth');
+const { protect, authorization } = require('../middleware/auth');
 
 const {
     getTeachers,
@@ -9,12 +9,19 @@ const {
     deleteTeacher,
 } = require('../controllers/teacher');
 
-router.route('/').get(getTeachers).post(protect, addTeacher);
+router
+    .route('/')
+    .get(getTeachers)
+    .post(protect, authorization('publisher', 'teacher', 'admin'), addTeacher);
 
 router
-    .route('/:id')
+    .route('/:teacherId')
     .get(getTeacher)
-    .put(protect, updateTeacher)
-    .delete(protect, deleteTeacher);
+    .put(protect, authorization('publisher', 'teacher', 'admin'), updateTeacher)
+    .delete(
+        protect,
+        authorization('publisher', 'teacher', 'admin'),
+        deleteTeacher
+    );
 
 module.exports = router;

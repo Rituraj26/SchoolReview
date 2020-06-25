@@ -58,6 +58,10 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.getMe = asyncHandler(async (req, res, next) => {
+    // if not logged in
+    if (!req.user) {
+        return next(new ErrorResponse(`Login to view your profile`, 400));
+    }
     const user = await User.findById(req.user.id);
     res.status(200).json({ success: true, data: user });
 });

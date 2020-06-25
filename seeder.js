@@ -8,6 +8,7 @@ dotenv.config({ path: './config/config.env' });
 
 const School = require('./models/School');
 const Teacher = require('./models/Teacher');
+const User = require('./models/User');
 
 // Connect Database
 connectDB();
@@ -21,11 +22,16 @@ const teachers = JSON.parse(
     fs.readFileSync(`${__dirname}/_data/teachers.json`, 'utf-8')
 );
 
+const users = JSON.parse(
+    fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
+);
+
 // Import to DB
 const importData = async () => {
     try {
         await School.create(schools);
         await Teacher.create(teachers);
+        await User.create(users);
         console.log('Data Imported Succesfully'.blue.bgWhite);
         process.exit();
     } catch (err) {
@@ -38,6 +44,7 @@ const deleteData = async () => {
     try {
         await School.deleteMany();
         await Teacher.deleteMany();
+        await User.deleteMany();
         console.log('Data Deleted Succesfully'.red.bgWhite);
         process.exit();
     } catch (err) {

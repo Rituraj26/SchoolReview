@@ -37,6 +37,18 @@ exports.getSchool = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.addSchool = asyncHandler(async (req, res, next) => {
+    // Add user to req.body
+    req.body.user = req.user.id;
+
+    // Check for published school
+    const publishedSchool = await School.findOne({ user: req.body.user });
+
+    if (publishedSchool && req.user.role !== 'admin') {
+        return next(
+            new ErrorResponse(`User has already published a school`, 400)
+        );
+    }
+
     const school = await School.create(req.body);
     res.status(201).json({ success: true, data: school });
 });
@@ -46,15 +58,27 @@ exports.addSchool = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.updateSchool = asyncHandler(async (req, res, next) => {
-    const school = await School.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-    });
+    let school = await School.findById(req.params.id);
 
     // To handle properly formatted invalid id
     if (!school) {
         return next(new ErrorResponse(`Resource not found`, 404));
     }
+
+    // Make sure user is the original publisher of the school
+    if (school.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(
+            new ErrorResponse(
+                `User is not authorized to update other school details`,
+                401
+            )
+        );
+    }
+
+    school = await School.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+    });
 
     res.status(200).json({ success: true, data: school });
 });
@@ -69,6 +93,15 @@ exports.deleteSchool = asyncHandler(async (req, res, next) => {
     // To handle properly formatted invalid id
     if (!school) {
         return next(new ErrorResponse(`Resource not found`, 404));
+    }
+
+    if (school.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(
+            new ErrorResponse(
+                `User not authorized to delete the school details`
+            ),
+            401
+        );
     }
 
     school.remove();
@@ -114,6 +147,15 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
 
     if (!school) {
         return next(new ErrorResponse(`Resouce not found`), 404);
+    }
+
+    if (school.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(
+            new ErrorResponse(
+                `User not authorized to upload a photo for the school`
+            ),
+            401
+        );
     }
 
     if (!req.files) {
