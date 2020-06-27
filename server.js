@@ -19,9 +19,10 @@ connectDB();
 
 // Importing route files
 const auth = require('./routes/auth');
-const school = require('./routes/school');
-const teacher = require('./routes/teacher');
+const schools = require('./routes/school');
+const teachers = require('./routes/teacher');
 const users = require('./routes/users');
+const reviews = require('./routes/review');
 
 // Use BodyParser
 app.use(express.json());
@@ -41,10 +42,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Using routes middleware
-app.use('/schools', school);
-app.use('/schools/:schoolId/teachers', teacher);
+app.use('/schools', schools);
+app.use('/schools/:schoolId/teachers', teachers);
 app.use('/auth', auth);
 app.use('/users', users);
+app.use('/reviews', reviews);
 
 // Using Error Handler
 app.use(errorHandler);
