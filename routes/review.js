@@ -1,16 +1,18 @@
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
 const Review = require('../models/Review');
 
 const advancedResults = require('../middleware/advancedResults');
 
-const { getReviews } = require('../controllers/review');
+const { getReviews, getReview } = require('../controllers/review');
 
 router.route('/').get(
     advancedResults(Review, {
-        path: 'bootcamp',
-        select: 'name description',
+        path: 'school',
+        select: 'name founded',
     }),
     getReviews
 );
+
+router.route('/:reviewId').get(getReview);
 
 module.exports = router;
