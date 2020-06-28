@@ -136,9 +136,25 @@ SchoolSchema.pre('remove', async function (next) {
     next();
 });
 
+// Cascade Delete Reviews when a school is deleted
+SchoolSchema.pre('remove', async function () {
+    await this.model('Review').deleteMany({
+        school: this._id,
+    });
+    next();
+});
+
 // Reverse Populate using virtuals
 SchoolSchema.virtual('teachers', {
     ref: 'Teacher',
+    localField: '_id',
+    foreignField: 'school',
+    justOne: false,
+});
+
+// Reverse Populate using virtuals
+SchoolSchema.virtual('reviews', {
+    ref: 'Review',
     localField: '_id',
     foreignField: 'school',
     justOne: false,

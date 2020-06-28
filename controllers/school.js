@@ -4,7 +4,6 @@ const School = require('../models/School');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const geocoder = require('../utils/geocoder');
-const { query } = require('express');
 
 // @desc Get all schools
 // @route GET /schools
@@ -19,7 +18,12 @@ exports.getSchools = asyncHandler(async (req, res, next) => {
 // @access Public
 
 exports.getSchool = asyncHandler(async (req, res, next) => {
-    const school = await School.findById(req.params.id);
+    const school = await School.findById(req.params.id)
+        .populate({
+            path: 'teachers',
+            select: 'name dept exp',
+        })
+        .populate({ path: 'reviews', select: 'title description rating' });
 
     // To handle properly formatted invalid id
     if (!school) {

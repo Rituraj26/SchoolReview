@@ -3,7 +3,7 @@ const advancedResults = (model, populateObjArg) => async (req, res, next) => {
 
     let reqQuery = { ...req.query };
 
-    console.log(req.query);
+    // console.log(populateObjArg);
 
     // Fields to exclude so that it doesnot try to match DB model
     const removeFields = ['select', 'sort', 'page', 'limit'];

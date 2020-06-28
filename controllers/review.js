@@ -26,3 +26,16 @@ exports.getReview = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({ success: true, data: review });
 });
+
+// @desc Add a review
+// @route POST /reviews
+// @access Private
+
+exports.addReview = asyncHandler(async (req, res, next) => {
+    req.body.user = req.user.id;
+    req.body.school = req.params.schoolId;
+
+    const review = await Review.create(req.body);
+
+    res.status(201).json({ success: true, data: review });
+});

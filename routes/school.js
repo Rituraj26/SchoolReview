@@ -17,9 +17,11 @@ const advancedResults = require('../middleware/advancedResults');
 
 // Include other resource router
 const teacherRouter = require('./teacher');
+const reviewRouter = require('./review');
 
 // Re-route into other resources
 router.use('/:schoolId/teachers', teacherRouter);
+router.use('/:schooolId/reviews', reviewRouter);
 
 router
     .route('/')

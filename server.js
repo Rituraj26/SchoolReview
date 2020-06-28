@@ -46,7 +46,7 @@ app.use('/schools', schools);
 app.use('/schools/:schoolId/teachers', teachers);
 app.use('/auth', auth);
 app.use('/users', users);
-app.use('/reviews', reviews);
+app.use('/schools/:schoolId/reviews', reviews);
 
 // Using Error Handler
 app.use(errorHandler);
