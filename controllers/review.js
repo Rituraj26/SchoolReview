@@ -46,3 +46,55 @@ exports.addReview = asyncHandler(async (req, res, next) => {
 
     res.status(201).json({ success: true, data: review });
 });
+
+// @desc Update a review
+// @route PUT /reviews/:reviewId
+// @access Private
+
+exports.updateReview = asyncHandler(async (req, res, next) => {
+    let review = await Review.findById(req.params.reviewId);
+
+    if (!review) {
+        return next(new ErrorResponse(`No review found with that id`, 400));
+    }
+    // console.log(typeof review.user);
+    if (review.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(
+            new ErrorResponse(`You are not allowed to edit others reviews`, 401)
+        );
+    }
+
+    review = await Review.findByIdAndUpdate(req.params.reviewId, req.body, {
+        new: true,
+        runValidators: true,
+    });
+
+    review.save();
+
+    res.status(200).json({ success: true, data: review });
+});
+
+// @desc Delete a review
+// @route DELETE /reviews/:reviewId
+// @access Private
+
+exports.deleteReview = asyncHandler(async (req, res, next) => {
+    let review = await Review.findById(req.params.reviewId);
+
+    if (!review) {
+        return next(new ErrorResponse(`No review found with that id`, 400));
+    }
+    // console.log(typeof review.user);
+    if (review.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(
+            new ErrorResponse(
+                `You are not allowed to delete other's reviews`,
+                401
+            )
+        );
+    }
+
+    await review.remove();
+
+    res.status(200).json({ success: true, data: {} });
+});

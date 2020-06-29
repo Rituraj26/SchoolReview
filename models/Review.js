@@ -36,7 +36,6 @@ const reviewSchema = new mongoose.Schema({
 reviewSchema.index({ school: 1, user: 1 }, { unique: true });
 
 reviewSchema.statics.getAverageRating = async function (schoolId) {
-    console.log('hello');
     const obj = await this.aggregate([
         {
             $match: { school: schoolId },
