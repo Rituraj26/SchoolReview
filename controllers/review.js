@@ -3,12 +3,22 @@ const ErrorResponse = require('../utils/errorResponse');
 const Review = require('../models/Review');
 const School = require('../models/School');
 
-// @desc Get all reviews
-// @route GET /reviews
-// @access Public
-
+// @desc      Get reviews
+// @route     GET /reviews
+// @route     GET /schools/:schoolId/reviews
+// @access    Public
 exports.getReviews = asyncHandler(async (req, res, next) => {
-    res.status(200).json(res.advancedResults);
+    if (req.params.schoolId) {
+        const reviews = await Review.find({ school: req.params.schoolId });
+
+        return res.status(200).json({
+            success: true,
+            count: reviews.length,
+            data: reviews,
+        });
+    } else {
+        res.status(200).json(res.advancedResults);
+    }
 });
 
 // @desc Get a review
