@@ -137,7 +137,7 @@ SchoolSchema.pre('remove', async function (next) {
 });
 
 // Cascade Delete Reviews when a school is deleted
-SchoolSchema.pre('remove', async function () {
+SchoolSchema.pre('remove', async function (next) {
     await this.model('Review').deleteMany({
         school: this._id,
     });

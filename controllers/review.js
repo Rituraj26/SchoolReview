@@ -1,6 +1,7 @@
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const Review = require('../models/Review');
+const School = require('../models/School');
 
 // @desc Get all reviews
 // @route GET /reviews
@@ -34,6 +35,12 @@ exports.getReview = asyncHandler(async (req, res, next) => {
 exports.addReview = asyncHandler(async (req, res, next) => {
     req.body.user = req.user.id;
     req.body.school = req.params.schoolId;
+
+    const school = await School.findById(req.params.schoolId);
+
+    if (!school) {
+        return next(new ErrorResponse(`No school available`, 400));
+    }
 
     const review = await Review.create(req.body);
 

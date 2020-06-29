@@ -35,4 +35,37 @@ const reviewSchema = new mongoose.Schema({
 
 reviewSchema.index({ school: 1, user: 1 }, { unique: true });
 
+reviewSchema.statics.getAverageRating = async function (schoolId) {
+    console.log('hello');
+    const obj = await this.aggregate([
+        {
+            $match: { school: schoolId },
+        },
+        {
+            $group: {
+                _id: '$school',
+                averageRating: { $avg: '$rating' },
+            },
+        },
+    ]);
+
+    try {
+        await this.model('School').findByIdAndUpdate(schoolId, {
+            averageRating: obj[0].averageRating,
+        });
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+// Call getAverageRating after saving review
+reviewSchema.post('save', function () {
+    this.constructor.getAverageRating(this.school);
+});
+
+// Call getAverageRating before removing review
+reviewSchema.pre('remove', function () {
+    this.constructor.getAverageRating(this.school);
+});
+
 module.exports = mongoose.model('Review', reviewSchema);
