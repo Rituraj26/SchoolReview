@@ -12,7 +12,6 @@ const helmet = require('helmet');
 const xssClean = require('xss-clean');
 const expressRateLimit = require('express-rate-limit');
 const hpp = require('hpp');
-const cors = require('cors');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
@@ -65,9 +64,6 @@ app.use(limiter);
 
 // Prevent http param pollution
 app.use(hpp());
-
-// Enable cross origin resource sharing (CORS)
-app.use(cors());
 
 // Using routes middleware
 app.use('/schools', schools);
