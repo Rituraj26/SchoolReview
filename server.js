@@ -7,6 +7,12 @@ const morgan = require('morgan');
 const colors = require('colors');
 const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
+const expressMongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xssClean = require('xss-clean');
+const expressRateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
@@ -40,6 +46,28 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+
+// Sanitize data
+app.use(expressMongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+// Prevent Cross Site Scripting (XSS) attacks
+app.use(xssClean());
+
+// Rate Limiting
+const limiter = expressRateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 10,
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
+
+// Enable cross origin resource sharing (CORS)
+app.use(cors());
 
 // Using routes middleware
 app.use('/schools', schools);
