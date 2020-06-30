@@ -1,8 +1,6 @@
 const asyncHandler = require('../middleware/async');
 const Teacher = require('../models/Teacher');
 const ErrorResponse = require('../utils/errorResponse');
-const User = require('../models/User');
-const colors = require('colors');
 const School = require('../models/School');
 
 // @desc Get all teachers and teachers for a particular school
