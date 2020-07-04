@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import store from './store';
 
 // Importing components
+import Alert from './components/Layout/Alert';
 import Navbar from './components/Layout/Navbar';
 import Landing from './components/Layout/Landing';
 import Register from './components/auth/Register';
@@ -19,6 +20,7 @@ const App = () => {
                     <Navbar />
                     <Route exact path="/" component={Landing} />
                     <section className="container">
+                        <Alert />
                         <Switch>
                             <Route
                                 exact
