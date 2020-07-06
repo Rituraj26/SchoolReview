@@ -3,18 +3,17 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 
-const Register = ({ setAlert }) => {
+const Register = ({ register }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        role: '',
-        password1: '',
-        password2: '',
+        role: 'user',
+        password: '',
     });
 
-    const { name, email, role, password1, password2 } = formData;
+    const { name, email, role, password } = formData;
 
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,11 +21,7 @@ const Register = ({ setAlert }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
-        if (password1 !== password2) {
-            setAlert('Password donot match', 'danger');
-        } else {
-        }
+        register({ name, email, role, password });
     };
 
     return (
@@ -37,6 +32,7 @@ const Register = ({ setAlert }) => {
                     placeholder="name"
                     name="name"
                     value={name}
+                    required
                     onChange={(e) => onChange(e)}
                 />
                 <input
@@ -44,27 +40,21 @@ const Register = ({ setAlert }) => {
                     placeholder="email"
                     name="email"
                     value={email}
+                    required
                     onChange={(e) => onChange(e)}
                 />
+                <select value={role} name="role" onChange={(e) => onChange(e)}>
+                    <option value="user">User</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="publisher">Publisher</option>
+                </select>
+
                 <input
-                    type="text"
-                    placeholder="role"
-                    name="role"
-                    value={role}
-                    onChange={(e) => onChange(e)}
-                />
-                <input
-                    type="text"
+                    type="password"
                     placeholder="password"
-                    name="password1"
-                    value={password1}
-                    onChange={(e) => onChange(e)}
-                />
-                <input
-                    type="text"
-                    placeholder="password"
-                    name="password2"
-                    value={password2}
+                    name="password"
+                    value={password}
+                    required
                     onChange={(e) => onChange(e)}
                 />
                 <input
@@ -81,9 +71,9 @@ const Register = ({ setAlert }) => {
 };
 
 Register.propTypes = {
-    setAlert: propTypes.func.isRequired,
+    register: propTypes.func.isRequired,
 };
 
 // const mapStateToProps = (state) => {};
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { register })(Register);
