@@ -11,13 +11,13 @@ const errorHandler = (err, req, res, next) => {
 
     // Mongoose bad Objectid
     if (err.name === 'CastError') {
-        const message = `Resource not found`;
+        const message = [`Resource not found`];
         error = new ErrorResponse(message, 404);
     }
 
     // Mongoose duplicate field handler
     if (error.code === 11000) {
-        const message = `Duplicate field value entered`;
+        const message = [`Duplicate field value entered`];
         error = new ErrorResponse(message, 400);
     }
 
@@ -29,7 +29,7 @@ const errorHandler = (err, req, res, next) => {
     }
     res.status(error.statusCode || 500).json({
         success: false,
-        error: [error.message || 'Server Error'],
+        error: error.message || 'Server Error',
     });
 };
 
