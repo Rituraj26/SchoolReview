@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { register } from '../../actions/auth';
 
-const Register = ({ register }) => {
+const Register = ({ register, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -16,13 +16,20 @@ const Register = ({ register }) => {
     const { name, email, role, password } = formData;
 
     const onChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
         register({ name, email, role, password });
     };
+
+    if (isAuthenticated) {
+        return <Redirect to="/schools" />;
+    }
 
     return (
         <Fragment>
@@ -64,7 +71,7 @@ const Register = ({ register }) => {
                 />
             </form>
             <p className="my-1">
-                Already have an account? <Link to="/auth/login">Sign In</Link>
+                Already have an account? <Link to="/auth/login">Login</Link>
             </p>
         </Fragment>
     );
@@ -72,8 +79,13 @@ const Register = ({ register }) => {
 
 Register.propTypes = {
     register: propTypes.func.isRequired,
+    isAuthenticated: propTypes.bool,
 };
 
-// const mapStateToProps = (state) => {};
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+    };
+};
 
-export default connect(null, { register })(Register);
+export default connect(mapStateToProps, { register })(Register);
