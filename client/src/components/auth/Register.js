@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -78,8 +78,8 @@ const Register = ({ register, isAuthenticated }) => {
 };
 
 Register.propTypes = {
-    register: propTypes.func.isRequired,
-    isAuthenticated: propTypes.bool,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
