@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Importing store
 import store from './store';
+import setAuthToken from './utils/setAuthToken';
 
 // Importing components
 import Alert from './components/Layout/Alert';
@@ -12,7 +13,18 @@ import Landing from './components/Layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 
+// importing loaduser action
+import { loadUser } from './actions/auth';
+
+if (localStorage.token) {
+    setAuthToken(localStorage.token);
+}
+
 const App = () => {
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, []);
+
     return (
         <Provider store={store}>
             <Router>
