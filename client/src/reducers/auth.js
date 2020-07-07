@@ -8,13 +8,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
-    console.log(state);
+    // console.log(localStorage.getItem('token'));
     switch (type) {
         case REGISTER_SUCCESS:
-            localStorage.setItem('token', payload.token);
+            localStorage.setItem('token', payload.data);
             return {
                 ...state,
-                ...payload,
+                token: payload.data,
                 isAuthenticated: true,
                 loading: false,
             };
@@ -22,6 +22,7 @@ export default (state = initialState, action) => {
             localStorage.removeItem('token');
             return {
                 ...state,
+                token: null,
                 isAuthenticated: false,
                 loading: false,
             };

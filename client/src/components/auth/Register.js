@@ -40,6 +40,7 @@ const Register = ({ register }) => {
                     placeholder="email"
                     name="email"
                     value={email}
+                    required
                     onChange={(e) => onChange(e)}
                 />
                 <select value={role} name="role" onChange={(e) => onChange(e)}>
@@ -53,6 +54,7 @@ const Register = ({ register }) => {
                     placeholder="password"
                     name="password"
                     value={password}
+                    required
                     onChange={(e) => onChange(e)}
                 />
                 <input
