@@ -16,6 +16,10 @@ import Login from './components/auth/Login';
 // importing loaduser action
 import { loadUser } from './actions/auth';
 
+// Importing css
+import './resources/css/bootstrap.css';
+import './resources/css/App.css';
+
 if (localStorage.token) {
     setAuthToken(localStorage.token);
 }
