@@ -12,6 +12,7 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import Schools from './components/schools/Schools';
 
 // importing loaduser action
 import { loadUser } from './actions/auth';
@@ -44,6 +45,7 @@ const App = () => {
                                 component={Register}
                             />
                             <Route exact path="/auth/login" component={Login} />
+                            <Route exact path="/schools" component={Schools} />
                         </Switch>
                     </section>
                 </Fragment>
