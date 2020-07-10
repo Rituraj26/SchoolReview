@@ -3,6 +3,8 @@ import {
     SCHOOLS_ERROR,
     GET_SCHOOLS_BY_RADIUS,
     GET_SCHOOLS_BY_RADIUS_ERROR,
+    GET_SCHOOLS_BY_RATING_AND_FOUNDED,
+    GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +21,7 @@ export default (state = initialState, action) => {
     switch (type) {
         case GET_SCHOOLS:
         case GET_SCHOOLS_BY_RADIUS:
+        case GET_SCHOOLS_BY_RATING_AND_FOUNDED:
             return {
                 ...state,
                 count: payload.count,
@@ -28,6 +31,7 @@ export default (state = initialState, action) => {
             };
         case SCHOOLS_ERROR:
         case GET_SCHOOLS_BY_RADIUS_ERROR:
+        case GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR:
             return {
                 ...state,
                 loading: false,

@@ -57,7 +57,7 @@ const SchoolByRadius = ({ getSchoolByRadius }) => {
                 </div>
                 <input
                     type="submit"
-                    value="Find Bootcamps"
+                    value="Find Schools"
                     className="btn btn-primary btn-block"
                 />
             </form>
