@@ -1,14 +1,86 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getSchools } from '../../actions/schools';
 import SchoolItem from './SchoolItem';
 
-const Schools = ({ getSchools, schools: { count, schoolData } }) => {
+const Schools = ({
+    getSchools,
+    schools: { count, pagination, schoolData },
+}) => {
     useEffect(() => {
-        getSchools();
+        getSchools(1);
     }, [getSchools]);
+
+    const paginationFun = () => {
+        if (!pagination.next && !pagination.prev) {
+            return <Fragment>oehafo</Fragment>;
+        }
+        if (pagination.next && pagination.prev) {
+            return (
+                <Fragment>
+                    <li className="page-item">
+                        <span
+                            className="page-link"
+                            onClick={() => getSchools(pagination.next.page - 1)}
+                        >
+                            Previous
+                        </span>
+                    </li>
+                    <li className="page-item">
+                        <span className="page-link">
+                            {pagination.next.page - 1}
+                        </span>
+                    </li>
+                    <li className="page-item">
+                        <span
+                            className="page-link"
+                            onClick={() => getSchools(pagination.next.page)}
+                        >
+                            Next
+                        </span>
+                    </li>
+                </Fragment>
+            );
+        } else if (pagination.next && !pagination.prev) {
+            return (
+                <Fragment>
+                    <li className="page-item">
+                        <span className="page-link">
+                            {pagination.next.page - 1}
+                        </span>
+                    </li>
+                    <li className="page-item">
+                        <span
+                            className="page-link"
+                            onClick={() => getSchools(pagination.next.page)}
+                        >
+                            Next
+                        </span>
+                    </li>
+                </Fragment>
+            );
+        } else {
+            return (
+                <Fragment>
+                    <li className="page-item">
+                        <span
+                            className="page-link"
+                            onClick={() => getSchools(pagination.prev.page)}
+                        >
+                            Previous
+                        </span>
+                    </li>
+                    <li className="page-item">
+                        <span className="page-link">
+                            {pagination.prev.page + 1}
+                        </span>
+                    </li>
+                </Fragment>
+            );
+        }
+    };
 
     return (
         <section className="browse my-5">
@@ -112,33 +184,7 @@ const Schools = ({ getSchools, schools: { count, schoolData } }) => {
 
                         {/* <!-- Pagination --> */}
                         <nav aria-label="Page navigation example">
-                            <ul className="pagination">
-                                <li className="page-item">
-                                    <a className="page-link" href="#!">
-                                        Previous
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#!">
-                                        1
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#!">
-                                        2
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#!">
-                                        3
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#!">
-                                        Next
-                                    </a>
-                                </li>
-                            </ul>
+                            <ul className="pagination">{paginationFun()}</ul>
                         </nav>
                     </div>
                 </div>

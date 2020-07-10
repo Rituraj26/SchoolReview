@@ -58,7 +58,7 @@ app.use(xssClean());
 // Rate Limiting
 const limiter = expressRateLimit({
     windowMs: 10 * 60 * 1000,
-    max: 10,
+    max: 100,
 });
 app.use(limiter);
 

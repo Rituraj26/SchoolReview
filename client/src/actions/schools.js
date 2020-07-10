@@ -2,14 +2,14 @@ import axios from 'axios';
 import { GET_SCHOOLS, SCHOOLS_ERROR } from './types';
 import { setAlert } from './alert';
 
-export const getSchools = () => async (dispatch) => {
+export const getSchools = (page) => async (dispatch) => {
     const config = {
         headers: { 'Content-Type': 'application/json' },
     };
 
     try {
-        const res = await axios.get('/schools', null, config);
-        // console.log(res.data);
+        const res = await axios.get(`/schools?page=${page}`, null, config);
+        console.log(res.data);
 
         dispatch({
             type: GET_SCHOOLS,
