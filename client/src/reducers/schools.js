@@ -1,4 +1,9 @@
-import { GET_SCHOOLS, SCHOOLS_ERROR } from '../actions/types';
+import {
+    GET_SCHOOLS,
+    SCHOOLS_ERROR,
+    GET_SCHOOLS_BY_RADIUS,
+    GET_SCHOOLS_BY_RADIUS_ERROR,
+} from '../actions/types';
 
 const initialState = {
     count: 0,
@@ -13,6 +18,7 @@ export default (state = initialState, action) => {
     // console.log(payload);
     switch (type) {
         case GET_SCHOOLS:
+        case GET_SCHOOLS_BY_RADIUS:
             return {
                 ...state,
                 count: payload.count,
@@ -21,6 +27,7 @@ export default (state = initialState, action) => {
                 loading: false,
             };
         case SCHOOLS_ERROR:
+        case GET_SCHOOLS_BY_RADIUS_ERROR:
             return {
                 ...state,
                 loading: false,

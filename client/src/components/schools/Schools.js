@@ -1,86 +1,89 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getSchools } from '../../actions/schools';
+import { getSchools, getSchoolByRadius } from '../../actions/schools';
 import SchoolItem from './SchoolItem';
+import SchoolByRadius from './SchoolByRadius';
 
 const Schools = ({
     getSchools,
-    schools: { count, pagination, schoolData },
+    getSchoolByRadius,
+    schools: { count, schoolData },
 }) => {
     useEffect(() => {
         getSchools(1);
     }, [getSchools]);
 
-    const paginationFun = () => {
-        if (!pagination.next && !pagination.prev) {
-            return <Fragment>oehafo</Fragment>;
-        }
-        if (pagination.next && pagination.prev) {
-            return (
-                <Fragment>
-                    <li className="page-item">
-                        <span
-                            className="page-link"
-                            onClick={() => getSchools(pagination.next.page - 1)}
-                        >
-                            Previous
-                        </span>
-                    </li>
-                    <li className="page-item">
-                        <span className="page-link">
-                            {pagination.next.page - 1}
-                        </span>
-                    </li>
-                    <li className="page-item">
-                        <span
-                            className="page-link"
-                            onClick={() => getSchools(pagination.next.page)}
-                        >
-                            Next
-                        </span>
-                    </li>
-                </Fragment>
-            );
-        } else if (pagination.next && !pagination.prev) {
-            return (
-                <Fragment>
-                    <li className="page-item">
-                        <span className="page-link">
-                            {pagination.next.page - 1}
-                        </span>
-                    </li>
-                    <li className="page-item">
-                        <span
-                            className="page-link"
-                            onClick={() => getSchools(pagination.next.page)}
-                        >
-                            Next
-                        </span>
-                    </li>
-                </Fragment>
-            );
-        } else {
-            return (
-                <Fragment>
-                    <li className="page-item">
-                        <span
-                            className="page-link"
-                            onClick={() => getSchools(pagination.prev.page)}
-                        >
-                            Previous
-                        </span>
-                    </li>
-                    <li className="page-item">
-                        <span className="page-link">
-                            {pagination.prev.page + 1}
-                        </span>
-                    </li>
-                </Fragment>
-            );
-        }
-    };
+    // Pagination Function
+    // const paginationFun = () => {
+    //     if (!pagination.next && !pagination.prev) {
+    //         return <Fragment>oehafo</Fragment>;
+    //     }
+    //     if (pagination.next && pagination.prev) {
+    //         return (
+    //             <Fragment>
+    //                 <li className="page-item">
+    //                     <span
+    //                         className="page-link"
+    //                         onClick={() => getSchools(pagination.next.page - 1)}
+    //                     >
+    //                         Previous
+    //                     </span>
+    //                 </li>
+    //                 <li className="page-item">
+    //                     <span className="page-link">
+    //                         {pagination.next.page - 1}
+    //                     </span>
+    //                 </li>
+    //                 <li className="page-item">
+    //                     <span
+    //                         className="page-link"
+    //                         onClick={() => getSchools(pagination.next.page)}
+    //                     >
+    //                         Next
+    //                     </span>
+    //                 </li>
+    //             </Fragment>
+    //         );
+    //     } else if (pagination.next && !pagination.prev) {
+    //         return (
+    //             <Fragment>
+    //                 <li className="page-item">
+    //                     <span className="page-link">
+    //                         {pagination.next.page - 1}
+    //                     </span>
+    //                 </li>
+    //                 <li className="page-item">
+    //                     <span
+    //                         className="page-link"
+    //                         onClick={() => getSchools(pagination.next.page)}
+    //                     >
+    //                         Next
+    //                     </span>
+    //                 </li>
+    //             </Fragment>
+    //         );
+    //     } else {
+    //         return (
+    //             <Fragment>
+    //                 <li className="page-item">
+    //                     <span
+    //                         className="page-link"
+    //                         onClick={() => getSchools(pagination.prev.page)}
+    //                     >
+    //                         Previous
+    //                     </span>
+    //                 </li>
+    //                 <li className="page-item">
+    //                     <span className="page-link">
+    //                         {pagination.prev.page + 1}
+    //                     </span>
+    //                 </li>
+    //             </Fragment>
+    //         );
+    //     }
+    // };
 
     return (
         <section className="browse my-5">
@@ -88,38 +91,7 @@ const Schools = ({
                 <div className="row">
                     {/* <!-- Sidebar --> */}
                     <div className="col-md-4">
-                        <div className="card card-body mb-4">
-                            <h4 className="mb-3">By Location</h4>
-                            <form>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                name="miles"
-                                                placeholder="Miles From"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="form-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                name="zipcode"
-                                                placeholder="Enter Zipcode"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <input
-                                    type="submit"
-                                    value="Find Bootcamps"
-                                    className="btn btn-primary btn-block"
-                                />
-                            </form>
-                        </div>
+                        <SchoolByRadius />
 
                         <h4>Filter</h4>
                         <form>
@@ -183,9 +155,9 @@ const Schools = ({
                         )}
 
                         {/* <!-- Pagination --> */}
-                        <nav aria-label="Page navigation example">
+                        {/* <nav aria-label="Page navigation example">
                             <ul className="pagination">{paginationFun()}</ul>
-                        </nav>
+                        </nav> */}
                     </div>
                 </div>
             </div>
@@ -204,4 +176,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { getSchools })(Schools);
+export default connect(mapStateToProps, { getSchools, getSchoolByRadius })(
+    Schools
+);
