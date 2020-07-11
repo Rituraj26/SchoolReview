@@ -35,6 +35,7 @@ export default (state = initialState, action) => {
         case SCHOOLS_ERROR:
         case GET_SCHOOLS_BY_RADIUS_ERROR:
         case GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR:
+        case GET_SCHOOL_ERROR:
             return {
                 ...state,
                 loading: false,
