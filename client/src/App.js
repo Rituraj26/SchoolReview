@@ -13,6 +13,7 @@ import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Schools from './components/schools/Schools';
+import SchoolDetails from './components/school/SchoolDetails';
 
 // importing loaduser action
 import { loadUser } from './actions/auth';
@@ -46,6 +47,11 @@ const App = () => {
                             />
                             <Route exact path="/auth/login" component={Login} />
                             <Route exact path="/schools" component={Schools} />
+                            <Route
+                                exact
+                                path="/schools/:schoolId"
+                                component={SchoolDetails}
+                            />
                         </Switch>
                     </section>
                 </Fragment>

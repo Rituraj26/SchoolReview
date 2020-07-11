@@ -6,6 +6,8 @@ import {
     GET_SCHOOLS_BY_RADIUS_ERROR,
     GET_SCHOOLS_BY_RATING_AND_FOUNDED,
     GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR,
+    GET_SCHOOL,
+    GET_SCHOOL_ERROR,
 } from './types';
 import { setAlert } from './alert';
 
@@ -97,6 +99,33 @@ export const getSchoolByRatingAndFounded = ({ rating, founded }) => async (
 
         dispatch({
             type: GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR,
+        });
+    }
+};
+
+// Get a particular school
+
+export const getSchool = ({ schoolId }) => async (dispatch) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    try {
+        const res = await axios.get(`/schools/${schoolId}`, null, config);
+
+        dispatch({
+            type: GET_SCHOOL,
+            payload: res.data,
+        });
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: GET_SCHOOL_ERROR,
         });
     }
 };

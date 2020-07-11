@@ -5,12 +5,15 @@ import {
     GET_SCHOOLS_BY_RADIUS_ERROR,
     GET_SCHOOLS_BY_RATING_AND_FOUNDED,
     GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR,
+    GET_SCHOOL,
+    GET_SCHOOL_ERROR,
 } from '../actions/types';
 
 const initialState = {
     count: 0,
     pagination: {},
     schoolData: [],
+    school: {},
     isAuthenticated: false,
     loading: true,
 };
@@ -35,6 +38,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+            };
+        case GET_SCHOOL:
+            return {
+                ...state,
+                loading: false,
+                school: payload.data,
             };
         default:
             return state;
