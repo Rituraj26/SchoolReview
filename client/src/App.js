@@ -14,6 +14,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Schools from './components/schools/Schools';
 import SchoolDetails from './components/school/SchoolDetails';
+import Reviews from './components/reviews/Reviews';
 
 // importing loaduser action
 import { loadUser } from './actions/auth';
@@ -51,6 +52,11 @@ const App = () => {
                                 exact
                                 path="/schools/:schoolId"
                                 component={SchoolDetails}
+                            />
+                            <Route
+                                exact
+                                path="/schools/:schoolId/reviews"
+                                component={Reviews}
                             />
                         </Switch>
                     </section>
