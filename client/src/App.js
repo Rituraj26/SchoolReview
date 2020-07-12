@@ -15,6 +15,7 @@ import Login from './components/auth/Login';
 import Schools from './components/schools/Schools';
 import SchoolDetails from './components/school/SchoolDetails';
 import Reviews from './components/reviews/Reviews';
+import Dashboard from './components/dashboard/Dashboard';
 
 // importing loaduser action
 import { loadUser } from './actions/auth';
@@ -38,7 +39,7 @@ const App = () => {
                 <Fragment>
                     <Navbar />
                     <Route exact path="/" component={Landing} />
-                    <section className="container">
+                    <section className="container-fluid">
                         <Alert />
                         <Switch>
                             <Route
@@ -57,6 +58,11 @@ const App = () => {
                                 exact
                                 path="/schools/:schoolId/reviews"
                                 component={Reviews}
+                            />
+                            <Route
+                                exact
+                                path="/dashboard"
+                                component={Dashboard}
                             />
                         </Switch>
                     </section>

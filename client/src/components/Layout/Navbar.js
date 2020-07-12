@@ -7,104 +7,88 @@ import { logout } from '../../actions/auth';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const authLinks = (
-        <div className="container">
-            <Link className="navbar-brand" to="/">
-                <i className="fas fa-laptop-code"></i> Schoolrify
-            </Link>
-            <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
+        <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+                <Link className="nav-link" to="/schools">
+                    Browse Schools
+                </Link>
+            </li>
+            <li className="nav-item d-none d-sm-block">
+                <a className="nav-link" href="#!">
+                    |
+                </a>
+            </li>
 
-            <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-            >
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/schools">
-                            Browse Schools
-                        </Link>
-                    </li>
-                    <li className="nav-item d-none d-sm-block">
-                        <a className="nav-link" href="#!">
-                            |
-                        </a>
-                    </li>
-
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/dashboard">
-                            Dashboard
-                        </Link>
-                    </li>
-                    <li className="nav-item d-none d-sm-block">
-                        <a className="nav-link" href="#!">
-                            |
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#!" onClick={logout}>
-                            <i className="fas fa-sign-out-alt"></i> Logout
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+            <li className="nav-item">
+                <Link className="nav-link" to="/dashboard">
+                    Dashboard
+                </Link>
+            </li>
+            <li className="nav-item d-none d-sm-block">
+                <a className="nav-link" href="#!">
+                    |
+                </a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="#!" onClick={logout}>
+                    <i className="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+        </ul>
     );
 
     const guestLinks = (
-        <div className="container">
-            <Link className="navbar-brand" to="/">
-                <i className="fas fa-laptop-code"></i> Schoolrify
-            </Link>
-            <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-            >
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/auth/login">
-                            <i className="fas fa-sign-in-alt"></i> Login
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/auth/register">
-                            <i className="fas fa-user-plus"></i> Register
-                        </Link>
-                    </li>
-                    <li className="nav-item d-none d-sm-block">
-                        <a className="nav-link" href="#!">
-                            |
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/schools">
-                            Browse Bootcamps
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+                <Link className="nav-link" to="/auth/login">
+                    <i className="fas fa-sign-in-alt"></i> Login
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/auth/register">
+                    <i className="fas fa-user-plus"></i> Register
+                </Link>
+            </li>
+            <li className="nav-item d-none d-sm-block">
+                <a className="nav-link" href="#!">
+                    |
+                </a>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/schools">
+                    Browse Bootcamps
+                </Link>
+            </li>
+        </ul>
     );
 
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-            {!loading && (
-                <Fragment> {isAuthenticated ? authLinks : guestLinks}</Fragment>
-            )}
+            <div className="container-fluid mx-5">
+                <Link className="navbar-brand" to="/">
+                    <i className="fas fa-laptop-code"></i> Schoolrify
+                </Link>
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div
+                    className="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    {!loading && (
+                        <Fragment>
+                            {' '}
+                            {isAuthenticated ? authLinks : guestLinks}
+                        </Fragment>
+                    )}
+                </div>
+            </div>
         </nav>
     );
 };

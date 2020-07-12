@@ -7,10 +7,11 @@ import { getReviews } from '../../actions/reviews';
 
 import ReviewItem from './ReviewItem';
 import AddReview from './AddReview';
+import Spinner from '../layout/Spinner';
 
 const Reviews = ({
     getReviews,
-    reviews: { count, reviewData },
+    reviews: { count, reviewData, loading },
     school: { averageRating },
 }) => {
     const { schoolId } = useParams();
@@ -31,12 +32,12 @@ const Reviews = ({
                     </Link>
                     <h1 className="mb-4">DevWorks Bootcamp Reviews</h1>
 
-                    {count > 0 ? (
+                    {count > 0 && !loading ? (
                         reviewData.map((review) => (
                             <ReviewItem key={review._id} review={review} />
                         ))
                     ) : (
-                        <p>No Review Found</p>
+                        <Spinner />
                     )}
                 </div>
 

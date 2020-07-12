@@ -87,8 +87,8 @@ const Schools = ({
     // };
 
     return (
-        <section className="browse my-5">
-            <div className="container">
+        <section className="browse my-5 px-5">
+            <div className="container-fluid">
                 <div className="row">
                     {/* <!-- Sidebar --> */}
                     <div className="col-md-4">
