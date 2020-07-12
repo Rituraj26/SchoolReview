@@ -19,3 +19,5 @@ export const GET_SCHOOL = 'GET_SCHOOL';
 export const GET_SCHOOL_ERROR = 'GET_SCHOOL_ERROR';
 export const GET_REVIEWS = 'GET_REVIEWS';
 export const GET_REVIEWS_ERROR = 'GET_REVIEWS_ERROR';
+export const ADD_REVIEW = 'ADD_REVIEW';
+export const ADD_REVIEW_ERROR = 'ADD_REVIEW_ERROR';

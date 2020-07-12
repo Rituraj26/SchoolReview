@@ -1,4 +1,9 @@
-import { GET_REVIEWS, GET_REVIEWS_ERROR } from '../actions/types';
+import {
+    GET_REVIEWS,
+    GET_REVIEWS_ERROR,
+    ADD_REVIEW,
+    ADD_REVIEW_ERROR,
+} from '../actions/types';
 
 const initialState = {
     count: 0,
@@ -19,7 +24,18 @@ export default (state = initialState, action) => {
                 reviewData: payload.data,
                 loading: false,
             };
+        case ADD_REVIEW:
+            state.count++;
+            state.reviewData.push(payload.data);
+            return {
+                ...state,
+                count: state.count,
+                reviewData: state.reviewData,
+                isAuthenticated: true,
+                loading: false,
+            };
         case GET_REVIEWS_ERROR:
+        case ADD_REVIEW_ERROR:
             return {
                 ...state,
                 loading: false,

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const SchoolTeacher = ({ teacher }) => {
-    console.log(typeof teacher, 'sjfo');
-
     return (
         <div className="col-xs-12 col-sm-6 col-md-3">
             <Link to="https://google.com">
@@ -14,7 +12,7 @@ const SchoolTeacher = ({ teacher }) => {
                             <img
                                 className=" img-fluid"
                                 src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png"
-                                alt="card image"
+                                alt="teacher"
                             />
                         </p>
                         <h4 className="card-title"></h4>

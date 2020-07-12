@@ -83,7 +83,6 @@ export const getSchoolByRatingAndFounded = ({ rating, founded }) => async (
             null,
             config
         );
-        console.log(res.data);
 
         dispatch({
             type: GET_SCHOOLS_BY_RATING_AND_FOUNDED,

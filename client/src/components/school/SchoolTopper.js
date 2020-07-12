@@ -10,7 +10,7 @@ const SchoolTopper = ({ toppers }) => {
                         <img
                             className=" img-fluid"
                             src={`http://placehold.it/500x300`}
-                            alt="card image"
+                            alt="topper"
                         />
                     </p>
                     <h4 className="card-title">
@@ -22,6 +22,8 @@ const SchoolTopper = ({ toppers }) => {
     );
 };
 
-SchoolTopper.propTypes = {};
+SchoolTopper.propTypes = {
+    toppers: PropTypes.object.isRequired,
+};
 
 export default SchoolTopper;
