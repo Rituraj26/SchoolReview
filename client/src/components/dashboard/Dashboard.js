@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+// Importing Components
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import Schools from '../schools/Schools';
+import AllSchools from './AllSchools';
 import AllTeachers from './AllTeachers';
-import ManageAccount from './ManageAccount';
+import ManageAccount from './manageAccount/ManageAccount';
 import ManageSchool from './ManageSchool';
 import ManageTeachers from './ManageTeachers';
 import ManageReviews from './ManageReviews';
@@ -24,7 +25,7 @@ const Dashboard = () => {
                         <Route
                             exact
                             path="/dashboard/allschools"
-                            component={Schools}
+                            component={AllSchools}
                         />
                         <Route
                             exact
