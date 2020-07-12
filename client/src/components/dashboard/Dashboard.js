@@ -8,7 +8,7 @@ import Navbar from './Navbar';
 import AllSchools from './AllSchools';
 import AllTeachers from './AllTeachers';
 import ManageAccount from './manageAccount/ManageAccount';
-import ManageSchool from './ManageSchool';
+import ManageSchool from './manageSchool/ManageSchool'; // Update is required
 import ManageTeachers from './ManageTeachers';
 import ManageReviews from './ManageReviews';
 
