@@ -21,3 +21,5 @@ export const GET_REVIEWS = 'GET_REVIEWS';
 export const GET_REVIEWS_ERROR = 'GET_REVIEWS_ERROR';
 export const ADD_REVIEW = 'ADD_REVIEW';
 export const ADD_REVIEW_ERROR = 'ADD_REVIEW_ERROR';
+export const GET_TEACHERS = 'GET_TEACHERS';
+export const TEACHERS_ERROR = 'TEACHERS_ERROR';

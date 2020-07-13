@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getSchools } from '../../actions/schools';
+import { getSchools } from '../../../actions/schools';
 import SchoolItem from './SchoolItem';
 
 const AllSchools = ({ getSchools, schools: { count, schoolData } }) => {

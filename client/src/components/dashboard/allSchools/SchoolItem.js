@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const SchoolItem = ({
@@ -13,7 +13,6 @@ const SchoolItem = ({
 }) => {
     const history = useHistory();
 
-    // Fixing of router inside router is needed
     const onClick = (schoolId) => {
         let path = `/schools/${schoolId}`;
         history.push(path);
