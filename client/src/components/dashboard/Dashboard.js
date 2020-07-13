@@ -14,48 +14,20 @@ import ManageReviews from './ManageReviews';
 
 const Dashboard = () => {
     return (
-        <Router>
-            <div className="d-flex" id="wrapper">
-                <Sidebar />
+        <div className="d-flex" id="wrapper">
+            <Sidebar />
 
-                <div id="page-content-wrapper">
-                    <Navbar />
+            <div id="page-content-wrapper">
+                <Navbar />
 
-                    <Switch>
-                        <Route
-                            exact
-                            path="/dashboard/allschools"
-                            component={AllSchools}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/allteachers"
-                            component={AllTeachers}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/account"
-                            component={ManageAccount}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/school"
-                            component={ManageSchool}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/teachers"
-                            component={ManageTeachers}
-                        />
-                        <Route
-                            exact
-                            path="/dashboard/reviews"
-                            component={ManageReviews}
-                        />
-                    </Switch>
-                </div>
+                <Route path="/dashboard/allschools" component={AllSchools} />
+                <Route path="/dashboard/allteachers" component={AllTeachers} />
+                <Route path="/dashboard/account" component={ManageAccount} />
+                <Route path="/dashboard/school" component={ManageSchool} />
+                <Route path="/dashboard/teachers" component={ManageTeachers} />
+                <Route path="/dashboard/reviews" component={ManageReviews} />
             </div>
-        </Router>
+        </div>
     );
 };
 

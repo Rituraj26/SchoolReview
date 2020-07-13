@@ -59,11 +59,7 @@ const App = () => {
                                 path="/schools/:schoolId/reviews"
                                 component={Reviews}
                             />
-                            <Route
-                                exact
-                                path="/dashboard"
-                                component={Dashboard}
-                            />
+                            <Route path="/dashboard" component={Dashboard} />
                         </Switch>
                     </section>
                 </Fragment>
