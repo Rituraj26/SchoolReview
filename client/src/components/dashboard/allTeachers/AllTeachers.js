@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import { getTeachers } from '../../../actions/teachers';
 import TeacherItem from './TeacherItem';
 
-const AllTeachers = ({ getTeachers, teachers: { count, teacherData } }) => {
+const AllTeachers = ({
+    getTeachers,
+    teachers: { _id, count, teacherData },
+}) => {
     useEffect(() => {
         getTeachers();
     }, [getTeachers]);
@@ -13,7 +16,9 @@ const AllTeachers = ({ getTeachers, teachers: { count, teacherData } }) => {
     return (
         <div className="row px-5">
             {count > 0 ? (
-                teacherData.map((teacher) => <TeacherItem teacher={teacher} />)
+                teacherData.map((teacher) => (
+                    <TeacherItem key={teacher._id} teacher={teacher} />
+                ))
             ) : (
                 <p>No Teacher Data Available</p>
             )}

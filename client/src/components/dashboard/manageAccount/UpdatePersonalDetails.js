@@ -2,46 +2,46 @@ import React from 'react';
 
 const UpdatePersonalDetails = () => {
     return (
-        <section class="container mt-5">
-            <div class="row">
-                <div class="col-md-8 m-auto">
-                    <div class="card bg-white py-2 px-4">
-                        <div class="card-body">
-                            <h1 class="mb-2">Manage Account</h1>
+        <section className="mt-5 ml-5">
+            <div className="row">
+                <div className="col-md-8">
+                    <div className="card bg-white py-2 px-4">
+                        <div className="card-body">
+                            <h1 className="mb-2">Manage Account</h1>
                             <form>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Name</label>
                                     <input
                                         type="text"
                                         name="title"
-                                        class="form-control"
+                                        className="form-control"
                                         placeholder="Name"
                                         value="John Doe"
                                     />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Email</label>
                                     <input
                                         type="email"
                                         name="email"
-                                        class="form-control"
+                                        className="form-control"
                                         placeholder="Email"
                                         value="jdoe@gmail.com"
                                     />
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                <div className="form-group">
+                                    <div className="row">
+                                        <div className="col-md-6">
                                             <input
                                                 type="submit"
                                                 value="Save"
-                                                class="btn btn-success btn-block"
+                                                className="btn btn-success btn-block"
                                             />
                                         </div>
-                                        <div class="col-md-6">
+                                        <div className="col-md-6">
                                             <a
                                                 href="update-password.html"
-                                                class="btn btn-secondary btn-block"
+                                                className="btn btn-secondary btn-block"
                                             >
                                                 Update Password
                                             </a>

@@ -12,7 +12,7 @@ const SchoolDetails = ({ getSchool, school }) => {
 
     useEffect(() => {
         getSchool({ schoolId });
-    }, [getSchool]);
+    }, [getSchool, schoolId]);
 
     if (Object.keys(school).length === 0) {
         return <h1>No School Available</h1>;

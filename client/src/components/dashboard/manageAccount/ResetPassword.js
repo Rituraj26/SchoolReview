@@ -1,33 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ResetPassword = () => {
     return (
-        <section class="container mt-5">
-            <div class="row">
-                <div class="col-md-8 m-auto">
-                    <div class="card bg-white py-2 px-4">
-                        <div class="card-body">
-                            <a href="login.html">Back to login</a>
-                            <h1 class="mb-2">Reset Password</h1>
+        <section className="mt-5 ml-5">
+            <div className="row">
+                <div className="col-md-8">
+                    <div className="card bg-white py-2 px-4">
+                        <div className="card-body">
+                            <Link to="/auth/login">Back to login</Link>
+                            <h1 className="mb-2">Reset Password</h1>
                             <p>
                                 Use this form to reset your password using the
                                 registered email address.
                             </p>
                             <form>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Enter Email</label>
                                     <input
                                         type="email"
                                         name="email"
-                                        class="form-control"
+                                        className="form-control"
                                         placeholder="Email address"
                                     />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <input
                                         type="submit"
                                         value="Reset Password"
-                                        class="btn btn-dark btn-block"
+                                        className="btn btn-dark btn-block"
                                     />
                                 </div>
                             </form>

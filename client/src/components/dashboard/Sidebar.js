@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
     return (
         <div className="bg-light border-right shadow-sm " id="sidebar-wrapper">
-            <div className="sidebar-heading">Dashboard </div>
+            <div className="sidebar-heading">Dashboard</div>
             <div className="list-group list-group-flush">
                 <Link
                     to="/dashboard/allschools"

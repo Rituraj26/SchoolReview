@@ -18,7 +18,7 @@ const Reviews = ({
 
     useEffect(() => {
         getReviews(schoolId);
-    }, [getReviews]);
+    }, [getReviews, schoolId]);
 
     return (
         <section className="bootcamp mt-5">
