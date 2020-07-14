@@ -2,9 +2,9 @@ import React from 'react';
 
 const NoSchoolComponent = () => {
     return (
-        <section class="container mt-5">
+        <section class="container mt-5 ml-5">
             <div class="row">
-                <div class="col-md-8 m-auto">
+                <div class="col-md-8">
                     <div class="card bg-white py-2 px-4">
                         <div class="card-body">
                             <h1 class="mb-2">Manage Bootcamp</h1>

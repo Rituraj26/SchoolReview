@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Switch, Route, useParams } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import Alert from '../layout/Alert';
 import Register from '../auth/Register';
@@ -41,7 +41,7 @@ const Routes = () => {
                     path="/schools/:schoolId/reviews"
                     component={Reviews}
                 />
-                <PrivateRoutes path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={Dashboard} />
             </Switch>
         </section>
     );
