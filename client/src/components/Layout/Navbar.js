@@ -81,12 +81,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                     className="collapse navbar-collapse"
                     id="navbarSupportedContent"
                 >
-                    {!loading && (
+                    {
                         <Fragment>
                             {' '}
                             {isAuthenticated ? authLinks : guestLinks}
                         </Fragment>
-                    )}
+                    }
                 </div>
             </div>
         </nav>

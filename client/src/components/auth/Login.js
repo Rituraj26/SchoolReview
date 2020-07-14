@@ -26,7 +26,7 @@ const Login = ({ login, isAuthenticated }) => {
     };
 
     if (isAuthenticated) {
-        return <Redirect to="/schools" />;
+        return <Redirect to="/dashboard" />;
     }
 
     return (
@@ -109,6 +109,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
         isAuthenticated: state.auth.isAuthenticated,
     };

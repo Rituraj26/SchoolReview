@@ -10,15 +10,22 @@ import {
 
 const initialState = {
     token: localStorage.getItem('token'),
-    isAuthenticated: null,
+    isAuthenticated: false,
     loading: true,
     user: null,
 };
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
-    // console.log(localStorage.getItem('token'));
+
     switch (type) {
+        case USER_LOADED:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+                user: payload.data,
+            };
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             localStorage.setItem('token', payload.data);
@@ -28,23 +35,18 @@ export default (state = initialState, action) => {
                 isAuthenticated: true,
                 loading: false,
             };
-        case USER_LOADED:
-            return {
-                ...state,
-                isAuthenticated: true,
-                loading: false,
-                user: payload,
-            };
         case REGISTER_FAIL:
         case AUTH_ERROR:
         case LOGIN_FAIL:
         case LOGOUT:
+            // console.log(state);
             localStorage.removeItem('token');
             return {
                 ...state,
                 token: null,
                 isAuthenticated: false,
                 loading: false,
+                user: null,
             };
         default:
             return state;

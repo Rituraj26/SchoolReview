@@ -28,7 +28,7 @@ const Register = ({ register, isAuthenticated }) => {
     };
 
     if (isAuthenticated) {
-        return <Redirect to="/schools" />;
+        return <Redirect to="/dashboard" />;
     }
 
     return (
