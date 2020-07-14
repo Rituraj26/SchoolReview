@@ -3,18 +3,33 @@ import {
     UPDATE_PERSONAL_DETAILS,
     UPDATE_PERSONAL_DETAILS_ERROR,
 } from './types';
+import { setAlert } from './alert';
 
 export const updatePersonalDetails = ({ name, email }) => async (dispatch) => {
     const config = {
         headers: { 'Content-Type': 'application/json' },
     };
 
-    const body = JSON.parse({ name, email });
+    const body = JSON.stringify({ name, email });
 
     try {
         const res = await axios.put('/auth/updateDetails', body, config);
-        console.log(res.data);
+
+        dispatch({
+            type: UPDATE_PERSONAL_DETAILS,
+            payload: res.data,
+        });
+
+        dispatch(setAlert('Update Successfull', 'success'));
     } catch (err) {
-        console.log(err.response);
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: UPDATE_PERSONAL_DETAILS_ERROR,
+        });
     }
 };

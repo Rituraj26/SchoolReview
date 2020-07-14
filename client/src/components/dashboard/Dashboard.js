@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-// Importing load user action
-import { loadUser } from '../../actions/auth';
 
 // Importing Components
 import Sidebar from './Sidebar';
