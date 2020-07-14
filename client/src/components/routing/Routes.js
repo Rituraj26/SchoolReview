@@ -9,6 +9,8 @@ import SchoolDetails from '../school/SchoolDetails';
 import Reviews from '../reviews/Reviews';
 import Dashboard from '../dashboard/Dashboard';
 
+import PrivateRoutes from './PrivateRoutes';
+
 const Routes = () => {
     return (
         <section className="container-fluid">
@@ -27,7 +29,7 @@ const Routes = () => {
                     path="/schools/:schoolId/reviews"
                     component={Reviews}
                 />
-                <Route path="/dashboard" component={Dashboard} />
+                <PrivateRoutes path="/dashboard" component={Dashboard} />
             </Switch>
         </section>
     );
