@@ -3,16 +3,14 @@ import React, { useState } from 'react';
 // Importing Manage Account Components
 import UpdatePersonalDetails from './UpdatePersonalDetails';
 import UpdatePassword from './UpdatePassword';
-import ResetPassword from './ResetPassword';
 
 const ManageAccount = () => {
     const [formData, setFormData] = useState({
         updatePersonalDetails: true,
         updatePassword: false,
-        resetPassword: false,
     });
 
-    const { updatePersonalDetails, updatePassword, resetPassword } = formData;
+    const { updatePersonalDetails, updatePassword } = formData;
 
     const onClick = (e) => {
         const target = e.target.value;
@@ -20,19 +18,11 @@ const ManageAccount = () => {
             setFormData({
                 updatePersonalDetails: true,
                 updatePassword: false,
-                resetPassword: false,
             });
         } else if (target === 'updatePassword') {
             setFormData({
                 updatePersonalDetails: false,
                 updatePassword: true,
-                resetPassword: false,
-            });
-        } else if (target === 'resetPassword') {
-            setFormData({
-                updatePersonalDetails: false,
-                updatePassword: false,
-                resetPassword: true,
             });
         }
     };
@@ -54,21 +44,12 @@ const ManageAccount = () => {
                 >
                     Update Password
                 </button>
-                <button
-                    className="btn btn-primary ml-5"
-                    value="resetPassword"
-                    onClick={(e) => onClick(e)}
-                >
-                    Reset Password
-                </button>
             </div>
 
             {updatePersonalDetails ? (
                 <UpdatePersonalDetails />
             ) : updatePassword ? (
                 <UpdatePassword />
-            ) : resetPassword ? (
-                <ResetPassword />
             ) : (
                 <h1>Null</h1>
             )}

@@ -89,3 +89,52 @@ export const login = ({ email, password }) => async (dispatch) => {
 export const logout = () => (dispatch) => {
     dispatch({ type: LOGOUT });
 };
+
+// Forgot Password Action
+
+export const forgotPassword = ({ email }) => async (dispatch) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    const body = JSON.stringify({ email });
+
+    try {
+        await axios.post('/auth/forgotPassword', body, config);
+
+        dispatch(
+            setAlert(
+                'Reset password link has been sent to your mail id',
+                'success'
+            )
+        );
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+    }
+};
+
+// Reset Password Action
+
+export const resetPassword = ({ password, resetToken }) => async (dispatch) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    const body = JSON.stringify({ password });
+
+    try {
+        await axios.put(`/auth/resetPassword/${resetToken}`, body, config);
+
+        dispatch(setAlert('Password has been changed successfully', 'success'));
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+    }
+};

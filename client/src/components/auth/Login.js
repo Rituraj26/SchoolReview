@@ -85,9 +85,9 @@ const Login = ({ login, isAuthenticated }) => {
                                     <p>
                                         {' '}
                                         Forgot Password?{' '}
-                                        <a href="reset-password.html">
+                                        <Link to="/auth/forgotPassword">
                                             Reset Password
-                                        </a>
+                                        </Link>
                                     </p>
                                     <p>
                                         Don't have an account?{' '}

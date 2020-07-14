@@ -102,11 +102,16 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     // Create Reset Url
-    const resetUrl = `${req.protocol}://${req.get(
-        'host'
-    )}/resetPassword/${resetToken}`;
-    // console.log(resetUrl);
-    const message = `You are receiving this email because you have requested the reset of a password. Please make a PUT request to \n\n ${resetUrl}`;
+    let resetUrl;
+    if (process.env.NODE_ENV === 'production') {
+        resetUrl = `${req.protocol}://${req.get(
+            'host'
+        )}/auth/resetPassword/${resetToken}`;
+    } else {
+        resetUrl = `${req.protocol}://localhost:3000/auth/resetPassword/${resetToken}`;
+    }
+
+    const message = `You are receiving this email because you have requested the reset of a password. Your reset url is \n\n ${resetUrl}`;
 
     try {
         await sendEmail({
@@ -145,7 +150,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() },
     });
-    console.log(resetPasswordToken, '--', user);
+
     if (!user) {
         return next(new ErrorResponse([`Invalid Token`], 400));
     }
