@@ -13,7 +13,7 @@ import ManageAccount from './manageAccount/ManageAccount';
 import ManageSchool from './manageSchool/ManageSchool';
 import AddSchool from './manageSchool/AddSchool';
 import EditSchool from './manageSchool/EditSchool';
-import ManageTeachers from './ManageTeachers';
+import ManageTeachers from './manageTeachers/ManageTeachers';
 import ManageReviews from './ManageReviews';
 
 const Dashboard = ({ getSchools }) => {
