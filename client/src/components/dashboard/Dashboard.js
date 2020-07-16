@@ -12,6 +12,7 @@ import AllTeachers from './allTeachers/AllTeachers';
 import ManageAccount from './manageAccount/ManageAccount';
 import ManageSchool from './manageSchool/ManageSchool';
 import AddSchool from './manageSchool/AddSchool';
+import EditSchool from './manageSchool/EditSchool';
 import ManageTeachers from './ManageTeachers';
 import ManageReviews from './ManageReviews';
 
@@ -36,6 +37,7 @@ const Dashboard = ({ getSchools }) => {
                     component={ManageSchool}
                 />
                 <Route path="/dashboard/school/add" component={AddSchool} />
+                <Route path="/dashboard/school/edit" component={EditSchool} />
                 <Route path="/dashboard/teachers" component={ManageTeachers} />
                 <Route path="/dashboard/reviews" component={ManageReviews} />
             </div>

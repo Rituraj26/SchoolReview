@@ -10,6 +10,8 @@ import {
     GET_SCHOOL_ERROR,
     ADD_SCHOOL,
     ADD_SCHOOL_ERROR,
+    EDIT_SCHOOL,
+    EDIT_SCHOOL_ERROR,
 } from './types';
 import { setAlert } from './alert';
 
@@ -131,6 +133,15 @@ export const getSchool = ({ schoolId }) => async (dispatch) => {
     }
 };
 
+// Get publisher's school
+
+export const getPublisherSchool = (school) => (dispatch) => {
+    dispatch({
+        type: GET_SCHOOL,
+        payload: school,
+    });
+};
+
 // Add a School
 
 export const addSchool = (formData) => async (dispatch) => {
@@ -138,7 +149,43 @@ export const addSchool = (formData) => async (dispatch) => {
         headers: { 'Content-Type': 'application/json' },
     };
 
-    const body = JSON.stringify(formData);
+    const {
+        schoolName,
+        description,
+        address,
+        phoneNo,
+        email,
+        website,
+        founded,
+        admissionFee,
+        tutionFee,
+        busFee,
+        hostelFee,
+        scholarshipAvailable,
+        toppers,
+        awards,
+    } = formData;
+
+    const body = JSON.stringify({
+        schoolName,
+        description,
+        address,
+        contactUs: {
+            email,
+            website,
+            phoneNo,
+        },
+        founded,
+        feeStructure: {
+            admissionFee,
+            tutionFee,
+            busFee,
+            hostelFee,
+        },
+        scholarshipAvailable,
+        toppers,
+        awards,
+    });
 
     try {
         const res = await axios.post('/schools', body, config);
@@ -162,11 +209,69 @@ export const addSchool = (formData) => async (dispatch) => {
     }
 };
 
-// Get publisher's school
+// Edit a School
 
-export const getPublisherSchool = (school) => (dispatch) => {
-    dispatch({
-        type: GET_SCHOOL,
-        payload: school,
+export const editSchool = (formData, schoolId) => async (dispatch) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    const {
+        schoolName,
+        description,
+        address,
+        email,
+        website,
+        phoneNo,
+        founded,
+        admissionFee,
+        tutionFee,
+        busFee,
+        hostelFee,
+        scholarshipAvailable,
+        toppers,
+        awards,
+    } = formData;
+
+    const body = JSON.stringify({
+        schoolName,
+        description,
+        address,
+        contactUs: {
+            email,
+            website,
+            phoneNo,
+        },
+        founded,
+        feeStructure: {
+            admissionFee,
+            tutionFee,
+            busFee,
+            hostelFee,
+        },
+        scholarshipAvailable,
+        toppers,
+        awards,
     });
+
+    try {
+        const res = await axios.put(`/schools/${schoolId}`, body, config);
+
+        dispatch({
+            type: EDIT_SCHOOL,
+            payload: res.data,
+        });
+
+        dispatch(setAlert('School has been updated successfully', 'success'));
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: EDIT_SCHOOL_ERROR,
+        });
+    }
 };

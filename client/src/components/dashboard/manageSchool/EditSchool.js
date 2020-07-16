@@ -4,25 +4,25 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { editSchool } from '../../../actions/schools';
 
-const initialState = {
-    schoolName: '',
-    description: '',
-    address: '',
-    phoneNo: '',
-    email: '',
-    website: '',
-    founded: '',
-    admissionFee: '',
-    tutionFee: '',
-    busFee: '',
-    hostelFee: '',
-    scholarshipAvailable: false,
-    toppers: [],
-    awards: [],
-};
-
-const AddSchool = ({ editSchool }) => {
+const EditSchool = ({ editSchool, school }) => {
     const history = useHistory();
+
+    const initialState = {
+        schoolName: school.schoolName,
+        description: school.description,
+        address: school.address,
+        email: school.contactUs.email,
+        website: school.contactUs.website,
+        phoneNo: school.contactUs.phoneNo,
+        founded: school.founded,
+        admissionFee: school.feeStructure.admissionFee,
+        tutionFee: school.feeStructure.tutionFee,
+        busFee: school.feeStructure.busFee,
+        hostelFee: school.feeStructure.hostelFee,
+        scholarshipAvailable: school.scholarshipAvailable,
+        toppers: school.toppers,
+        awards: school.awards,
+    };
 
     const [formData, setFormData] = useState(initialState);
 
@@ -52,17 +52,14 @@ const AddSchool = ({ editSchool }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        editSchool(formData);
+        editSchool(formData, school._id);
         history.push('/dashboard/school');
     };
 
     return (
         <section className="container mt-5">
             <h1 className="mb-2">Edit School Details</h1>
-            <p className="text-danger">
-                Important: You must be affiliated with a school to add to school
-                in Schoolrify
-            </p>
+
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="row">
                     {/* Location & Contact Details */}
@@ -96,7 +93,7 @@ const AddSchool = ({ editSchool }) => {
                                         className="form-control"
                                         placeholder="Description (What you offer, etc)"
                                         onChange={(e) => onChange(e)}
-                                        maxlength="500"
+                                        maxLength="500"
                                     ></textarea>
                                     <small className="form-text text-muted">
                                         Not more than 500 characters
@@ -210,9 +207,9 @@ const AddSchool = ({ editSchool }) => {
                                 </div>
                                 <div className="form-group">
                                     <label>Scholarship Availibility</label>
-                                    <div class="form-check my-1">
+                                    <div className="form-check my-1">
                                         <input
-                                            class="form-check-input"
+                                            className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
                                             value={false}
@@ -221,15 +218,15 @@ const AddSchool = ({ editSchool }) => {
                                             checked
                                         />
                                         <label
-                                            class="form-check-label"
+                                            className="form-check-label"
                                             htmlFor="no"
                                         >
                                             No
                                         </label>
                                     </div>
-                                    <div class="form-check">
+                                    <div className="form-check">
                                         <input
-                                            class="form-check-input"
+                                            className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
                                             value={true}
@@ -237,7 +234,7 @@ const AddSchool = ({ editSchool }) => {
                                             onChange={(e) => onChange(e)}
                                         />
                                         <label
-                                            class="form-check-label"
+                                            className="form-check-label"
                                             htmlFor="yes"
                                         >
                                             Yes
@@ -256,7 +253,7 @@ const AddSchool = ({ editSchool }) => {
 
                 {/* Add Topper Section */}
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
@@ -334,11 +331,11 @@ const AddSchool = ({ editSchool }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Add Awards Section */}
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
@@ -416,7 +413,7 @@ const AddSchool = ({ editSchool }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="form-group">
                     <input
@@ -430,12 +427,15 @@ const AddSchool = ({ editSchool }) => {
     );
 };
 
-AddSchool.propTypes = {
-    addSchool: PropTypes.func.isRequired,
+EditSchool.propTypes = {
+    school: PropTypes.object.isRequired,
+    editSchool: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    school: state.schools;
+    return {
+        school: state.schools.school,
+    };
 };
 
-export default connect(mapStateToProps, { addSchool })(AddSchool);
+export default connect(mapStateToProps, { editSchool })(EditSchool);

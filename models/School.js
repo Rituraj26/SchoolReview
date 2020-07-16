@@ -50,7 +50,6 @@ const SchoolSchema = new mongoose.Schema(
                     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                     'Please add a valid email',
                 ],
-                default: '',
             },
             website: {
                 type: String,
@@ -58,34 +57,18 @@ const SchoolSchema = new mongoose.Schema(
                     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
                     'Please use a valid URL with HTTP or HTTPS',
                 ],
-                default: '',
             },
-            phoneNo: {
-                type: String,
-                default: '',
-            },
+            phoneNo: String,
         },
         founded: {
             type: Number,
             required: [true, 'Please add the year when your school is founded'],
         },
         feeStructure: {
-            busFee: {
-                type: String,
-                default: 'Not Specified',
-            },
-            tutionFee: {
-                type: String,
-                default: 'Not Specified',
-            },
-            admissionFee: {
-                type: String,
-                default: 'Not Specified',
-            },
-            hostelFee: {
-                type: String,
-                default: 'Not Specified',
-            },
+            busFee: String,
+            tutionFee: String,
+            admissionFee: String,
+            hostelFee: String,
         },
         scholarshipAvailable: {
             type: Boolean,

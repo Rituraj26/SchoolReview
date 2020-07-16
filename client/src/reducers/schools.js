@@ -9,6 +9,8 @@ import {
     GET_SCHOOL_ERROR,
     ADD_SCHOOL,
     ADD_SCHOOL_ERROR,
+    EDIT_SCHOOL,
+    EDIT_SCHOOL_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -35,10 +37,12 @@ export default (state = initialState, action) => {
                 loading: false,
             };
         case GET_SCHOOL:
+        case EDIT_SCHOOL:
             return {
                 ...state,
-                loading: false,
                 school: payload.data,
+                isAuthenticated: true,
+                loading: false,
             };
         case ADD_SCHOOL:
             state.schoolData.push(payload.data);
@@ -53,6 +57,7 @@ export default (state = initialState, action) => {
         case GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR:
         case GET_SCHOOL_ERROR:
         case ADD_SCHOOL_ERROR:
+        case EDIT_SCHOOL_ERROR:
             return {
                 ...state,
                 loading: false,
