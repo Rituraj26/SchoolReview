@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const SchoolItem = ({
     school: {
         _id,
-        name,
+        schoolName,
         mainPhoto,
         averageRating,
         location: { formattedAddress },
@@ -27,7 +27,7 @@ const SchoolItem = ({
                 <div className="col-md-8">
                     <div className="card-body" onClick={() => onClick(_id)}>
                         <h5 className="card-title">
-                            {name}
+                            {schoolName}
                             <span className="float-right badge badge-success">
                                 {averageRating}
                             </span>

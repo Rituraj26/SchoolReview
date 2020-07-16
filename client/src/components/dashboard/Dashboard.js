@@ -7,7 +7,8 @@ import Navbar from './Navbar';
 import AllSchools from './allSchools/AllSchools';
 import AllTeachers from './allTeachers/AllTeachers';
 import ManageAccount from './manageAccount/ManageAccount';
-import ManageSchool from './manageSchool/ManageSchool'; // Update is required
+import ManageSchool from './manageSchool/ManageSchool';
+import AddSchool from './manageSchool/AddSchool';
 import ManageTeachers from './ManageTeachers';
 import ManageReviews from './ManageReviews';
 
@@ -22,7 +23,12 @@ const Dashboard = () => {
                 <Route path="/dashboard/allschools" component={AllSchools} />
                 <Route path="/dashboard/allteachers" component={AllTeachers} />
                 <Route path="/dashboard/account" component={ManageAccount} />
-                <Route path="/dashboard/school" component={ManageSchool} />
+                <Route
+                    exact
+                    path="/dashboard/school"
+                    component={ManageSchool}
+                />
+                <Route path="/dashboard/school/add" component={AddSchool} />
                 <Route path="/dashboard/teachers" component={ManageTeachers} />
                 <Route path="/dashboard/reviews" component={ManageReviews} />
             </div>

@@ -20,7 +20,7 @@ const SchoolDetails = ({ getSchool, school }) => {
 
     return (
         <div className="container">
-            <h1 className="my-4">{school.name}</h1>
+            <h1 className="my-4">{school.schoolName}</h1>
             <div className="row">
                 <div className="col-md-8">
                     <img
@@ -37,9 +37,7 @@ const SchoolDetails = ({ getSchool, school }) => {
                     </h4>
                     <h4 className="my-3">
                         Address:{' '}
-                        <small className="ml-2">
-                            {school.location.formattedAddress}
-                        </small>
+                        <small className="ml-2">{school.address}</small>
                     </h4>
                     <h4 className="my-3">
                         Scholarship Available:{' '}
@@ -88,7 +86,7 @@ const SchoolDetails = ({ getSchool, school }) => {
                         </div>
                         <div className="card-body text-success">
                             <h5 className="card-title">
-                                Rs. {school.fees.busFee}
+                                {school.feeStructure.busFee}
                             </h5>
                         </div>
                     </div>
@@ -101,7 +99,7 @@ const SchoolDetails = ({ getSchool, school }) => {
                         </div>
                         <div className="card-body text-success">
                             <h5 className="card-title">
-                                Rs. {school.fees.tutionFee}
+                                {school.feeStructure.tutionFee}
                             </h5>
                         </div>
                     </div>
@@ -114,7 +112,7 @@ const SchoolDetails = ({ getSchool, school }) => {
                         </div>
                         <div className="card-body text-success">
                             <h5 className="card-title">
-                                Rs. {school.fees.admissionFee}
+                                {school.feeStructure.admissionFee}
                             </h5>
                         </div>
                     </div>
@@ -127,7 +125,7 @@ const SchoolDetails = ({ getSchool, school }) => {
                         </div>
                         <div className="card-body text-success">
                             <h5 className="card-title">
-                                Rs. {school.fees.hostelFee}
+                                {school.feeStructure.hostelFee}
                             </h5>
                         </div>
                     </div>
@@ -139,10 +137,13 @@ const SchoolDetails = ({ getSchool, school }) => {
             <h4 className="my-4">Toppers</h4>
 
             <div className="row">
-                <SchoolTopper toppers={school.toppers} />
-                <SchoolTopper toppers={school.toppers} />
-                <SchoolTopper toppers={school.toppers} />
-                <SchoolTopper toppers={school.toppers} />
+                {school.toppers.length > 0 ? (
+                    school.toppers.map((topper) => (
+                        <SchoolTopper topper={topper} />
+                    ))
+                ) : (
+                    <p>No Toppers Data Available</p>
+                )}
             </div>
 
             {/* Teachers Row */}

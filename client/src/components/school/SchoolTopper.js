@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SchoolTopper = ({ toppers }) => {
+const SchoolTopper = ({ topper }) => {
     return (
         <div className="col-md-3 col-sm-6 mb-4">
             <div className="card">
@@ -23,7 +23,7 @@ const SchoolTopper = ({ toppers }) => {
 };
 
 SchoolTopper.propTypes = {
-    toppers: PropTypes.object.isRequired,
+    topper: PropTypes.object.isRequired,
 };
 
 export default SchoolTopper;

@@ -5,24 +5,22 @@ const geocoder = require('../utils/geocoder');
 
 const SchoolSchema = new mongoose.Schema(
     {
-        name: {
+        schoolName: {
             type: String,
             required: [true, 'Please add a school name'],
             unique: true,
             trim: true,
             maxlength: [50, 'Name cannot be more than 50 characters'],
         },
+        description: {
+            type: String,
+            maxlength: [500, 'Description cannot be more than 500 characters'],
+            default: 'No Description Available',
+        },
         slug: String,
-        mainPhoto: {
+        schoolPhoto: {
             type: String,
             default: 'no-photo.jpg',
-        },
-        founded: Number,
-        fees: {
-            busFee: Number,
-            tutionFee: Number,
-            admissionFee: Number,
-            hostelFee: Number,
         },
         address: {
             type: String,
@@ -45,32 +43,6 @@ const SchoolSchema = new mongoose.Schema(
             zipcode: String,
             country: String,
         },
-        awards: [
-            {
-                title: String,
-                photo: {
-                    type: String,
-                    default: 'no-photo.jpg',
-                },
-            },
-        ],
-        toppers: {
-            name: String,
-            photo: {
-                type: String,
-                default: 'no-photo.jpg',
-            },
-            percentage: Number,
-        },
-        scholarshipAvailable: {
-            type: Boolean,
-            default: false,
-        },
-        averageRating: {
-            type: Number,
-            min: [1, 'Rating must be at least 1'],
-            max: [10, 'Rating must not be more than 10'],
-        },
         contactUs: {
             email: {
                 type: String,
@@ -78,6 +50,7 @@ const SchoolSchema = new mongoose.Schema(
                     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                     'Please add a valid email',
                 ],
+                default: '',
             },
             website: {
                 type: String,
@@ -85,9 +58,66 @@ const SchoolSchema = new mongoose.Schema(
                     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
                     'Please use a valid URL with HTTP or HTTPS',
                 ],
+                default: '',
             },
-            phoneNo: Number,
+            phoneNo: {
+                type: String,
+                default: '',
+            },
         },
+        founded: {
+            type: Number,
+            required: [true, 'Please add the year when your school is founded'],
+        },
+        feeStructure: {
+            busFee: {
+                type: String,
+                default: 'Not Specified',
+            },
+            tutionFee: {
+                type: String,
+                default: 'Not Specified',
+            },
+            admissionFee: {
+                type: String,
+                default: 'Not Specified',
+            },
+            hostelFee: {
+                type: String,
+                default: 'Not Specified',
+            },
+        },
+        scholarshipAvailable: {
+            type: Boolean,
+            default: false,
+        },
+        toppers: [
+            {
+                topperName: String,
+                topperPhoto: {
+                    type: String,
+                    default: 'no-photo.jpg',
+                },
+                topperPercentage: Number,
+            },
+        ],
+        awards: [
+            {
+                awardTitle: String,
+                awardPhoto: {
+                    type: String,
+                    default: 'no-photo.jpg',
+                },
+                awardYear: Number,
+            },
+        ],
+
+        averageRating: {
+            type: Number,
+            min: [1, 'Rating must be at least 1'],
+            max: [10, 'Rating must not be more than 10'],
+        },
+
         user: {
             type: mongoose.Schema.ObjectId,
             ref: 'User',
@@ -105,7 +135,7 @@ const SchoolSchema = new mongoose.Schema(
 );
 
 SchoolSchema.pre('save', function (next) {
-    this.slug = slugify(this.name, { lower: true });
+    this.slug = slugify(this.schoolName, { lower: true });
     next();
 });
 
@@ -122,9 +152,6 @@ SchoolSchema.pre('save', async function (next) {
         zipcode: loc[0].zipcode,
         country: loc[0].countryCode,
     };
-
-    // Donot save address in DB
-    this.address = undefined;
     next();
 });
 

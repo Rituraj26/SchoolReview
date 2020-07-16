@@ -8,6 +8,8 @@ import {
     GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR,
     GET_SCHOOL,
     GET_SCHOOL_ERROR,
+    ADD_SCHOOL,
+    ADD_SCHOOL_ERROR,
 } from './types';
 import { setAlert } from './alert';
 
@@ -125,6 +127,38 @@ export const getSchool = ({ schoolId }) => async (dispatch) => {
 
         dispatch({
             type: GET_SCHOOL_ERROR,
+        });
+    }
+};
+
+// Add a School
+
+export const addSchool = (formData) => async (dispatch) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    const body = JSON.stringify(formData);
+    console.log(body);
+
+    try {
+        const res = await axios.post('/schools', body, config);
+
+        dispatch({
+            type: ADD_SCHOOL,
+            payload: res.data,
+        });
+
+        dispatch(setAlert('School has been added successfully', 'success'));
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: ADD_SCHOOL_ERROR,
         });
     }
 };

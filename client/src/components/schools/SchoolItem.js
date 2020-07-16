@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const SchoolItem = ({
     school: {
         _id,
-        name,
+        schoolName,
         mainPhoto,
         averageRating,
         location: { formattedAddress },
@@ -21,7 +21,7 @@ const SchoolItem = ({
                     <div className="card-body">
                         <h5 className="card-title">
                             <Link to={`schools/${_id}`}>
-                                {name}
+                                {schoolName}
                                 <span className="float-right badge badge-success">
                                     {averageRating}
                                 </span>
