@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addSchool } from '../../../actions/schools';
+import { useHistory } from 'react-router';
 
 const initialState = {
     schoolName: '',
@@ -21,6 +22,8 @@ const initialState = {
 };
 
 const AddSchool = ({ addSchool }) => {
+    const history = useHistory();
+
     const [formData, setFormData] = useState(initialState);
 
     const [tempData, setTempData] = useState({
@@ -117,8 +120,8 @@ const AddSchool = ({ addSchool }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
         addSchool(formData);
+        history.push('/dashboard/school');
     };
 
     return (

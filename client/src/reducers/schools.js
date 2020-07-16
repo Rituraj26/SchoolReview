@@ -7,6 +7,8 @@ import {
     GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR,
     GET_SCHOOL,
     GET_SCHOOL_ERROR,
+    ADD_SCHOOL,
+    ADD_SCHOOL_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -20,7 +22,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
-    // console.log(payload);
+
     switch (type) {
         case GET_SCHOOLS:
         case GET_SCHOOLS_BY_RADIUS:
@@ -32,6 +34,19 @@ export default (state = initialState, action) => {
                 schoolData: payload.data,
                 loading: false,
             };
+        case GET_SCHOOL:
+            return {
+                ...state,
+                loading: false,
+                school: payload.data,
+            };
+        case ADD_SCHOOL:
+            state.schoolData.push(payload.data);
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+            };
         case SCHOOLS_ERROR:
         case GET_SCHOOLS_BY_RADIUS_ERROR:
         case GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR:
@@ -39,12 +54,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-            };
-        case GET_SCHOOL:
-            return {
-                ...state,
-                loading: false,
-                school: payload.data,
             };
         default:
             return state;
