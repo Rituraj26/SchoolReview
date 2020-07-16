@@ -1,15 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const SchoolComponent = ({
-    school: {
-        _id,
-        schoolName,
-        averageRating,
-        location: { formattedAddress },
-    },
-}) => {
+const SchoolComponent = ({ school }) => {
     return (
         <Fragment>
             <h1 className="mb-4">Manage School</h1>
@@ -25,15 +18,15 @@ const SchoolComponent = ({
                     <div className="col-md-8">
                         <div className="card-body">
                             <h5 className="card-title">
-                                <Link to={`/schools/${_id}`}>
-                                    {schoolName}
+                                <Link to={`/schools/${school._id}`}>
+                                    {school.schoolName}
                                     <span className="float-right badge badge-success">
-                                        {averageRating}
+                                        {school.averageRating}
                                     </span>
                                 </Link>
                             </h5>
                             <span className="badge badge-dark mb-2">
-                                {formattedAddress}
+                                {school.address.substring(0, 35) + '...'}
                             </span>
                             <p className="card-text">
                                 Web Development, UI/UX, Mobile Development
@@ -44,17 +37,15 @@ const SchoolComponent = ({
             </div>
             <form className="mb-4">
                 <div className="form-group">
-                    <div className="custom-file">
-                        <input
-                            type="file"
-                            name="schoolPhoto"
-                            className="custom-file-input"
-                            id="photo"
-                        />
-                        <label className="custom-file-label" htmlFor="photo">
-                            Add School Image
-                        </label>
-                    </div>
+                    <label htmlFor="photo">Add School Image</label>
+                    <input
+                        type="file"
+                        className="form-control-file"
+                        name="file"
+                        id="photo"
+                        aria-describedby="fileHelp"
+                        // onChange={(e) => onPhotoUpload(e)}
+                    />
                 </div>
                 <input
                     type="submit"
@@ -78,11 +69,11 @@ const SchoolComponent = ({
                 Remove School
             </Link>
             <p className="text-muted mt-5">
-                * You can only add one bootcamp per account.
+                * You can only add one school per account.
             </p>
             <p className="text-muted">
-                * You must be affiliated with the bootcamp in some way in order
-                to add it to DevCamper.
+                * You must be affiliated with the school in some way in order to
+                add it to Schoorify.
             </p>
         </Fragment>
     );

@@ -139,7 +139,6 @@ export const addSchool = (formData) => async (dispatch) => {
     };
 
     const body = JSON.stringify(formData);
-    console.log(body);
 
     try {
         const res = await axios.post('/schools', body, config);
@@ -161,4 +160,13 @@ export const addSchool = (formData) => async (dispatch) => {
             type: ADD_SCHOOL_ERROR,
         });
     }
+};
+
+// Get publisher's school
+
+export const getPublisherSchool = (school) => (dispatch) => {
+    dispatch({
+        type: GET_SCHOOL,
+        payload: school,
+    });
 };

@@ -1,15 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import { getSchools } from '../../../actions/schools';
 import SchoolItem from './SchoolItem';
 
-const AllSchools = ({ getSchools, schools: { count, schoolData } }) => {
-    useEffect(() => {
-        getSchools(1);
-    }, [getSchools]);
-
+const AllSchools = ({ schools: { count, schoolData } }) => {
     return (
         <section className="browse my-5 px-5">
             <div className="container-fluid">
@@ -37,7 +31,6 @@ const AllSchools = ({ getSchools, schools: { count, schoolData } }) => {
 };
 
 AllSchools.propTypes = {
-    getSchools: PropTypes.func.isRequired,
     schools: PropTypes.object.isRequired,
 };
 
@@ -47,4 +40,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { getSchools })(AllSchools);
+export default connect(mapStateToProps)(AllSchools);

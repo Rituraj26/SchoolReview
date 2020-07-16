@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getSchools } from '../../actions/schools';
 
 // Importing Components
 import Sidebar from './Sidebar';
@@ -12,7 +15,11 @@ import AddSchool from './manageSchool/AddSchool';
 import ManageTeachers from './ManageTeachers';
 import ManageReviews from './ManageReviews';
 
-const Dashboard = () => {
+const Dashboard = ({ getSchools }) => {
+    useEffect(() => {
+        getSchools(1);
+    }, [getSchools]);
+
     return (
         <div className="d-flex" id="wrapper">
             <Sidebar />
@@ -36,4 +43,8 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+Dashboard.propTypes = {
+    getSchools: PropTypes.func.isRequired,
+};
+
+export default connect(null, { getSchools })(Dashboard);

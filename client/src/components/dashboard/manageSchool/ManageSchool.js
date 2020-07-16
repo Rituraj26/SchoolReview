@@ -1,35 +1,41 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSchools } from '../../../actions/schools';
+import { getPublisherSchool } from '../../../actions/schools';
 
 import SchoolComponent from './SchoolComponent';
 import NoSchoolComponent from './NoSchoolComponent';
 
-const ManageSchool = ({ getSchools, schools: { count, schoolData }, user }) => {
+const ManageSchool = ({
+    schools: { count, schoolData },
+    user,
+    getPublisherSchool,
+    school,
+}) => {
     useEffect(() => {
-        getSchools();
-    }, []);
-
-    const findSchool = () => {
         if (count !== 0) {
             const school = schoolData.filter(
                 (school) => school.user === user._id
             );
             if (school.length) {
-                return <SchoolComponent school={school[0]} />;
+                const schoolData = { data: school[0] };
+                getPublisherSchool(schoolData);
             }
-            return <NoSchoolComponent />;
         }
-        return <div>No School Available</div>;
-    };
+    }, [getPublisherSchool]);
 
     return (
         <section className="container mt-5 ml-5">
             <div className="row">
                 <div className="col-md-8">
                     <div className="card bg-white py-2 px-4">
-                        <div className="card-body">{findSchool()}</div>
+                        <div className="card-body">
+                            {Object.keys(school).length !== 0 ? (
+                                <SchoolComponent school={school} />
+                            ) : (
+                                <NoSchoolComponent />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,16 +44,18 @@ const ManageSchool = ({ getSchools, schools: { count, schoolData }, user }) => {
 };
 
 ManageSchool.propTypes = {
-    getSchools: PropTypes.func.isRequired,
     schools: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
+    getPublisherSchool: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
     return {
         schools: state.schools,
         user: state.auth.user,
+        getPublisherSchool,
+        school: state.schools.school,
     };
 };
 
-export default connect(mapStateToProps, { getSchools })(ManageSchool);
+export default connect(mapStateToProps, { getPublisherSchool })(ManageSchool);

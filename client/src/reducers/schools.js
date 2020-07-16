@@ -44,6 +44,7 @@ export default (state = initialState, action) => {
             state.schoolData.push(payload.data);
             return {
                 ...state,
+                school: payload.data,
                 isAuthenticated: true,
                 loading: false,
             };
@@ -51,6 +52,7 @@ export default (state = initialState, action) => {
         case GET_SCHOOLS_BY_RADIUS_ERROR:
         case GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR:
         case GET_SCHOOL_ERROR:
+        case ADD_SCHOOL_ERROR:
             return {
                 ...state,
                 loading: false,
