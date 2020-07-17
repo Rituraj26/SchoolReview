@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const teacherSchema = new mongoose.Schema({
-    name: {
+    teacherName: {
         type: String,
-        required: [true, 'Please add a school name'],
+        required: [true, 'Please add a teacher name'],
     },
     photo: {
         type: String,
@@ -26,14 +26,14 @@ const teacherSchema = new mongoose.Schema({
     },
     exp: {
         type: Number,
-        required: true,
+        required: [true, 'Enter the no of years experienced'],
     },
     tution: {
-        availibility: {
+        tutionAvailability: {
             type: Boolean,
-            required: true,
+            default: false,
         },
-        fee: Number,
+        tutionFee: Number,
     },
     contactUs: {
         email: {

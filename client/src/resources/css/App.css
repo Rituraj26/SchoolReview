@@ -16,6 +16,11 @@
     color: #fff;
 }
 
+.bg-primary,
+.btn-primary {
+    background-color: rgb(91, 0, 156) !important;
+}
+
 /* Dashboard Styles */
 
 #wrapper {

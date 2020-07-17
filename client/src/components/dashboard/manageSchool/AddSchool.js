@@ -26,21 +26,21 @@ const AddSchool = ({ addSchool }) => {
 
     const [formData, setFormData] = useState(initialState);
 
-    const [tempData, setTempData] = useState({
-        photo: null,
-        topperPercentage: '',
-        topperName: '',
-        awardTitle: '',
-        awardYear: '',
-    });
+    // const [tempData, setTempData] = useState({
+    //     photo: null,
+    //     topperPercentage: '',
+    //     topperName: '',
+    //     awardTitle: '',
+    //     awardYear: '',
+    // });
 
-    const {
-        photo,
-        topperPercentage,
-        topperName,
-        awardTitle,
-        awardYear,
-    } = tempData;
+    // const {
+    //     photo,
+    //     topperPercentage,
+    //     topperName,
+    //     awardTitle,
+    //     awardYear,
+    // } = tempData;
 
     const {
         schoolName,
@@ -59,57 +59,57 @@ const AddSchool = ({ addSchool }) => {
         awards,
     } = formData;
 
-    const onPhotoUpload = (e) => {
-        setTempData({
-            ...tempData,
-            photo: e.target.files[0],
-        });
-    };
+    // const onPhotoUpload = (e) => {
+    //     setTempData({
+    //         ...tempData,
+    //         photo: e.target.files[0],
+    //     });
+    // };
 
-    const onPhotoChange = (e) => {
-        setTempData({
-            ...tempData,
-            [e.target.name]: e.target.value,
-        });
-    };
+    // const onPhotoChange = (e) => {
+    //     setTempData({
+    //         ...tempData,
+    //         [e.target.name]: e.target.value,
+    //     });
+    // };
 
-    const onTopperBtnClick = (e) => {
-        if (topperPercentage) {
-            let fr = new FileReader();
-            fr.onload = (event) => {
-                toppers.push({
-                    topperName,
-                    topperPhoto: event.target.result,
-                    topperPercentage,
-                });
-                setTempData({
-                    ...tempData,
-                    topperName: '',
-                    topperPercentage: '',
-                });
-            };
-            fr.readAsDataURL(photo);
-        }
-    };
+    // const onTopperBtnClick = (e) => {
+    //     if (topperPercentage) {
+    //         let fr = new FileReader();
+    //         fr.onload = (event) => {
+    //             toppers.push({
+    //                 topperName,
+    //                 topperPhoto: event.target.result,
+    //                 topperPercentage,
+    //             });
+    //             setTempData({
+    //                 ...tempData,
+    //                 topperName: '',
+    //                 topperPercentage: '',
+    //             });
+    //         };
+    //         fr.readAsDataURL(photo);
+    //     }
+    // };
 
-    const onAwardBtnClick = (e) => {
-        if (awardTitle) {
-            let fr = new FileReader();
-            fr.onload = (event) => {
-                awards.push({
-                    awardTitle,
-                    awardPhoto: event.target.result,
-                    awardYear,
-                });
-                setTempData({
-                    ...tempData,
-                    awardTitle: '',
-                    awardYear: '',
-                });
-            };
-            fr.readAsDataURL(photo);
-        }
-    };
+    // const onAwardBtnClick = (e) => {
+    //     if (awardTitle) {
+    //         let fr = new FileReader();
+    //         fr.onload = (event) => {
+    //             awards.push({
+    //                 awardTitle,
+    //                 awardPhoto: event.target.result,
+    //                 awardYear,
+    //             });
+    //             setTempData({
+    //                 ...tempData,
+    //                 awardTitle: '',
+    //                 awardYear: '',
+    //             });
+    //         };
+    //         fr.readAsDataURL(photo);
+    //     }
+    // };
 
     const onChange = (e) => {
         setFormData({
@@ -164,7 +164,7 @@ const AddSchool = ({ addSchool }) => {
                                         className="form-control"
                                         placeholder="Description (What you offer, etc)"
                                         onChange={(e) => onChange(e)}
-                                        maxlength="500"
+                                        maxLength="500"
                                     ></textarea>
                                     <small className="form-text text-muted">
                                         Not more than 500 characters
@@ -278,9 +278,9 @@ const AddSchool = ({ addSchool }) => {
                                 </div>
                                 <div className="form-group">
                                     <label>Scholarship Availibility</label>
-                                    <div class="form-check my-1">
+                                    <div className="form-check my-1">
                                         <input
-                                            class="form-check-input"
+                                            className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
                                             value={false}
@@ -289,15 +289,15 @@ const AddSchool = ({ addSchool }) => {
                                             checked
                                         />
                                         <label
-                                            class="form-check-label"
+                                            className="form-check-label"
                                             htmlFor="no"
                                         >
                                             No
                                         </label>
                                     </div>
-                                    <div class="form-check">
+                                    <div className="form-check">
                                         <input
-                                            class="form-check-input"
+                                            className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
                                             value={true}
@@ -305,7 +305,7 @@ const AddSchool = ({ addSchool }) => {
                                             onChange={(e) => onChange(e)}
                                         />
                                         <label
-                                            class="form-check-label"
+                                            className="form-check-label"
                                             htmlFor="yes"
                                         >
                                             Yes
@@ -324,7 +324,7 @@ const AddSchool = ({ addSchool }) => {
 
                 {/* Add Topper Section */}
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
@@ -402,11 +402,11 @@ const AddSchool = ({ addSchool }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Add Awards Section */}
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
@@ -484,7 +484,7 @@ const AddSchool = ({ addSchool }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="form-group">
                     <input
