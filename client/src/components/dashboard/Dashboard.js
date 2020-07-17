@@ -38,7 +38,11 @@ const Dashboard = ({ getSchools }) => {
                 />
                 <Route path="/dashboard/school/add" component={AddSchool} />
                 <Route path="/dashboard/school/edit" component={EditSchool} />
-                <Route path="/dashboard/teachers" component={ManageTeachers} />
+                <Route
+                    exact
+                    path="/dashboard/teachers"
+                    component={ManageTeachers}
+                />
                 <Route path="/dashboard/reviews" component={ManageReviews} />
             </div>
         </div>

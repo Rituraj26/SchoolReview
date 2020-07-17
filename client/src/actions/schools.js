@@ -12,6 +12,8 @@ import {
     ADD_SCHOOL_ERROR,
     EDIT_SCHOOL,
     EDIT_SCHOOL_ERROR,
+    DELETE_SCHOOL,
+    DELETE_SCHOOL_ERROR,
 } from './types';
 import { setAlert } from './alert';
 
@@ -272,6 +274,37 @@ export const editSchool = (formData, schoolId) => async (dispatch) => {
 
         dispatch({
             type: EDIT_SCHOOL_ERROR,
+        });
+    }
+};
+
+// Delete a School
+
+export const deleteSchool = (schoolId) => async (dispatch, getState) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    try {
+        await axios.delete(`/schools/${schoolId}`, null, config);
+
+        const { auth } = getState();
+
+        dispatch({
+            type: DELETE_SCHOOL,
+            payload: auth.user._id,
+        });
+
+        dispatch(setAlert('School has been deleted successfully', 'success'));
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: DELETE_SCHOOL_ERROR,
         });
     }
 };

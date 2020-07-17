@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteSchool } from '../../../actions/schools';
 
-const SchoolComponent = ({ school }) => {
+const SchoolComponent = ({ school, deleteSchool }) => {
     return (
         <Fragment>
             <h1 className="mb-4">Manage School</h1>
@@ -65,9 +67,12 @@ const SchoolComponent = ({ school }) => {
             >
                 Manage Teachers
             </Link>
-            <Link to="#" className="btn btn-danger btn-block">
+            <button
+                onClick={() => deleteSchool(school._id)}
+                className="btn btn-danger btn-block"
+            >
                 Remove School
-            </Link>
+            </button>
             <p className="text-muted mt-5">
                 * You can only add one school per account.
             </p>
@@ -81,6 +86,7 @@ const SchoolComponent = ({ school }) => {
 
 SchoolComponent.propTypes = {
     school: PropTypes.object.isRequired,
+    deleteSchool: PropTypes.func.isRequired,
 };
 
-export default SchoolComponent;
+export default connect(null, { deleteSchool })(SchoolComponent);

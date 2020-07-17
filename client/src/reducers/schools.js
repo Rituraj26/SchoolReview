@@ -11,6 +11,8 @@ import {
     ADD_SCHOOL_ERROR,
     EDIT_SCHOOL,
     EDIT_SCHOOL_ERROR,
+    DELETE_SCHOOL,
+    DELETE_SCHOOL_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -24,7 +26,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
-
     switch (type) {
         case GET_SCHOOLS:
         case GET_SCHOOLS_BY_RADIUS:
@@ -49,6 +50,17 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 school: payload.data,
+                isAuthenticated: true,
+                loading: false,
+            };
+        case DELETE_SCHOOL:
+            return {
+                ...state,
+                count: --state.count,
+                schoolData: state.schoolData.filter(
+                    (school) => school.user !== payload
+                ),
+                school: {},
                 isAuthenticated: true,
                 loading: false,
             };

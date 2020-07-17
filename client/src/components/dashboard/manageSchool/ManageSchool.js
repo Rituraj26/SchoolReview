@@ -47,6 +47,7 @@ ManageSchool.propTypes = {
     schools: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
     getPublisherSchool: PropTypes.func.isRequired,
+    school: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
