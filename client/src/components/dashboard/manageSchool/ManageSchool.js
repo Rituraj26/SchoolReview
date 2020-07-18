@@ -6,22 +6,9 @@ import { getPublisherSchool } from '../../../actions/schools';
 import SchoolComponent from './SchoolComponent';
 import NoSchoolComponent from './NoSchoolComponent';
 
-const ManageSchool = ({
-    schools: { count, schoolData },
-    user,
-    getPublisherSchool,
-    school,
-}) => {
+const ManageSchool = ({ publisherSchool, getPublisherSchool }) => {
     useEffect(() => {
-        if (count !== 0) {
-            const school = schoolData.filter(
-                (school) => school.user === user._id
-            );
-            if (school.length) {
-                const schoolData = { data: school[0] };
-                getPublisherSchool(schoolData);
-            }
-        }
+        getPublisherSchool(publisherSchool);
     }, [getPublisherSchool]);
 
     return (
@@ -30,8 +17,8 @@ const ManageSchool = ({
                 <div className="col-md-8">
                     <div className="card bg-white py-2 px-4">
                         <div className="card-body">
-                            {Object.keys(school).length !== 0 ? (
-                                <SchoolComponent school={school} />
+                            {Object.keys(publisherSchool).length !== 0 ? (
+                                <SchoolComponent school={publisherSchool} />
                             ) : (
                                 <NoSchoolComponent />
                             )}
@@ -44,19 +31,22 @@ const ManageSchool = ({
 };
 
 ManageSchool.propTypes = {
-    schools: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
     getPublisherSchool: PropTypes.func.isRequired,
-    school: PropTypes.object.isRequired,
+    publisherSchool: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
-    return {
-        schools: state.schools,
-        user: state.auth.user,
-        getPublisherSchool,
-        school: state.schools.school,
-    };
+    const schools = state.schools;
+    const user = state.auth.user;
+    if (schools.count !== 0) {
+        const school = schools.schoolData.filter(
+            (school) => school.user === user._id
+        );
+        if (school.length) {
+            return { publisherSchool: school[0] };
+        }
+    }
+    return { publisherSchool: {} };
 };
 
 export default connect(mapStateToProps, { getPublisherSchool })(ManageSchool);
