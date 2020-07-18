@@ -31,12 +31,6 @@ const Sidebar = () => {
                     Manage School
                 </Link>
                 <Link
-                    to="/dashboard/teachers"
-                    className="list-group-item list-group-item-action bg-light"
-                >
-                    Manage Teachers
-                </Link>
-                <Link
                     to="/dashboard/reviews"
                     className="list-group-item list-group-item-action bg-light"
                 >

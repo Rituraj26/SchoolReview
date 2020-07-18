@@ -2,37 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const TeacherComponent = () => {
+const TeacherComponent = ({ teacher }) => {
     return (
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Front End Web Development</td>
-                    <td>
-                        <Link
-                            to="/dashboard/teachers/edit"
-                            className="btn btn-secondary"
-                        >
-                            <i className="fas fa-pencil-alt"></i>
-                        </Link>
-                        <button className="btn btn-danger">
-                            <i className="fas fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <tr>
+            <td>{teacher.teacherName}</td>
+            <td>{teacher.dept}</td>
+            <td>{teacher.exp}</td>
+            <td>{teacher.tution.tutionAvailability.toString()}</td>
+            {teacher.tution.tutionAvailability ? (
+                <td>{teacher.tution.tutionFee}</td>
+            ) : (
+                <td></td>
+            )}
+            <td>
+                <Link
+                    to="/dashboard/teachers/edit"
+                    className="btn btn-secondary"
+                >
+                    <i className="fas fa-pencil-alt"></i>
+                </Link>
+                <button className="btn btn-danger">
+                    <i className="fas fa-times"></i>
+                </button>
+            </td>
+        </tr>
     );
 };
 
 TeacherComponent.propTypes = {
-    teachers: PropTypes.object.isRequired,
+    teacher: PropTypes.object.isRequired,
 };
 
 export default TeacherComponent;

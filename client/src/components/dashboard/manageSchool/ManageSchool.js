@@ -18,7 +18,9 @@ const ManageSchool = ({ publisherSchool, getPublisherSchool }) => {
                     <div className="card bg-white py-2 px-4">
                         <div className="card-body">
                             {Object.keys(publisherSchool).length !== 0 ? (
-                                <SchoolComponent school={publisherSchool} />
+                                <SchoolComponent
+                                    school={publisherSchool.data}
+                                />
                             ) : (
                                 <NoSchoolComponent />
                             )}
@@ -43,7 +45,7 @@ const mapStateToProps = (state) => {
             (school) => school.user === user._id
         );
         if (school.length) {
-            return { publisherSchool: school[0] };
+            return { publisherSchool: { data: school[0] } };
         }
     }
     return { publisherSchool: {} };

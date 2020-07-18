@@ -137,10 +137,10 @@ export const getSchool = ({ schoolId }) => async (dispatch) => {
 
 // Get publisher's school
 
-export const getPublisherSchool = (school) => (dispatch) => {
+export const getPublisherSchool = (publisherSchool) => (dispatch) => {
     dispatch({
         type: GET_SCHOOL,
-        payload: school,
+        payload: publisherSchool,
     });
 };
 
