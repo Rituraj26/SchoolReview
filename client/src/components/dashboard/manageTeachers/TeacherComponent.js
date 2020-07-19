@@ -16,7 +16,7 @@ const TeacherComponent = ({ teacher }) => {
             )}
             <td>
                 <Link
-                    to="/dashboard/teachers/edit"
+                    to={`/dashboard/teachers/edit/${teacher._id}`}
                     className="btn btn-secondary"
                 >
                     <i className="fas fa-pencil-alt"></i>

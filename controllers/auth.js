@@ -26,7 +26,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 
     if (!email || !password) {
         return next(
-            new ErrorResponse([`Please provide email and password`], 400)
+            new ErrorResponse(`Please provide email and password`, 400)
         );
     }
 
@@ -36,7 +36,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     // No user available
     if (!user) {
         return next(
-            new ErrorResponse([`No registered user with this email`], 400)
+            new ErrorResponse(`No registered user with this email`, 400)
         );
     }
 
@@ -47,7 +47,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     if (!isMatch) {
         return next(
             new ErrorResponse(
-                [`Password didn't match, Please enter the correct password`],
+                `Password didn't match, Please enter the correct password`,
                 401
             )
         );
@@ -76,7 +76,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 exports.getMe = asyncHandler(async (req, res, next) => {
     // if not logged in
     if (!req.user) {
-        return next(new ErrorResponse([`Login to view your profile`], 400));
+        return next(new ErrorResponse(`Login to view your profile`, 400));
     }
     const user = await User.findById(req.user.id);
     res.status(200).json({ success: true, data: user });
@@ -92,7 +92,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
     if (!user) {
         return next(
-            new ErrorResponse([`No registered user with that email`], 400)
+            new ErrorResponse(`No registered user with that email`, 400)
         );
     }
 
@@ -132,7 +132,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
         await user.save({ validateBeforeSave: false });
         // console.log(err);
 
-        return next(new ErrorResponse([`Email could not be sent`], 500));
+        return next(new ErrorResponse(`Email could not be sent`, 500));
     }
 });
 
@@ -152,7 +152,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     });
 
     if (!user) {
-        return next(new ErrorResponse([`Invalid Token`], 400));
+        return next(new ErrorResponse(`Invalid Token`, 400));
     }
     // e56bee43f8b3085a4ff07642233997eb44f1d5d018bd69f11df7528fce2bf126
     user.password = req.body.password;
@@ -191,7 +191,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 
     // Check current password
     if (!(await user.matchPassword(req.body.currentPassword))) {
-        return next(new ErrorResponse([`Password is incorrect`], 401));
+        return next(new ErrorResponse(`Password is incorrect`, 401));
     }
 
     user.password = req.body.newPassword;

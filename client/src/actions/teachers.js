@@ -6,6 +6,8 @@ import {
     GET_SCHOOL_TEACHERS_ERROR,
     ADD_TEACHER,
     ADD_TEACHER_ERROR,
+    EDIT_TEACHER,
+    EDIT_TEACHER_ERROR,
 } from './types';
 import { setAlert } from './alert';
 
@@ -120,6 +122,68 @@ export const addTeacher = (formData, schoolId) => async (dispatch) => {
 
         dispatch({
             type: ADD_TEACHER_ERROR,
+        });
+    }
+};
+
+// Edit a Teacher
+
+export const editTeacher = (formData, schoolId, teacherId) => async (
+    dispatch
+) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    const {
+        teacherName,
+        photo,
+        dept,
+        exp,
+        tutionAvailability,
+        tutionFee,
+        email,
+        phoneNo,
+        address,
+    } = formData;
+
+    const body = JSON.stringify({
+        teacherName,
+        photo,
+        dept,
+        exp,
+        tution: {
+            tutionAvailability,
+            tutionFee,
+        },
+        contactUs: {
+            email,
+            phoneNo,
+        },
+        address,
+    });
+
+    try {
+        const res = await axios.put(
+            `/schools/${schoolId}/teachers/${teacherId}`,
+            body,
+            config
+        );
+        console.log(res.data);
+
+        dispatch({
+            type: EDIT_TEACHER,
+            payload: res.data,
+        });
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: EDIT_TEACHER_ERROR,
         });
     }
 };

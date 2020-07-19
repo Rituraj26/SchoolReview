@@ -70,6 +70,7 @@ export default (state = initialState, action) => {
         case GET_SCHOOL_ERROR:
         case ADD_SCHOOL_ERROR:
         case EDIT_SCHOOL_ERROR:
+        case DELETE_SCHOOL_ERROR:
             return {
                 ...state,
                 loading: false,

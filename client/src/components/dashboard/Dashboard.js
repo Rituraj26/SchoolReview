@@ -15,6 +15,7 @@ import AddSchool from './manageSchool/AddSchool';
 import EditSchool from './manageSchool/EditSchool';
 import ManageTeachers from './manageTeachers/ManageTeachers';
 import AddTeacher from './manageTeachers/AddTeacher';
+import EditTeacher from './manageTeachers/EditTeacher';
 import ManageReviews from './ManageReviews';
 
 const Dashboard = ({ getSchools }) => {
@@ -45,6 +46,10 @@ const Dashboard = ({ getSchools }) => {
                     component={ManageTeachers}
                 />
                 <Route path="/dashboard/teachers/add" component={AddTeacher} />
+                <Route
+                    path="/dashboard/teachers/edit/:teacherId"
+                    component={EditTeacher}
+                />
                 <Route path="/dashboard/reviews" component={ManageReviews} />
             </div>
         </div>

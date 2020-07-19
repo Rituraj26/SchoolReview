@@ -5,6 +5,8 @@ import {
     GET_SCHOOL_TEACHERS_ERROR,
     ADD_TEACHER,
     ADD_TEACHER_ERROR,
+    EDIT_TEACHER,
+    EDIT_TEACHER_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -44,9 +46,23 @@ export default (state = initialState, actions) => {
                 isAuthenticated: true,
                 loading: false,
             };
+        case EDIT_TEACHER:
+            let ind;
+            state.schoolTeachers.forEach((teacher, index) => {
+                if (payload.data._id === teacher._id) {
+                    ind = index;
+                }
+            });
+            state.schoolTeachers[ind] = payload.data;
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+            };
         case TEACHERS_ERROR:
         case GET_SCHOOL_TEACHERS_ERROR:
         case ADD_TEACHER_ERROR:
+        case EDIT_TEACHER_ERROR:
             return {
                 ...state,
                 isAuthenticated: true,
