@@ -213,7 +213,7 @@ export const addSchool = (formData) => async (dispatch) => {
 
 // Edit a School
 
-export const editSchool = (formData, schoolId) => async (dispatch) => {
+export const editSchool = (formData, schoolId, history) => async (dispatch) => {
     const config = {
         headers: { 'Content-Type': 'application/json' },
     };
@@ -265,6 +265,8 @@ export const editSchool = (formData, schoolId) => async (dispatch) => {
         });
 
         dispatch(setAlert('School has been updated successfully', 'success'));
+
+        history.push('/dashboard/school');
     } catch (err) {
         const errors = err.response.data.error;
 

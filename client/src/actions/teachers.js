@@ -130,7 +130,7 @@ export const addTeacher = (formData, schoolId) => async (dispatch) => {
 
 // Edit a Teacher
 
-export const editTeacher = (formData, schoolId, teacherId) => async (
+export const editTeacher = (formData, schoolId, teacherId, history) => async (
     dispatch
 ) => {
     const config = {
@@ -177,6 +177,8 @@ export const editTeacher = (formData, schoolId, teacherId) => async (
             type: EDIT_TEACHER,
             payload: res.data,
         });
+
+        history.push('/dashboard/teachers');
     } catch (err) {
         const errors = err.response.data.error;
 

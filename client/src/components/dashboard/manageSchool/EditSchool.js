@@ -52,8 +52,7 @@ const EditSchool = ({ editSchool, school }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        editSchool(formData, school._id);
-        history.push('/dashboard/school');
+        editSchool(formData, school._id, history);
     };
 
     return (

@@ -19,22 +19,22 @@ const Sidebar = () => {
                     All Teachers
                 </Link>
                 <Link
-                    to="/dashboard/account"
+                    to="/dashboard/updatePersonalDetails"
                     className="list-group-item list-group-item-action bg-light"
                 >
-                    Manage Account
+                    Update Personal Details
+                </Link>
+                <Link
+                    to="/dashboard/updatePassword"
+                    className="list-group-item list-group-item-action bg-light"
+                >
+                    Update Password
                 </Link>
                 <Link
                     to="/dashboard/school"
                     className="list-group-item list-group-item-action bg-light"
                 >
                     Manage School
-                </Link>
-                <Link
-                    to="/dashboard/reviews"
-                    className="list-group-item list-group-item-action bg-light"
-                >
-                    Manage Reviews
                 </Link>
             </div>
         </div>

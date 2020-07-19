@@ -9,14 +9,14 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import AllSchools from './allSchools/AllSchools';
 import AllTeachers from './allTeachers/AllTeachers';
-import ManageAccount from './manageAccount/ManageAccount';
+import UpdatePersonalDetails from './updatePersonalDetails/UpdatePersonalDetails';
+import UpdatePassword from './updatePassword/UpdatePassword';
 import ManageSchool from './manageSchool/ManageSchool';
 import AddSchool from './manageSchool/AddSchool';
 import EditSchool from './manageSchool/EditSchool';
 import ManageTeachers from './manageTeachers/ManageTeachers';
 import AddTeacher from './manageTeachers/AddTeacher';
 import EditTeacher from './manageTeachers/EditTeacher';
-import ManageReviews from './ManageReviews';
 
 const Dashboard = ({ getSchools }) => {
     useEffect(() => {
@@ -32,7 +32,14 @@ const Dashboard = ({ getSchools }) => {
 
                 <Route path="/dashboard/allschools" component={AllSchools} />
                 <Route path="/dashboard/allteachers" component={AllTeachers} />
-                <Route path="/dashboard/account" component={ManageAccount} />
+                <Route
+                    path="/dashboard/updatePersonalDetails"
+                    component={UpdatePersonalDetails}
+                />
+                <Route
+                    path="/dashboard/updatePassword"
+                    component={UpdatePassword}
+                />
                 <Route
                     exact
                     path="/dashboard/school"
@@ -50,7 +57,6 @@ const Dashboard = ({ getSchools }) => {
                     path="/dashboard/teachers/edit/:teacherId"
                     component={EditTeacher}
                 />
-                <Route path="/dashboard/reviews" component={ManageReviews} />
             </div>
         </div>
     );

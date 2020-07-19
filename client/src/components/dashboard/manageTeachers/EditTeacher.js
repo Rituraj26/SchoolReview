@@ -48,9 +48,7 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(teacherId);
-        editTeacher(formData, school._id, teacherId);
-        history.push('/dashboard/school');
+        editTeacher(formData, school._id, teacherId, history);
     };
 
     return (
