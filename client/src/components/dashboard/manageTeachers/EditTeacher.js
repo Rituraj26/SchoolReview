@@ -50,7 +50,7 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
         e.preventDefault();
         console.log(teacherId);
         editTeacher(formData, school._id, teacherId);
-        history.push('/dashboard/teachers');
+        history.push('/dashboard/school');
     };
 
     return (

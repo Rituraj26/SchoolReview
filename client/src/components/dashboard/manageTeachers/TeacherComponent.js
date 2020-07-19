@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { deleteTeacher } from '../../../actions/teachers';
 
-const TeacherComponent = ({ teacher }) => {
+const TeacherComponent = ({ teacher, schoolId, deleteTeacher }) => {
     return (
         <tr>
             <td>{teacher.teacherName}</td>
@@ -21,7 +23,10 @@ const TeacherComponent = ({ teacher }) => {
                 >
                     <i className="fas fa-pencil-alt"></i>
                 </Link>
-                <button className="btn btn-danger">
+                <button
+                    className="btn btn-danger"
+                    onClick={() => deleteTeacher(schoolId, teacher._id)}
+                >
                     <i className="fas fa-times"></i>
                 </button>
             </td>
@@ -31,6 +36,8 @@ const TeacherComponent = ({ teacher }) => {
 
 TeacherComponent.propTypes = {
     teacher: PropTypes.object.isRequired,
+    schoolId: PropTypes.string.isRequired,
+    deleteTeacher: PropTypes.func.isRequired,
 };
 
-export default TeacherComponent;
+export default connect(null, { deleteTeacher })(TeacherComponent);

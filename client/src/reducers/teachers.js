@@ -7,6 +7,8 @@ import {
     ADD_TEACHER_ERROR,
     EDIT_TEACHER,
     EDIT_TEACHER_ERROR,
+    DELETE_TEACHER,
+    DELETE_TEACHER_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -59,10 +61,20 @@ export default (state = initialState, actions) => {
                 isAuthenticated: true,
                 loading: false,
             };
+        case DELETE_TEACHER:
+            state.schoolTeachers = state.schoolTeachers.filter(
+                (teacher) => payload.teacherId !== teacher._id
+            );
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+            };
         case TEACHERS_ERROR:
         case GET_SCHOOL_TEACHERS_ERROR:
         case ADD_TEACHER_ERROR:
         case EDIT_TEACHER_ERROR:
+        case DELETE_TEACHER_ERROR:
             return {
                 ...state,
                 isAuthenticated: true,

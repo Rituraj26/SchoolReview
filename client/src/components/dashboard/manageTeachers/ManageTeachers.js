@@ -99,6 +99,9 @@ const ManageTeachers = ({
                                                 <TeacherComponent
                                                     key={teacher._id}
                                                     teacher={teacher}
+                                                    schoolId={
+                                                        publisherSchool._id
+                                                    }
                                                 />
                                             ))
                                         ) : (

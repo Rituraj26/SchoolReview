@@ -8,6 +8,8 @@ import {
     ADD_TEACHER_ERROR,
     EDIT_TEACHER,
     EDIT_TEACHER_ERROR,
+    DELETE_TEACHER,
+    DELETE_TEACHER_ERROR,
 } from './types';
 import { setAlert } from './alert';
 
@@ -184,6 +186,39 @@ export const editTeacher = (formData, schoolId, teacherId) => async (
 
         dispatch({
             type: EDIT_TEACHER_ERROR,
+        });
+    }
+};
+
+// Delete a Teacher
+
+export const deleteTeacher = (schoolId, teacherId) => async (dispatch) => {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    try {
+        await axios.delete(
+            `/schools/${schoolId}/teachers/${teacherId}`,
+            null,
+            config
+        );
+
+        dispatch({
+            type: DELETE_TEACHER,
+            payload: { teacherId },
+        });
+
+        dispatch(setAlert(`Teacher has been Deleted Successfully`, 'success'));
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: DELETE_TEACHER_ERROR,
         });
     }
 };
