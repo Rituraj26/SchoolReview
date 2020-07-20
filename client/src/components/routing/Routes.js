@@ -41,7 +41,7 @@ const Routes = () => {
                     path="/schools/:schoolId/reviews"
                     component={Reviews}
                 />
-                <PrivateRoutes path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={Dashboard} />
             </Switch>
         </section>
     );

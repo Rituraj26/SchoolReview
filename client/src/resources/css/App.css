@@ -67,3 +67,10 @@
         margin-left: -15rem;
     }
 }
+
+/* All Schools Card */
+
+.schoolName {
+    cursor: pointer;
+    color: rgb(219, 0, 0);
+}

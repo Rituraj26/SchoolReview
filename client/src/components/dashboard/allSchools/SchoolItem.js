@@ -6,7 +6,8 @@ const SchoolItem = ({
     school: {
         _id,
         schoolName,
-        mainPhoto,
+        description,
+        schoolPhoto,
         averageRating,
         location: { formattedAddress },
     },
@@ -14,30 +15,41 @@ const SchoolItem = ({
     const history = useHistory();
 
     const onClick = (schoolId) => {
-        let path = `/schools/${schoolId}`;
-        history.push(path);
+        history.push(`/schools/${schoolId}`);
     };
 
     return (
-        <div className="card mb-3">
+        <div className="card mb-3 mt-4">
             <div className="row no-gutters">
                 <div className="col-md-4">
-                    <img src={mainPhoto} className="card-img" alt="School" />
+                    <img
+                        src={schoolPhoto.photoPath}
+                        className="card-img"
+                        alt={schoolPhoto.photoName}
+                    />
                 </div>
                 <div className="col-md-8">
-                    <div className="card-body" onClick={() => onClick(_id)}>
+                    <div className="card-body d-flex flex-column justify-content-between">
                         <h5 className="card-title">
-                            {schoolName}
+                            <span
+                                className="schoolName"
+                                onClick={() => onClick(_id)}
+                            >
+                                {schoolName}
+                            </span>
                             <span className="float-right badge badge-success">
                                 {averageRating}
                             </span>
                         </h5>
-                        <span className="badge badge-dark mb-2">
-                            {formattedAddress}
-                        </span>
-                        {/* <p className="card-text">
-                            Web Development, UI/UX, Mobile Development
-                        </p> */}
+
+                        <p className="card-text my-4">
+                            {description.substring(0, 200) + '...'}
+                        </p>
+                        <p className="card-text">
+                            <small className="text-muted">
+                                {formattedAddress.substring(0, 60) + '...'}
+                            </small>
+                        </p>
                     </div>
                 </div>
             </div>
