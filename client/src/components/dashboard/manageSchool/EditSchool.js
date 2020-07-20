@@ -10,6 +10,8 @@ const EditSchool = ({ editSchool, school }) => {
     const initialState = {
         schoolName: school.schoolName,
         description: school.description,
+        photoName: school.schoolPhoto.photoName,
+        photoPath: school.schoolPhoto.photoPath,
         address: school.address,
         email: school.contactUs.email,
         website: school.contactUs.website,
@@ -29,6 +31,8 @@ const EditSchool = ({ editSchool, school }) => {
     const {
         schoolName,
         description,
+        photoName,
+        photoPath,
         address,
         phoneNo,
         email,

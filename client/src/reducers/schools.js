@@ -13,6 +13,8 @@ import {
     EDIT_SCHOOL_ERROR,
     DELETE_SCHOOL,
     DELETE_SCHOOL_ERROR,
+    UPLOAD_SCHOOL_PHOTO,
+    UPLOAD_SCHOOL_PHOTO_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -26,6 +28,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
+
     switch (type) {
         case GET_SCHOOLS:
         case GET_SCHOOLS_BY_RADIUS:
@@ -64,6 +67,14 @@ export default (state = initialState, action) => {
                 isAuthenticated: true,
                 loading: false,
             };
+        case UPLOAD_SCHOOL_PHOTO:
+            state.school.schoolPhoto.photoName = payload.data.fileName;
+            state.school.schoolPhoto.photoPath = payload.data.filePath;
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+            };
         case SCHOOLS_ERROR:
         case GET_SCHOOLS_BY_RADIUS_ERROR:
         case GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR:
@@ -71,6 +82,7 @@ export default (state = initialState, action) => {
         case ADD_SCHOOL_ERROR:
         case EDIT_SCHOOL_ERROR:
         case DELETE_SCHOOL_ERROR:
+        case UPLOAD_SCHOOL_PHOTO_ERROR:
             return {
                 ...state,
                 loading: false,

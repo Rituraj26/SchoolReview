@@ -1,10 +1,41 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteSchool } from '../../../actions/schools';
+import { schoolPhotoUpload, deleteSchool } from '../../../actions/schools';
 
-const SchoolComponent = ({ school, deleteSchool }) => {
+const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
+    const [file, setFile] = useState('');
+
+    const [fileName, setFileName] = useState('Choose File');
+
+    const onPhotoUpload = (e) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+
+        // let fr = new FileReader();
+
+        // let photo = e.target.files[0];
+
+        // fr.onloadend = () => {
+        //     setPhotoData({
+        //         ...photoData,
+        //         file: photo,
+        //         imagePreviewUrl: fr.result,
+        //     });
+        // };
+        // fr.readAsDataURL(photo);
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        const data = new FormData();
+        data.append('file', file);
+
+        schoolPhotoUpload(school._id, data);
+    };
+
     return (
         <Fragment>
             <h1 className="mb-4">Manage School</h1>
@@ -12,9 +43,9 @@ const SchoolComponent = ({ school, deleteSchool }) => {
                 <div className="row no-gutters">
                     <div className="col-md-4">
                         <img
-                            src="img/image_1.jpg"
+                            src={school.schoolPhoto.photoPath}
                             className="card-img"
-                            alt="..."
+                            alt={school.schoolPhoto.photoName}
                         />
                     </div>
                     <div className="col-md-8">
@@ -37,7 +68,7 @@ const SchoolComponent = ({ school, deleteSchool }) => {
                     </div>
                 </div>
             </div>
-            <form className="mb-4">
+            <form className="mb-4" onSubmit={(e) => onSubmit(e)}>
                 <div className="form-group">
                     <label htmlFor="photo">Add School Image</label>
                     <input
@@ -46,7 +77,7 @@ const SchoolComponent = ({ school, deleteSchool }) => {
                         name="file"
                         id="photo"
                         aria-describedby="fileHelp"
-                        // onChange={(e) => onPhotoUpload(e)}
+                        onChange={(e) => onPhotoUpload(e)}
                     />
                 </div>
                 <input
@@ -87,6 +118,9 @@ const SchoolComponent = ({ school, deleteSchool }) => {
 SchoolComponent.propTypes = {
     school: PropTypes.object.isRequired,
     deleteSchool: PropTypes.func.isRequired,
+    schoolPhotoUpload: PropTypes.func.isRequired,
 };
 
-export default connect(null, { deleteSchool })(SchoolComponent);
+export default connect(null, { deleteSchool, schoolPhotoUpload })(
+    SchoolComponent
+);

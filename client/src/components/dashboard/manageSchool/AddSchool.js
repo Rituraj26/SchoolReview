@@ -7,6 +7,8 @@ import { useHistory } from 'react-router';
 const initialState = {
     schoolName: '',
     description: '',
+    photoName: '',
+    photoPath: '',
     address: '',
     phoneNo: '',
     email: '',
@@ -45,6 +47,8 @@ const AddSchool = ({ addSchool }) => {
     const {
         schoolName,
         description,
+        photoName,
+        photoPath,
         address,
         phoneNo,
         email,
@@ -120,8 +124,7 @@ const AddSchool = ({ addSchool }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        addSchool(formData);
-        history.push('/dashboard/school');
+        addSchool(formData, history);
     };
 
     return (

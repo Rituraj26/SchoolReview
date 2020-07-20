@@ -14,6 +14,8 @@ import {
     EDIT_SCHOOL_ERROR,
     DELETE_SCHOOL,
     DELETE_SCHOOL_ERROR,
+    UPLOAD_SCHOOL_PHOTO,
+    UPLOAD_SCHOOL_PHOTO_ERROR,
 } from './types';
 import { setAlert } from './alert';
 
@@ -146,7 +148,7 @@ export const getPublisherSchool = (publisherSchool) => (dispatch) => {
 
 // Add a School
 
-export const addSchool = (formData) => async (dispatch) => {
+export const addSchool = (formData, history) => async (dispatch) => {
     const config = {
         headers: { 'Content-Type': 'application/json' },
     };
@@ -154,6 +156,8 @@ export const addSchool = (formData) => async (dispatch) => {
     const {
         schoolName,
         description,
+        photoName,
+        photoPath,
         address,
         phoneNo,
         email,
@@ -171,6 +175,10 @@ export const addSchool = (formData) => async (dispatch) => {
     const body = JSON.stringify({
         schoolName,
         description,
+        schoolPhoto: {
+            photoName,
+            photoPath,
+        },
         address,
         contactUs: {
             email,
@@ -197,6 +205,8 @@ export const addSchool = (formData) => async (dispatch) => {
             payload: res.data,
         });
 
+        history.push('/dashboard/school');
+
         dispatch(setAlert('School has been added successfully', 'success'));
     } catch (err) {
         const errors = err.response.data.error;
@@ -221,6 +231,8 @@ export const editSchool = (formData, schoolId, history) => async (dispatch) => {
     const {
         schoolName,
         description,
+        photoName,
+        photoPath,
         address,
         email,
         website,
@@ -238,6 +250,10 @@ export const editSchool = (formData, schoolId, history) => async (dispatch) => {
     const body = JSON.stringify({
         schoolName,
         description,
+        schoolPhoto: {
+            photoName,
+            photoPath,
+        },
         address,
         contactUs: {
             email,
@@ -307,6 +323,37 @@ export const deleteSchool = (schoolId) => async (dispatch, getState) => {
 
         dispatch({
             type: DELETE_SCHOOL_ERROR,
+        });
+    }
+};
+
+// Upload Photo for a School
+
+export const schoolPhotoUpload = (schoolId, file) => async (dispatch) => {
+    const config = {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    };
+
+    try {
+        const res = await axios.put(`/schools/${schoolId}/photo`, file, config);
+
+        dispatch({
+            type: UPLOAD_SCHOOL_PHOTO,
+            payload: res.data,
+        });
+
+        dispatch(
+            setAlert('School Photo has been uploaded successfully', 'success')
+        );
+    } catch (err) {
+        const errors = err.response.data.error;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error, 'danger')));
+        }
+
+        dispatch({
+            type: UPLOAD_SCHOOL_PHOTO_ERROR,
         });
     }
 };

@@ -19,8 +19,11 @@ const SchoolSchema = new mongoose.Schema(
         },
         slug: String,
         schoolPhoto: {
-            type: String,
-            default: 'no-photo.jpg',
+            photoName: {
+                type: String,
+                default: 'no-photo.jpg',
+            },
+            photoPath: String,
         },
         address: {
             type: String,

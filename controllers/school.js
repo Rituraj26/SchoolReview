@@ -180,14 +180,21 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
     }
 
     file.name = `photo_${school._id}${path.parse(file.name).ext}`;
-    console.log(file.name);
 
     file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
         if (err) {
             return next(new ErrorResponse(`Problem with the file upload`), 500);
         }
-        await School.findByIdAndUpdate(req.params.id, { photo: file.name });
+        await School.findByIdAndUpdate(req.params.id, {
+            schoolPhoto: {
+                photoName: file.name,
+                photoPath: `/uploads/${file.name}`,
+            },
+        });
     });
 
-    res.status(200).json({ success: true, data: file.name });
+    res.status(200).json({
+        success: true,
+        data: { fileName: file.name, filePath: `/uploads/${file.name}` },
+    });
 });
