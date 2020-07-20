@@ -20,37 +20,43 @@ const SchoolDetails = ({ getSchool, school }) => {
 
     return (
         <div className="container">
-            <h1 className="my-4">{school.schoolName}</h1>
+            <h1 className="my-4 display-4">{school.schoolName}</h1>
             <div className="row">
                 <div className="col-md-8">
                     <img
                         className="img-fluid"
-                        src="http://placehold.it/750x500"
-                        alt=""
+                        src={school.schoolPhoto.photoPath}
+                        alt={school.schoolPhoto.photoName}
                     />
                 </div>
 
                 <div className="col-md-4">
-                    <h4 className="my-3">
-                        Founded:{' '}
-                        <small className="ml-2">{school.founded}</small>
-                    </h4>
-                    <h4 className="my-3">
-                        Address:{' '}
-                        <small className="ml-2">{school.address}</small>
-                    </h4>
-                    <h4 className="my-3">
-                        Scholarship Available:{' '}
-                        <small className="ml-2 text-capitalize">
-                            {school.scholarshipAvailable.toString()}
-                        </small>
-                    </h4>
-                    <h4 className="text-center my-4">
-                        <span className="badge badge-secondary badge-success rounded-circle p-3">
-                            {school.averageRating}
-                        </span>{' '}
-                        Rating
-                    </h4>
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <td>Founded</td>
+                                <td>{school.founded}</td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>{school.address}</td>
+                            </tr>
+                            <tr>
+                                <td>Scholarship Availability</td>
+                                <td>
+                                    {school.scholarshipAvailable.toString()}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="align-middle">Rating</td>
+                                <td className="h4">
+                                    <span className="badge badge-secondary badge-success rounded-circle p-3">
+                                        {school.averageRating}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <Link
                         to={`/schools/${school._id}/reviews`}
@@ -74,59 +80,97 @@ const SchoolDetails = ({ getSchool, school }) => {
                 </div>
             </div>
 
+            {/* About School */}
+
+            <div className="card border-0 bg-white my-5 p-5">
+                <div className="card-body">
+                    <h4 className="mb-4">About</h4>
+
+                    <p>{school.description}</p>
+                </div>
+            </div>
+
+            {/* Contact Us */}
+
+            <div className="my-5 bg-white p-5">
+                <h4 className="mb-4">Contact Us</h4>
+                <table className="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+                            <td>{school.contactUs.email}</td>
+                        </tr>
+                        <tr>
+                            <td>Phone No</td>
+                            <td>{school.contactUs.phoneNo}</td>
+                        </tr>
+                        <tr>
+                            <td>Website</td>
+                            <td>
+                                <Link to={school.contactUs.website}>
+                                    {school.contactUs.website}
+                                </Link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             {/* Fee Structure Row */}
 
-            <h4 className="my-4">Fee Structure</h4>
+            <div className="bg-white my-5 p-5">
+                <h4 className="mb-4">Fee Structure</h4>
 
-            <div className="row">
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card border-success mb-3">
-                        <div className="card-header bg-transparent border-success">
-                            Bus Fee
-                        </div>
-                        <div className="card-body text-success">
-                            <h5 className="card-title">
-                                {school.feeStructure.busFee}
-                            </h5>
+                <div className="row">
+                    <div className="col-md-3 col-sm-6 mb-4">
+                        <div className="card border-success mb-3">
+                            <div className="card-header bg-transparent border-success">
+                                Bus Fee
+                            </div>
+                            <div className="card-body text-success">
+                                <h5 className="card-title">
+                                    {school.feeStructure.busFee}
+                                </h5>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card border-success mb-3">
-                        <div className="card-header bg-transparent border-success">
-                            Tution Fee
-                        </div>
-                        <div className="card-body text-success">
-                            <h5 className="card-title">
-                                {school.feeStructure.tutionFee}
-                            </h5>
+                    <div className="col-md-3 col-sm-6 mb-4">
+                        <div className="card border-success mb-3">
+                            <div className="card-header bg-transparent border-success">
+                                Tution Fee
+                            </div>
+                            <div className="card-body text-success">
+                                <h5 className="card-title">
+                                    {school.feeStructure.tutionFee}
+                                </h5>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card border-success mb-3">
-                        <div className="card-header bg-transparent border-success">
-                            Admission Fee
-                        </div>
-                        <div className="card-body text-success">
-                            <h5 className="card-title">
-                                {school.feeStructure.admissionFee}
-                            </h5>
+                    <div className="col-md-3 col-sm-6 mb-4">
+                        <div className="card border-success mb-3">
+                            <div className="card-header bg-transparent border-success">
+                                Admission Fee
+                            </div>
+                            <div className="card-body text-success">
+                                <h5 className="card-title">
+                                    {school.feeStructure.admissionFee}
+                                </h5>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="col-md-3 col-sm-6 mb-4">
-                    <div className="card border-success mb-3">
-                        <div className="card-header bg-transparent border-success">
-                            Hostel Fee
-                        </div>
-                        <div className="card-body text-success">
-                            <h5 className="card-title">
-                                {school.feeStructure.hostelFee}
-                            </h5>
+                    <div className="col-md-3 col-sm-6 mb-4">
+                        <div className="card border-success mb-3">
+                            <div className="card-header bg-transparent border-success">
+                                Hostel Fee
+                            </div>
+                            <div className="card-body text-success">
+                                <h5 className="card-title">
+                                    {school.feeStructure.hostelFee}
+                                </h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,30 +178,34 @@ const SchoolDetails = ({ getSchool, school }) => {
 
             {/* Toppers Row */}
 
-            <h4 className="my-4">Toppers</h4>
+            <div className="bg-white my-5 p-5">
+                <h4 className="mb-4">Toppers</h4>
 
-            <div className="row">
-                {school.toppers.length > 0 ? (
-                    school.toppers.map((topper) => (
-                        <SchoolTopper topper={topper} />
-                    ))
-                ) : (
-                    <p>No Toppers Data Available</p>
-                )}
+                <div className="row">
+                    {school.toppers.length > 0 ? (
+                        school.toppers.map((topper) => (
+                            <SchoolTopper topper={topper} />
+                        ))
+                    ) : (
+                        <p className="ml-3">No Toppers Data Available</p>
+                    )}
+                </div>
             </div>
 
             {/* Teachers Row */}
 
-            <h4 className="my-4">Teachers</h4>
+            <div className="bg-white my-5 p-5">
+                <h4 className="mb-4">Teachers</h4>
 
-            <div className="row">
-                {school.teachers.length > 0 ? (
-                    school.teachers.map((teacher) => (
-                        <SchoolTeacher teacher={teacher} />
-                    ))
-                ) : (
-                    <p>No Teacher Data Available</p>
-                )}
+                <div className="row">
+                    {school.teachers.length > 0 ? (
+                        school.teachers.map((teacher) => (
+                            <SchoolTeacher teacher={teacher} />
+                        ))
+                    ) : (
+                        <p className="ml-3">No Teacher Data Available</p>
+                    )}
+                </div>
             </div>
         </div>
     );
