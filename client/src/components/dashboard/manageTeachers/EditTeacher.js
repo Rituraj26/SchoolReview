@@ -65,7 +65,9 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
                                 Teachers
                             </Link>
                             <h2 className="mb-2">{school.schoolName}</h2>
-                            <h3 className="text-primary mb-4">Add Teacher</h3>
+                            <h3 className="text-primary mb-4">
+                                Add Teacher Details
+                            </h3>
                             <form onSubmit={(e) => onSubmit(e)}>
                                 <div className="form-group">
                                     <label>Name</label>
@@ -224,7 +226,7 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
                                 <div className="form-group mt-4">
                                     <input
                                         type="submit"
-                                        value="Add Course"
+                                        value="Add Teacher Details"
                                         className="btn btn-dark btn-block"
                                     />
                                 </div>

@@ -42,14 +42,13 @@ const AddTeacher = ({ school, addTeacher }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        addTeacher(formData, school._id);
-        history.push('/dashboard/teachers');
+        addTeacher(formData, school._id, history);
     };
 
     return (
-        <section className="container mt-5">
+        <section className="container mt-5 ml-5">
             <div className="row">
-                <div className="col-md-8 m-auto">
+                <div className="col-md-8">
                     <div className="card bg-white py-2 px-4">
                         <div className="card-body">
                             <Link
@@ -60,7 +59,9 @@ const AddTeacher = ({ school, addTeacher }) => {
                                 Teachers
                             </Link>
                             <h2 className="mb-2">{school.schoolName}</h2>
-                            <h3 className="text-primary mb-4">Add Teacher</h3>
+                            <h3 className="text-primary mb-4">
+                                Add Teacher Details
+                            </h3>
                             <form onSubmit={(e) => onSubmit(e)}>
                                 <div className="form-group">
                                     <label>Name</label>
@@ -219,7 +220,7 @@ const AddTeacher = ({ school, addTeacher }) => {
                                 <div className="form-group mt-4">
                                     <input
                                         type="submit"
-                                        value="Add Course"
+                                        value="Add Teacher Details"
                                         className="btn btn-dark btn-block"
                                     />
                                 </div>

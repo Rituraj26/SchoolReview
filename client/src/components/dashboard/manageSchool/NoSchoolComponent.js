@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const NoSchoolComponent = () => {
     return (
         <Fragment>
-            <h1 className="mb-2">Manage School</h1>
+            <h1 className="my-3">Manage School</h1>
             <p className="lead">You have not yet added a school</p>
             <Link
                 to="/dashboard/school/add"

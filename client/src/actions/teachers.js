@@ -71,7 +71,7 @@ export const getSchoolTeachers = (schoolId) => async (dispatch) => {
 
 // Add a Teacher
 
-export const addTeacher = (formData, schoolId) => async (dispatch) => {
+export const addTeacher = (formData, schoolId, history) => async (dispatch) => {
     const config = {
         headers: { 'Content-Type': 'application/json' },
     };
@@ -115,6 +115,12 @@ export const addTeacher = (formData, schoolId) => async (dispatch) => {
             type: ADD_TEACHER,
             payload: res.data,
         });
+
+        dispatch(
+            setAlert('Teacher details has been added successfully', 'success')
+        );
+
+        history.push('/dashboard/teachers');
     } catch (err) {
         const errors = err.response.data.error;
 
