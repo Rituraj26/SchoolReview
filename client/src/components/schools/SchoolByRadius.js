@@ -11,8 +11,6 @@ const SchoolByRadius = ({ getSchoolByRadius }) => {
 
     const { zipcode, distance } = formData;
 
-    // Get Schools By Radius Form Handler
-
     const onChange = (e) => {
         setFormData({
             ...formData,
@@ -23,6 +21,10 @@ const SchoolByRadius = ({ getSchoolByRadius }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         getSchoolByRadius({ zipcode, distance });
+        setFormData({
+            zipcode: '',
+            distance: '',
+        });
     };
 
     return (

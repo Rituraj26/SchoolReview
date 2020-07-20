@@ -2,103 +2,28 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getSchools, getSchoolByRadius } from '../../actions/schools';
+import { getSchools } from '../../actions/schools';
 import SchoolItem from './SchoolItem';
 import SchoolByRadius from './SchoolByRadius';
 import SchoolByRatingAndFounded from './SchoolByRatingAndFounded';
 
-const Schools = ({
-    getSchools,
-    getSchoolByRadius,
-    schools: { count, schoolData },
-}) => {
+const Schools = ({ getSchools, schools: { count, schoolData } }) => {
     useEffect(() => {
         getSchools(1);
     }, [getSchools]);
-
-    // Pagination Function
-    // const paginationFun = () => {
-    //     if (!pagination.next && !pagination.prev) {
-    //         return <Fragment>oehafo</Fragment>;
-    //     }
-    //     if (pagination.next && pagination.prev) {
-    //         return (
-    //             <Fragment>
-    //                 <li className="page-item">
-    //                     <span
-    //                         className="page-link"
-    //                         onClick={() => getSchools(pagination.next.page - 1)}
-    //                     >
-    //                         Previous
-    //                     </span>
-    //                 </li>
-    //                 <li className="page-item">
-    //                     <span className="page-link">
-    //                         {pagination.next.page - 1}
-    //                     </span>
-    //                 </li>
-    //                 <li className="page-item">
-    //                     <span
-    //                         className="page-link"
-    //                         onClick={() => getSchools(pagination.next.page)}
-    //                     >
-    //                         Next
-    //                     </span>
-    //                 </li>
-    //             </Fragment>
-    //         );
-    //     } else if (pagination.next && !pagination.prev) {
-    //         return (
-    //             <Fragment>
-    //                 <li className="page-item">
-    //                     <span className="page-link">
-    //                         {pagination.next.page - 1}
-    //                     </span>
-    //                 </li>
-    //                 <li className="page-item">
-    //                     <span
-    //                         className="page-link"
-    //                         onClick={() => getSchools(pagination.next.page)}
-    //                     >
-    //                         Next
-    //                     </span>
-    //                 </li>
-    //             </Fragment>
-    //         );
-    //     } else {
-    //         return (
-    //             <Fragment>
-    //                 <li className="page-item">
-    //                     <span
-    //                         className="page-link"
-    //                         onClick={() => getSchools(pagination.prev.page)}
-    //                     >
-    //                         Previous
-    //                     </span>
-    //                 </li>
-    //                 <li className="page-item">
-    //                     <span className="page-link">
-    //                         {pagination.prev.page + 1}
-    //                     </span>
-    //                 </li>
-    //             </Fragment>
-    //         );
-    //     }
-    // };
 
     return (
         <section className="browse my-5 px-5">
             <div className="container-fluid">
                 <div className="row">
-                    {/* <!-- Sidebar --> */}
                     <div className="col-md-4">
                         <h4>Filter</h4>
                         <SchoolByRadius />
                         <SchoolByRatingAndFounded />
                     </div>
-                    {/* <!-- Main col --> */}
+
                     <div className="col-md-8">
-                        {/* <!-- Bootcamps --> */}
+                        {/* Show all Schools */}
                         {count > 0 ? (
                             schoolData.map((sch) => (
                                 <SchoolItem key={sch._id} school={sch} />
@@ -129,6 +54,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { getSchools, getSchoolByRadius })(
-    Schools
-);
+export default connect(mapStateToProps, { getSchools })(Schools);

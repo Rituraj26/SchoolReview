@@ -11,8 +11,6 @@ const SchoolByRatingAndFounded = ({ getSchoolByRatingAndFounded }) => {
 
     const { rating, founded } = formData;
 
-    // Get Schools By Rating and Founded date Form Handler
-
     const onChange = (e) => {
         setFormData({
             ...formData,
@@ -23,6 +21,10 @@ const SchoolByRatingAndFounded = ({ getSchoolByRatingAndFounded }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         getSchoolByRatingAndFounded({ rating, founded });
+        setFormData({
+            rating: '',
+            founded: '',
+        });
     };
 
     return (
