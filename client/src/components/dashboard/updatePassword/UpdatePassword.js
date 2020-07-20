@@ -26,6 +26,11 @@ const UpdatePassword = ({ updatePassword, setAlert }) => {
             setAlert(`Password didn't match`, 'danger');
         } else {
             updatePassword({ currentPassword, newPassword });
+            setFormData({
+                currentPassword: '',
+                newPassword: '',
+                newPassword2: '',
+            });
         }
     };
 

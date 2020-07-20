@@ -61,7 +61,7 @@ const EditSchool = ({ editSchool, school }) => {
 
     return (
         <section className="container mt-5">
-            <h1 className="mb-2">Edit School Details</h1>
+            <h1 className="mb-4">Edit School Details</h1>
 
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="row">

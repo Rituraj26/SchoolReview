@@ -1,30 +1,20 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { schoolPhotoUpload, deleteSchool } from '../../../actions/schools';
 
 const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
     const [file, setFile] = useState('');
 
-    const [fileName, setFileName] = useState('Choose File');
+    const history = useHistory();
+
+    const onClick = (schoolId) => {
+        history.push(`/schools/${schoolId}`);
+    };
 
     const onPhotoUpload = (e) => {
         setFile(e.target.files[0]);
-        setFileName(e.target.files[0].name);
-
-        // let fr = new FileReader();
-
-        // let photo = e.target.files[0];
-
-        // fr.onloadend = () => {
-        //     setPhotoData({
-        //         ...photoData,
-        //         file: photo,
-        //         imagePreviewUrl: fr.result,
-        //     });
-        // };
-        // fr.readAsDataURL(photo);
     };
 
     const onSubmit = (e) => {
@@ -39,7 +29,7 @@ const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
     return (
         <Fragment>
             <h1 className="mb-4">Manage School</h1>
-            <div className="card mb-3">
+            <div className="card mb-3 mt-4">
                 <div className="row no-gutters">
                     <div className="col-md-4">
                         <img
@@ -49,20 +39,26 @@ const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
                         />
                     </div>
                     <div className="col-md-8">
-                        <div className="card-body">
+                        <div className="card-body d-flex flex-column justify-content-between">
                             <h5 className="card-title">
-                                <Link to={`/schools/${school._id}`}>
+                                <span
+                                    className="schoolName"
+                                    onClick={() => onClick(school._id)}
+                                >
                                     {school.schoolName}
-                                    <span className="float-right badge badge-success">
-                                        {school.averageRating}
-                                    </span>
-                                </Link>
+                                </span>
+                                <span className="float-right badge badge-success">
+                                    {school.averageRating}
+                                </span>
                             </h5>
-                            <span className="badge badge-dark mb-2">
-                                {school.address.substring(0, 35) + '...'}
-                            </span>
+
                             <p className="card-text">
-                                Web Development, UI/UX, Mobile Development
+                                {school.description.substring(0, 160) + '...'}
+                            </p>
+                            <p className="card-text">
+                                <small className="text-muted">
+                                    {school.address.substring(0, 60) + '...'}
+                                </small>
                             </p>
                         </div>
                     </div>

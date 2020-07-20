@@ -9,7 +9,7 @@ const SchoolItem = ({
         description,
         schoolPhoto,
         averageRating,
-        location: { formattedAddress },
+        address,
     },
 }) => {
     const history = useHistory();
@@ -47,7 +47,7 @@ const SchoolItem = ({
                         </p>
                         <p className="card-text">
                             <small className="text-muted">
-                                {formattedAddress.substring(0, 60) + '...'}
+                                {address.substring(0, 60) + '...'}
                             </small>
                         </p>
                     </div>

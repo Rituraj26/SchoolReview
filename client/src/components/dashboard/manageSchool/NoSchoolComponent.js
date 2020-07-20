@@ -17,7 +17,7 @@ const NoSchoolComponent = () => {
             </p>
             <p className="text-muted">
                 * You must be affiliated with the school in some way in order to
-                add it to DevCamper.
+                add it to Schoorify.
             </p>
         </Fragment>
     );
