@@ -25,6 +25,11 @@ const AddReview = ({ addReview }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         addReview({ rating, title, description }, schoolId);
+        setFormData({
+            rating: '8',
+            title: '',
+            description: '',
+        });
     };
 
     return (

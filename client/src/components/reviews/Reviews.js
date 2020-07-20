@@ -12,7 +12,7 @@ import Spinner from '../layout/Spinner';
 const Reviews = ({
     getReviews,
     reviews: { count, reviewData, loading },
-    school: { averageRating },
+    school: { schoolName, averageRating },
 }) => {
     const { schoolId } = useParams();
 
@@ -21,23 +21,23 @@ const Reviews = ({
     }, [getReviews, schoolId]);
 
     return (
-        <section className="bootcamp mt-5">
+        <section className="container mt-5">
             <div className="row">
                 <div className="col-md-7">
                     <Link
                         to={`/schools/${schoolId}`}
                         className="btn btn-secondary my-3"
                     >
-                        <i className="fas fa-chevron-left"></i> Bootcamp Info
+                        <i className="fas fa-chevron-left"></i> School Info
                     </Link>
-                    <h1 className="mb-4">DevWorks Bootcamp Reviews</h1>
+                    <h1 className="mb-4">{schoolName}</h1>
 
-                    {count > 0 && !loading ? (
+                    {count > 0 ? (
                         reviewData.map((review) => (
                             <ReviewItem key={review._id} review={review} />
                         ))
                     ) : (
-                        <Spinner />
+                        <p>No Reviews Available</p>
                     )}
                 </div>
 
@@ -73,6 +73,7 @@ const mapStateToProps = (state) => {
     return {
         reviews: state.reviews,
         school: state.schools.school,
+        user: state.auth.user,
     };
 };
 

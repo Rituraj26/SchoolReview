@@ -21,6 +21,7 @@ const reviewSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    reviewOwner: String,
     school: {
         type: mongoose.Schema.ObjectId,
         ref: 'School',

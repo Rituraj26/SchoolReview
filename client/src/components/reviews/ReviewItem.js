@@ -11,7 +11,7 @@ const ReviewItem = ({ review }) => {
                     <span className="text-success">{review.rating}</span>
                 </h5>
                 <p className="card-text">{review.description}</p>
-                <p className="text-muted">Writtern By Kevin Smith</p>
+                <p className="text-muted">Written by {review.reviewOwner}</p>
             </div>
         </div>
     );

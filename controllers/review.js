@@ -45,6 +45,7 @@ exports.getReview = asyncHandler(async (req, res, next) => {
 exports.addReview = asyncHandler(async (req, res, next) => {
     req.body.user = req.user.id;
     req.body.school = req.params.schoolId;
+    req.body.reviewOwner = req.user.name;
 
     const school = await School.findById(req.params.schoolId);
 
