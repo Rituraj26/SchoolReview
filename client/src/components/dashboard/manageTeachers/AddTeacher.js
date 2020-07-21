@@ -23,7 +23,7 @@ const AddTeacher = ({ school, addTeacher }) => {
 
     const {
         teacherName,
-        photo,
+        // photo,
         dept,
         exp,
         tutionAvailability,
@@ -134,9 +134,12 @@ const AddTeacher = ({ school, addTeacher }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="tutionAvailability"
-                                            value={false}
+                                            value={'false'}
                                             id="no"
                                             onChange={(e) => onChange(e)}
+                                            checked={
+                                                tutionAvailability === 'false'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"
@@ -151,9 +154,12 @@ const AddTeacher = ({ school, addTeacher }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="tutionAvailability"
-                                            value={true}
+                                            value={'true'}
                                             id="yes"
                                             onChange={(e) => onChange(e)}
+                                            checked={
+                                                tutionAvailability === 'true'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"

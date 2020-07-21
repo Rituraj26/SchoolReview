@@ -183,8 +183,10 @@ const SchoolDetails = ({ getSchool, school }) => {
 
                 <div className="row">
                     {school.toppers.length > 0 ? (
-                        school.toppers.map((topper) => (
-                            <SchoolTopper topper={topper} />
+                        school.toppers.map((
+                            topper // key needs to be changed when updating topper and teacher
+                        ) => (
+                            <SchoolTopper key={Math.random()} topper={topper} />
                         ))
                     ) : (
                         <p className="ml-3">No Toppers Data Available</p>
@@ -200,7 +202,10 @@ const SchoolDetails = ({ getSchool, school }) => {
                 <div className="row">
                     {school.teachers.length > 0 ? (
                         school.teachers.map((teacher) => (
-                            <SchoolTeacher teacher={teacher} />
+                            <SchoolTeacher
+                                key={teacher._id}
+                                teacher={teacher}
+                            />
                         ))
                     ) : (
                         <p className="ml-3">No Teacher Data Available</p>

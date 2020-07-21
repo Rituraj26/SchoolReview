@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addSchool } from '../../../actions/schools';
@@ -18,7 +18,7 @@ const initialState = {
     tutionFee: '',
     busFee: '',
     hostelFee: '',
-    scholarshipAvailable: false,
+    scholarshipAvailable: 'false',
     toppers: [],
     awards: [],
 };
@@ -47,8 +47,8 @@ const AddSchool = ({ addSchool }) => {
     const {
         schoolName,
         description,
-        photoName,
-        photoPath,
+        // photoName,
+        // photoPath,
         address,
         phoneNo,
         email,
@@ -59,8 +59,8 @@ const AddSchool = ({ addSchool }) => {
         busFee,
         hostelFee,
         scholarshipAvailable,
-        toppers,
-        awards,
+        // toppers,
+        // awards,
     } = formData;
 
     // const onPhotoUpload = (e) => {
@@ -168,6 +168,7 @@ const AddSchool = ({ addSchool }) => {
                                         placeholder="Description (What you offer, etc)"
                                         onChange={(e) => onChange(e)}
                                         maxLength="500"
+                                        required
                                     ></textarea>
                                     <small className="form-text text-muted">
                                         Not more than 500 characters
@@ -286,10 +287,12 @@ const AddSchool = ({ addSchool }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
-                                            value={false}
+                                            value={'false'}
                                             id="no"
                                             onChange={(e) => onChange(e)}
-                                            checked
+                                            checked={
+                                                scholarshipAvailable === 'false'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"
@@ -303,9 +306,12 @@ const AddSchool = ({ addSchool }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
-                                            value={true}
+                                            value={'true'}
                                             id="yes"
                                             onChange={(e) => onChange(e)}
+                                            checked={
+                                                scholarshipAvailable === 'true'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"

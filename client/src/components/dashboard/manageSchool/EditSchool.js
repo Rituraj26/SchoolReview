@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -10,8 +10,6 @@ const EditSchool = ({ editSchool, school }) => {
     const initialState = {
         schoolName: school.schoolName,
         description: school.description,
-        photoName: school.schoolPhoto.photoName,
-        photoPath: school.schoolPhoto.photoPath,
         address: school.address,
         email: school.contactUs.email,
         website: school.contactUs.website,
@@ -21,7 +19,7 @@ const EditSchool = ({ editSchool, school }) => {
         tutionFee: school.feeStructure.tutionFee,
         busFee: school.feeStructure.busFee,
         hostelFee: school.feeStructure.hostelFee,
-        scholarshipAvailable: school.scholarshipAvailable,
+        scholarshipAvailable: school.scholarshipAvailable.toString(),
         toppers: school.toppers,
         awards: school.awards,
     };
@@ -31,8 +29,6 @@ const EditSchool = ({ editSchool, school }) => {
     const {
         schoolName,
         description,
-        photoName,
-        photoPath,
         address,
         phoneNo,
         email,
@@ -43,8 +39,8 @@ const EditSchool = ({ editSchool, school }) => {
         busFee,
         hostelFee,
         scholarshipAvailable,
-        toppers,
-        awards,
+        // toppers,
+        // awards,
     } = formData;
 
     const onChange = (e) => {
@@ -208,6 +204,7 @@ const EditSchool = ({ editSchool, school }) => {
                                         onChange={(e) => onChange(e)}
                                     />
                                 </div>
+
                                 <div className="form-group">
                                     <label>Scholarship Availibility</label>
                                     <div className="form-check my-1">
@@ -215,10 +212,12 @@ const EditSchool = ({ editSchool, school }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
-                                            value={false}
+                                            value={'false'}
                                             id="no"
                                             onChange={(e) => onChange(e)}
-                                            checked
+                                            checked={
+                                                scholarshipAvailable === 'false'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"
@@ -232,9 +231,12 @@ const EditSchool = ({ editSchool, school }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="scholarshipAvailable"
-                                            value={true}
+                                            value={'true'}
                                             id="yes"
                                             onChange={(e) => onChange(e)}
+                                            checked={
+                                                scholarshipAvailable === 'true'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"

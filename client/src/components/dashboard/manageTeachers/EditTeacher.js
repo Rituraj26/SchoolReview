@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
@@ -18,8 +18,8 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
         photo: '',
         dept: teacher[0].dept,
         exp: teacher[0].exp,
-        tutionAvailability: teacher[0].tutionAvailability,
-        tutionFee: teacher[0].tutionFee,
+        tutionAvailability: teacher[0].tution.tutionAvailability.toString(),
+        tutionFee: teacher[0].tution.tutionFee,
         email: teacher[0].email,
         phoneNo: teacher[0].phoneNo,
         address: teacher[0].address,
@@ -29,7 +29,7 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
 
     const {
         teacherName,
-        photo,
+        // photo,
         dept,
         exp,
         tutionAvailability,
@@ -140,9 +140,12 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="tutionAvailability"
-                                            value={false}
+                                            value="false"
                                             id="no"
                                             onChange={(e) => onChange(e)}
+                                            checked={
+                                                tutionAvailability === 'false'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"
@@ -157,9 +160,12 @@ const EditTeacher = ({ school, editTeacher, schoolTeachers }) => {
                                             className="form-check-input"
                                             type="radio"
                                             name="tutionAvailability"
-                                            value={true}
+                                            value="true"
                                             id="yes"
                                             onChange={(e) => onChange(e)}
+                                            checked={
+                                                tutionAvailability === 'true'
+                                            }
                                         />
                                         <label
                                             className="form-check-label"

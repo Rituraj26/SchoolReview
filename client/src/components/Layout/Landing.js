@@ -1,43 +1,16 @@
 import React from 'react';
+import SchoolByRadius from '../schools/SchoolByRadius';
 
 const Landing = () => {
     return (
         <section class="showcase">
             <div class="dark-overlay">
                 <div class="showcase-inner container">
-                    <h1 class="display-4">Find a Code Bootcamp</h1>
-                    <p class="lead">
-                        Find, rate and read reviews on coding bootcamps
+                    <h1 class="display-4 mt-5">Find a School</h1>
+                    <p class="lead my-3">
+                        Find, rate and read reviews on Scholrify
                     </p>
-                    <form action="bootcamps.html">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        name="miles"
-                                        placeholder="Miles From"
-                                    />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        name="zipcode"
-                                        placeholder="Enter Zipcode"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <input
-                            type="submit"
-                            value="Find Bootcamps"
-                            class="btn btn-primary btn-block"
-                        />
-                    </form>
+                    <SchoolByRadius />
                 </div>
             </div>
         </section>

@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
         case AUTH_ERROR:
         case LOGIN_FAIL:
         case LOGOUT:
-            // console.log(state);
+        case UPDATE_PERSONAL_DETAILS_ERROR:
             localStorage.removeItem('token');
             return {
                 ...state,

@@ -21,7 +21,7 @@ exports.getSchool = asyncHandler(async (req, res, next) => {
     const school = await School.findById(req.params.id)
         .populate({
             path: 'teachers',
-            select: 'name dept exp',
+            select: 'teacherName dept exp',
         })
         .populate({ path: 'reviews', select: 'title description rating' });
 

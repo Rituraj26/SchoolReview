@@ -28,7 +28,7 @@ router
     .get(
         advancedResults(School, {
             path: 'teachers',
-            select: 'name dept exp',
+            select: 'teacherName dept exp',
         }),
         getSchools
     )
