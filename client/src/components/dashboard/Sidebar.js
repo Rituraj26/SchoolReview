@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Sidebar = () => {
+const Sidebar = ({ user }) => {
     return (
         <div className="bg-light border-right shadow-sm " id="sidebar-wrapper">
             <div className="list-group list-group-flush">
@@ -35,15 +37,31 @@ const Sidebar = () => {
                 >
                     Update Password
                 </Link>
-                <Link
-                    to="/dashboard/school"
-                    className="list-group-item list-group-item-action bg-light"
-                >
-                    Manage School
-                </Link>
+
+                {user &&
+                (user.role === 'publisher' || user.role === 'admin') ? (
+                    <Link
+                        to="/dashboard/school"
+                        className="list-group-item list-group-item-action bg-light"
+                    >
+                        Manage School
+                    </Link>
+                ) : (
+                    <span></span>
+                )}
             </div>
         </div>
     );
 };
 
-export default Sidebar;
+Sidebar.propTypes = {
+    user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.user,
+    };
+};
+
+export default connect(mapStateToProps)(Sidebar);

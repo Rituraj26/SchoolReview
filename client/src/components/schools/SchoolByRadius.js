@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getSchoolByRadius } from '../../actions/schools';
 
 const SchoolByRadius = ({ getSchoolByRadius }) => {
+    const history = useHistory();
+
     const [formData, setFormData] = useState({
         zipcode: '',
         distance: '',
@@ -20,7 +23,7 @@ const SchoolByRadius = ({ getSchoolByRadius }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        getSchoolByRadius({ zipcode, distance });
+        getSchoolByRadius({ zipcode, distance }, history);
         setFormData({
             zipcode: '',
             distance: '',

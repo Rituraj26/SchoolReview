@@ -17,14 +17,14 @@ const DashboardBody = ({ getSchools, user }) => {
                 </div>
             </div>
 
-            <div class="row my-4">
-                <div class="col-sm-3 p-2">
-                    <div class="card">
-                        <div class="card-body">
+            <div className="row my-4">
+                <div className="col-sm-3 p-2">
+                    <div className="card">
+                        <div className="card-body">
                             <Link to="/dashboard/allSchools">
-                                <h5 class="card-title">Get All Schools</h5>
+                                <h5 className="card-title">Get All Schools</h5>
                             </Link>
-                            <p class="card-text">
+                            <p className="card-text">
                                 Click here to see all the schools available in
                                 this site
                             </p>
@@ -32,13 +32,13 @@ const DashboardBody = ({ getSchools, user }) => {
                     </div>
                 </div>
 
-                <div class="col-sm-3 p-2">
-                    <div class="card">
-                        <div class="card-body">
+                <div className="col-sm-3 p-2">
+                    <div className="card">
+                        <div className="card-body">
                             <Link to="/dashboard/allTeachers">
-                                <h5 class="card-title">Get All Teachers</h5>
+                                <h5 className="card-title">Get All Teachers</h5>
                             </Link>
-                            <p class="card-text">
+                            <p className="card-text">
                                 Click here to see all the teachers from
                                 different schools
                             </p>
@@ -46,28 +46,28 @@ const DashboardBody = ({ getSchools, user }) => {
                     </div>
                 </div>
 
-                <div class="col-sm-3 p-2">
-                    <div class="card">
-                        <div class="card-body">
+                <div className="col-sm-3 p-2">
+                    <div className="card">
+                        <div className="card-body">
                             <Link to="/dashboard/updatePersonalDetails">
-                                <h5 class="card-title">
+                                <h5 className="card-title">
                                     Update Personal Details
                                 </h5>
                             </Link>
-                            <p class="card-text">
+                            <p className="card-text">
                                 Click here to update your personal details
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-3 p-2">
-                    <div class="card">
-                        <div class="card-body">
+                <div className="col-sm-3 p-2">
+                    <div className="card">
+                        <div className="card-body">
                             <Link to="/dashboard/updatePassword">
-                                <h5 class="card-title">Update Password</h5>
+                                <h5 className="card-title">Update Password</h5>
                             </Link>
-                            <p class="card-text">
+                            <p className="card-text">
                                 Click here to update your password
                             </p>
                         </div>

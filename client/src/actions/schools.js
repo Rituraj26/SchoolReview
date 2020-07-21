@@ -19,6 +19,8 @@ import {
 } from './types';
 import { setAlert } from './alert';
 
+// Get All Schools
+
 export const getSchools = (page) => async (dispatch) => {
     const config = {
         headers: { 'Content-Type': 'application/json' },
@@ -26,7 +28,6 @@ export const getSchools = (page) => async (dispatch) => {
 
     try {
         const res = await axios.get(`/schools?page=${page}`, null, config);
-        // console.log(res.data);
 
         dispatch({
             type: GET_SCHOOLS,
@@ -45,7 +46,9 @@ export const getSchools = (page) => async (dispatch) => {
     }
 };
 
-export const getSchoolByRadius = ({ zipcode, distance }) => async (
+// Get School Within a Particular Radius of the Zipcode
+
+export const getSchoolByRadius = ({ zipcode, distance }, history) => async (
     dispatch
 ) => {
     const config = {
@@ -58,14 +61,14 @@ export const getSchoolByRadius = ({ zipcode, distance }) => async (
             null,
             config
         );
-        // console.log(res.data);
 
         dispatch({
             type: GET_SCHOOLS_BY_RADIUS,
             payload: res.data,
         });
+
+        history.push('/schools');
     } catch (err) {
-        // console.log(err);
         const errors = err.response.data.error;
 
         if (errors) {
@@ -77,6 +80,8 @@ export const getSchoolByRadius = ({ zipcode, distance }) => async (
         });
     }
 };
+
+// Get Schools By Ratings and Founded Year
 
 export const getSchoolByRatingAndFounded = ({ rating, founded }) => async (
     dispatch
@@ -97,7 +102,6 @@ export const getSchoolByRatingAndFounded = ({ rating, founded }) => async (
             payload: res.data,
         });
     } catch (err) {
-        // console.log(err.response);
         const errors = err.response.data.error;
 
         if (errors) {
