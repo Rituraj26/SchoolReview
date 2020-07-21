@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
     return (
         <div className="bg-light border-right shadow-sm " id="sidebar-wrapper">
-            <div className="sidebar-heading">Dashboard</div>
             <div className="list-group list-group-flush">
+                <Link
+                    to="/dashboard/main"
+                    className="list-group-item list-group-item-action bg-light py-4"
+                >
+                    <h5>Dashboard</h5>
+                </Link>
                 <Link
                     to="/dashboard/allschools"
                     className="list-group-item list-group-item-action bg-light"

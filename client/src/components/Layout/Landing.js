@@ -3,11 +3,11 @@ import SchoolByRadius from '../schools/SchoolByRadius';
 
 const Landing = () => {
     return (
-        <section class="showcase">
-            <div class="dark-overlay">
-                <div class="showcase-inner container">
-                    <h1 class="display-4 mt-5">Find a School</h1>
-                    <p class="lead my-3">
+        <section className="showcase">
+            <div className="dark-overlay">
+                <div className="showcase-inner container">
+                    <h1 className="display-4 mt-5">Find a School</h1>
+                    <p className="lead my-3">
                         Find, rate and read reviews on Scholrify
                     </p>
                     <SchoolByRadius />

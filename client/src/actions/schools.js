@@ -231,8 +231,6 @@ export const editSchool = (formData, schoolId, history) => async (dispatch) => {
     const {
         schoolName,
         description,
-        photoName,
-        photoPath,
         address,
         email,
         website,
@@ -250,10 +248,6 @@ export const editSchool = (formData, schoolId, history) => async (dispatch) => {
     const body = JSON.stringify({
         schoolName,
         description,
-        schoolPhoto: {
-            photoName,
-            photoPath,
-        },
         address,
         contactUs: {
             email,

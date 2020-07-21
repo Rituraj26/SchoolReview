@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getSchools } from '../../actions/schools';
 
 // Importing Components
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import DashboardBody from './DashboardBody';
 import AllSchools from './allSchools/AllSchools';
 import AllTeachers from './allTeachers/AllTeachers';
 import UpdatePersonalDetails from './updatePersonalDetails/UpdatePersonalDetails';
@@ -18,11 +16,7 @@ import ManageTeachers from './manageTeachers/ManageTeachers';
 import AddTeacher from './manageTeachers/AddTeacher';
 import EditTeacher from './manageTeachers/EditTeacher';
 
-const Dashboard = ({ getSchools }) => {
-    useEffect(() => {
-        getSchools(1);
-    }, [getSchools]);
-
+const Dashboard = () => {
     return (
         <div className="d-flex" id="wrapper">
             <Sidebar />
@@ -30,6 +24,7 @@ const Dashboard = ({ getSchools }) => {
             <div id="page-content-wrapper">
                 <Navbar />
 
+                <Route path="/dashboard/main" component={DashboardBody} />
                 <Route path="/dashboard/allschools" component={AllSchools} />
                 <Route path="/dashboard/allteachers" component={AllTeachers} />
                 <Route
@@ -62,8 +57,4 @@ const Dashboard = ({ getSchools }) => {
     );
 };
 
-Dashboard.propTypes = {
-    getSchools: PropTypes.func.isRequired,
-};
-
-export default connect(null, { getSchools })(Dashboard);
+export default Dashboard;

@@ -70,13 +70,14 @@ const SchoolDetails = ({ getSchool, school }) => {
                     >
                         <i className="fas fa-pencil-alt"></i> Write a Review
                     </Link>
-                    <Link
-                        to={school.contactUs.website}
+                    <a
+                        href={school.contactUs.website}
+                        rel="noopener noreferrer"
                         target="_blank"
                         className="btn btn-secondary btn-block my-3"
                     >
                         <i className="fas fa-globe"></i> Visit Website
-                    </Link>
+                    </a>
                 </div>
             </div>
 
