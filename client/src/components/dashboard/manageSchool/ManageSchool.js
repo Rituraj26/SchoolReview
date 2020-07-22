@@ -5,6 +5,7 @@ import { getPublisherSchool } from '../../../actions/schools';
 
 import SchoolComponent from './SchoolComponent';
 import NoSchoolComponent from './NoSchoolComponent';
+import Spinner from '../../layout/Spinner';
 
 const ManageSchool = ({ publisherSchool, getPublisherSchool }) => {
     useEffect(() => {
@@ -21,6 +22,8 @@ const ManageSchool = ({ publisherSchool, getPublisherSchool }) => {
                                 <SchoolComponent
                                     school={publisherSchool.data}
                                 />
+                            ) : publisherSchool.loading ? (
+                                <Spinner />
                             ) : (
                                 <NoSchoolComponent />
                             )}

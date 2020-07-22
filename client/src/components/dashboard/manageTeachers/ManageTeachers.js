@@ -7,6 +7,7 @@ import { getSchoolTeachers } from '../../../actions/teachers';
 import TeacherComponent from './TeacherComponent';
 import NoTeacherComponent from './NoTeacherComponent';
 import NoSchoolComponent from '../manageSchool/NoSchoolComponent';
+import Spinner from '../../layout/Spinner';
 
 const ManageTeachers = ({ school, getSchoolTeachers, schoolTeachers }) => {
     useEffect(() => {
@@ -111,6 +112,8 @@ const ManageTeachers = ({ school, getSchoolTeachers, schoolTeachers }) => {
                                                     schoolId={school._id}
                                                 />
                                             ))
+                                        ) : schoolTeachers.loading ? (
+                                            <Spinner />
                                         ) : (
                                             <NoTeacherComponent />
                                         )}

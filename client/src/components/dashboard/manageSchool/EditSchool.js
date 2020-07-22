@@ -347,7 +347,7 @@ const EditSchool = ({ editSchool, school }) => {
                                     <button
                                         type="button"
                                         id="topper"
-                                        class="btn btn-secondary my-2"
+                                        className="btn btn-secondary my-2"
                                         onClick={(e) => onTempBtnClick(e)}
                                     >
                                         Add Topper
@@ -454,7 +454,7 @@ const EditSchool = ({ editSchool, school }) => {
                                     </div>
                                     <button
                                         type="button"
-                                        class="btn btn-secondary my-2"
+                                        className="btn btn-secondary my-2"
                                         id="award"
                                         onClick={(e) => onTempBtnClick(e)}
                                     >

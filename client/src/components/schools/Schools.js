@@ -6,8 +6,9 @@ import { getSchools } from '../../actions/schools';
 import SchoolItem from './SchoolItem';
 import SchoolByRadius from './SchoolByRadius';
 import SchoolByRatingAndFounded from './SchoolByRatingAndFounded';
+import Spinner from '../layout/Spinner';
 
-const Schools = ({ getSchools, schools: { count, schoolData } }) => {
+const Schools = ({ getSchools, schools: { count, schoolData, loading } }) => {
     useEffect(() => {
         getSchools(1);
     }, [getSchools]);
@@ -24,12 +25,12 @@ const Schools = ({ getSchools, schools: { count, schoolData } }) => {
 
                     <div className="col-md-8">
                         {/* Show all Schools */}
-                        {count > 0 ? (
+                        {count > 0 || loading ? (
                             schoolData.map((sch) => (
                                 <SchoolItem key={sch._id} school={sch} />
                             ))
                         ) : (
-                            <h1>No Schools Found</h1>
+                            <Spinner />
                         )}
 
                         {/* <!-- Pagination --> */}
