@@ -86,8 +86,9 @@ export const login = ({ email, password }) => async (dispatch) => {
     }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = (history) => (dispatch) => {
     dispatch({ type: LOGOUT });
+    history.push('/auth/login');
 };
 
 // Forgot Password Action
