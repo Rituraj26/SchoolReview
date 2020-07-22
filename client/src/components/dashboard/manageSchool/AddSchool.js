@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addSchool } from '../../../actions/schools';
@@ -28,21 +28,14 @@ const AddSchool = ({ addSchool }) => {
 
     const [formData, setFormData] = useState(initialState);
 
-    // const [tempData, setTempData] = useState({
-    //     photo: null,
-    //     topperPercentage: '',
-    //     topperName: '',
-    //     awardTitle: '',
-    //     awardYear: '',
-    // });
+    const [tempData, setTempData] = useState({
+        topperName: '',
+        topperPercentage: '',
+        awardTitle: '',
+        awardYear: '',
+    });
 
-    // const {
-    //     photo,
-    //     topperPercentage,
-    //     topperName,
-    //     awardTitle,
-    //     awardYear,
-    // } = tempData;
+    const { topperName, topperPercentage, awardTitle, awardYear } = tempData;
 
     const {
         schoolName,
@@ -59,61 +52,40 @@ const AddSchool = ({ addSchool }) => {
         busFee,
         hostelFee,
         scholarshipAvailable,
-        // toppers,
-        // awards,
+        toppers,
+        awards,
     } = formData;
 
-    // const onPhotoUpload = (e) => {
-    //     setTempData({
-    //         ...tempData,
-    //         photo: e.target.files[0],
-    //     });
-    // };
+    const onTempChange = (e) => {
+        setTempData({
+            ...tempData,
+            [e.target.name]: e.target.value,
+        });
+    };
 
-    // const onPhotoChange = (e) => {
-    //     setTempData({
-    //         ...tempData,
-    //         [e.target.name]: e.target.value,
-    //     });
-    // };
-
-    // const onTopperBtnClick = (e) => {
-    //     if (topperPercentage) {
-    //         let fr = new FileReader();
-    //         fr.onload = (event) => {
-    //             toppers.push({
-    //                 topperName,
-    //                 topperPhoto: event.target.result,
-    //                 topperPercentage,
-    //             });
-    //             setTempData({
-    //                 ...tempData,
-    //                 topperName: '',
-    //                 topperPercentage: '',
-    //             });
-    //         };
-    //         fr.readAsDataURL(photo);
-    //     }
-    // };
-
-    // const onAwardBtnClick = (e) => {
-    //     if (awardTitle) {
-    //         let fr = new FileReader();
-    //         fr.onload = (event) => {
-    //             awards.push({
-    //                 awardTitle,
-    //                 awardPhoto: event.target.result,
-    //                 awardYear,
-    //             });
-    //             setTempData({
-    //                 ...tempData,
-    //                 awardTitle: '',
-    //                 awardYear: '',
-    //             });
-    //         };
-    //         fr.readAsDataURL(photo);
-    //     }
-    // };
+    const onTempBtnClick = (e) => {
+        if (e.target.id === 'topper' && toppers.length < 4) {
+            toppers.push({
+                topperName,
+                topperPercentage,
+            });
+            setTempData({
+                ...tempData,
+                topperName: '',
+                topperPercentage: '',
+            });
+        } else if (e.target.id === 'award' && awards.length < 4) {
+            awards.push({
+                awardTitle,
+                awardYear,
+            });
+            setTempData({
+                ...tempData,
+                awardTitle: '',
+                awardYear: '',
+            });
+        }
+    };
 
     const onChange = (e) => {
         setFormData({
@@ -333,24 +305,25 @@ const AddSchool = ({ addSchool }) => {
 
                 {/* Add Topper Section */}
 
-                {/* <div className="row">
+                <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
                                 <div className="col-md-6">
                                     <h3>Add Toppers</h3>
+                                    <p className="text-muted">
+                                        *You can only add maximum of 4 toppers
+                                    </p>
 
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">
-                                            File input
-                                        </label>
+                                    <div className="form-group">
+                                        <label>Topper Name</label>
                                         <input
-                                            type="file"
-                                            class="form-control-file"
-                                            name="file"
-                                            id="exampleInputFile"
-                                            aria-describedby="fileHelp"
-                                            onChange={(e) => onPhotoUpload(e)}
+                                            type="text"
+                                            name="topperName"
+                                            value={topperName}
+                                            className="form-control"
+                                            placeholder="Topper Name"
+                                            onChange={(e) => onTempChange(e)}
                                         />
                                     </div>
                                     <div className="form-group">
@@ -361,14 +334,14 @@ const AddSchool = ({ addSchool }) => {
                                             value={topperPercentage}
                                             className="form-control"
                                             placeholder="Percentage"
-                                            onChange={(e) => onPhotoChange(e)}
+                                            onChange={(e) => onTempChange(e)}
                                         />
                                     </div>
                                     <button
                                         type="button"
                                         id="topper"
                                         class="btn btn-secondary my-2"
-                                        onClick={(e) => onTopperBtnClick(e)}
+                                        onClick={(e) => onTempBtnClick(e)}
                                     >
                                         Add Topper
                                     </button>
@@ -383,20 +356,33 @@ const AddSchool = ({ addSchool }) => {
                                                     className="col-md-5"
                                                 >
                                                     <div className="card">
-                                                        <div className="card-body text-center">
-                                                            <img
-                                                                className=" img-fluid"
-                                                                src={
-                                                                    topper.photoUrl
-                                                                }
-                                                                alt="topper"
-                                                            />
-
-                                                            <p className="card-title">
-                                                                {
-                                                                    topper.topperPercentage
-                                                                }
-                                                            </p>
+                                                        <div className="card-body p-1">
+                                                            <table className="table table-borderless">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                topper.topperName
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            <span
+                                                                                aria-hidden="true"
+                                                                                className="close pointer"
+                                                                            >
+                                                                                &times;
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                topper.topperPercentage
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -411,46 +397,53 @@ const AddSchool = ({ addSchool }) => {
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
 
                 {/* Add Awards Section */}
 
-                {/* <div className="row">
+                <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
                                 <div className="col-md-6">
                                     <h3>Add Awards</h3>
+                                    <p className="text-muted">
+                                        *You can only add maximum of 4 awards
+                                    </p>
 
                                     <div class="form-group">
-                                        <label for="exampleInputFile">
-                                            File input
+                                        <label htmlFor="awardTitle">
+                                            Award Title
                                         </label>
-                                        <input
-                                            type="file"
-                                            class="form-control-file"
-                                            name="file"
-                                            id="exampleInputFile"
-                                            aria-describedby="fileHelp"
-                                            onChange={(e) => onPhotoUpload(e)}
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Title</label>
                                         <input
                                             type="text"
                                             name="awardTitle"
                                             value={awardTitle}
+                                            id="awardTitle"
                                             className="form-control"
-                                            placeholder="Title"
-                                            onChange={(e) => onPhotoChange(e)}
+                                            placeholder="Award Title"
+                                            onChange={(e) => onTempChange(e)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="awardYear">
+                                            Award Year
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="awardYear"
+                                            value={awardYear}
+                                            id="awardYear"
+                                            className="form-control"
+                                            placeholder="Award Year"
+                                            onChange={(e) => onTempChange(e)}
                                         />
                                     </div>
                                     <button
                                         type="button"
                                         class="btn btn-secondary my-2"
                                         id="award"
-                                        onClick={(e) => onAwardBtnClick(e)}
+                                        onClick={(e) => onTempBtnClick(e)}
                                     >
                                         Add Awards
                                     </button>
@@ -465,20 +458,33 @@ const AddSchool = ({ addSchool }) => {
                                                     className="col-md-5"
                                                 >
                                                     <div className="card">
-                                                        <div className="card-body text-center">
-                                                            <img
-                                                                className="img-fluid"
-                                                                src={
-                                                                    award.photoUrl
-                                                                }
-                                                                alt="award"
-                                                            />
-
-                                                            <p className="card-title">
-                                                                {
-                                                                    award.awardTitle
-                                                                }
-                                                            </p>
+                                                        <div className="card-body p-1">
+                                                            <table className="table table-borderless">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                award.awardTitle
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            <span
+                                                                                aria-hidden="true"
+                                                                                className="close pointer"
+                                                                            >
+                                                                                &times;
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                award.awardYear
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -493,7 +499,7 @@ const AddSchool = ({ addSchool }) => {
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
 
                 <div className="form-group">
                     <input

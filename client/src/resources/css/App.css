@@ -100,9 +100,9 @@ img {
     }
 }
 
-/* All Schools Card */
+/* Cursor Pointer */
 
-.schoolName {
+.pointer {
     cursor: pointer;
     color: rgb(219, 0, 0);
 }

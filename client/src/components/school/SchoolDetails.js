@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import { connect } from 'react-redux';
 import { getSchool } from '../../actions/schools';
 import SchoolTopper from './SchoolTopper';
+import SchoolAward from './SchoolAward';
 import SchoolTeacher from './SchoolTeacher';
 
 const SchoolDetails = ({ getSchool, school }) => {
@@ -184,13 +185,27 @@ const SchoolDetails = ({ getSchool, school }) => {
 
                 <div className="row">
                     {school.toppers.length > 0 ? (
-                        school.toppers.map((
-                            topper // key needs to be changed when updating topper and teacher
-                        ) => (
-                            <SchoolTopper key={Math.random()} topper={topper} />
+                        school.toppers.map((topper) => (
+                            <SchoolTopper key={topper._id} topper={topper} />
                         ))
                     ) : (
                         <p className="ml-3">No Toppers Data Available</p>
+                    )}
+                </div>
+            </div>
+
+            {/* Awards Row */}
+
+            <div className="bg-white my-5 p-5">
+                <h4 className="mb-4">Awards</h4>
+
+                <div className="row">
+                    {school.awards.length > 0 ? (
+                        school.awards.map((award) => (
+                            <SchoolAward key={award._id} award={award} />
+                        ))
+                    ) : (
+                        <p className="ml-3">No Awards Data Available</p>
                     )}
                 </div>
             </div>

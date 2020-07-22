@@ -32,7 +32,7 @@ const SchoolItem = ({
                     <div className="card-body d-flex flex-column justify-content-between">
                         <h5 className="card-title">
                             <span
-                                className="schoolName"
+                                className="pointer"
                                 onClick={() => onClick(_id)}
                             >
                                 {schoolName}

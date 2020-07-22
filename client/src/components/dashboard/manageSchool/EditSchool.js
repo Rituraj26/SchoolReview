@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -6,6 +6,15 @@ import { editSchool } from '../../../actions/schools';
 
 const EditSchool = ({ editSchool, school }) => {
     const history = useHistory();
+
+    const [tempData, setTempData] = useState({
+        topperName: '',
+        topperPercentage: '',
+        awardTitle: '',
+        awardYear: '',
+    });
+
+    const { topperName, topperPercentage, awardTitle, awardYear } = tempData;
 
     const initialState = {
         schoolName: school.schoolName,
@@ -39,9 +48,54 @@ const EditSchool = ({ editSchool, school }) => {
         busFee,
         hostelFee,
         scholarshipAvailable,
-        // toppers,
-        // awards,
+        toppers,
+        awards,
     } = formData;
+
+    const onTempChange = (e) => {
+        setTempData({
+            ...tempData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const onTempBtnClick = (e) => {
+        if (e.target.id === 'topper' && toppers.length < 4) {
+            toppers.push({
+                topperName,
+                topperPercentage,
+            });
+            setTempData({
+                ...tempData,
+                topperName: '',
+                topperPercentage: '',
+            });
+        } else if (e.target.id === 'award' && awards.length < 4) {
+            awards.push({
+                awardTitle,
+                awardYear,
+            });
+            setTempData({
+                ...tempData,
+                awardTitle: '',
+                awardYear: '',
+            });
+        }
+    };
+
+    const deleteTemp = (tempId, type) => {
+        if (type === 'topper') {
+            setFormData({
+                ...formData,
+                toppers: toppers.filter((topper) => topper._id !== tempId),
+            });
+        } else if (type === 'award') {
+            setFormData({
+                ...formData,
+                awards: awards.filter((award) => award._id !== tempId),
+            });
+        }
+    };
 
     const onChange = (e) => {
         setFormData({
@@ -258,24 +312,25 @@ const EditSchool = ({ editSchool, school }) => {
 
                 {/* Add Topper Section */}
 
-                {/* <div className="row">
+                <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
                                 <div className="col-md-6">
                                     <h3>Add Toppers</h3>
+                                    <p className="text-muted">
+                                        *You can only add maximum of 4 toppers
+                                    </p>
 
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">
-                                            File input
-                                        </label>
+                                    <div className="form-group">
+                                        <label>Topper Name</label>
                                         <input
-                                            type="file"
-                                            class="form-control-file"
-                                            name="file"
-                                            id="exampleInputFile"
-                                            aria-describedby="fileHelp"
-                                            onChange={(e) => onPhotoUpload(e)}
+                                            type="text"
+                                            name="topperName"
+                                            value={topperName}
+                                            className="form-control"
+                                            placeholder="Topper Name"
+                                            onChange={(e) => onTempChange(e)}
                                         />
                                     </div>
                                     <div className="form-group">
@@ -286,14 +341,14 @@ const EditSchool = ({ editSchool, school }) => {
                                             value={topperPercentage}
                                             className="form-control"
                                             placeholder="Percentage"
-                                            onChange={(e) => onPhotoChange(e)}
+                                            onChange={(e) => onTempChange(e)}
                                         />
                                     </div>
                                     <button
                                         type="button"
                                         id="topper"
                                         class="btn btn-secondary my-2"
-                                        onClick={(e) => onTopperBtnClick(e)}
+                                        onClick={(e) => onTempBtnClick(e)}
                                     >
                                         Add Topper
                                     </button>
@@ -304,24 +359,43 @@ const EditSchool = ({ editSchool, school }) => {
                                         {toppers.length ? (
                                             toppers.map((topper) => (
                                                 <div
-                                                    key={Math.random()}
+                                                    key={topper._id}
                                                     className="col-md-5"
                                                 >
                                                     <div className="card">
-                                                        <div className="card-body text-center">
-                                                            <img
-                                                                className=" img-fluid"
-                                                                src={
-                                                                    topper.photoUrl
-                                                                }
-                                                                alt="topper"
-                                                            />
-
-                                                            <p className="card-title">
-                                                                {
-                                                                    topper.topperPercentage
-                                                                }
-                                                            </p>
+                                                        <div className="card-body p-1">
+                                                            <table className="table table-borderless">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                topper.topperName
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            <span
+                                                                                aria-hidden="true"
+                                                                                className="close pointer"
+                                                                                onClick={() =>
+                                                                                    deleteTemp(
+                                                                                        topper._id,
+                                                                                        'topper'
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                &times;
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                topper.topperPercentage
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -336,46 +410,53 @@ const EditSchool = ({ editSchool, school }) => {
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
 
                 {/* Add Awards Section */}
 
-                {/* <div className="row">
+                <div className="row">
                     <div className="col-md-12 mt-5">
                         <div className="card bg-white py-2 px-4">
                             <div className="card-body row">
                                 <div className="col-md-6">
                                     <h3>Add Awards</h3>
+                                    <p className="text-muted">
+                                        *You can only add maximum of 4 awards
+                                    </p>
 
                                     <div class="form-group">
-                                        <label for="exampleInputFile">
-                                            File input
+                                        <label htmlFor="awardTitle">
+                                            Award Title
                                         </label>
-                                        <input
-                                            type="file"
-                                            class="form-control-file"
-                                            name="file"
-                                            id="exampleInputFile"
-                                            aria-describedby="fileHelp"
-                                            onChange={(e) => onPhotoUpload(e)}
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Title</label>
                                         <input
                                             type="text"
                                             name="awardTitle"
                                             value={awardTitle}
+                                            id="awardTitle"
                                             className="form-control"
-                                            placeholder="Title"
-                                            onChange={(e) => onPhotoChange(e)}
+                                            placeholder="Award Title"
+                                            onChange={(e) => onTempChange(e)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="awardYear">
+                                            Award Year
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="awardYear"
+                                            value={awardYear}
+                                            id="awardYear"
+                                            className="form-control"
+                                            placeholder="Award Year"
+                                            onChange={(e) => onTempChange(e)}
                                         />
                                     </div>
                                     <button
                                         type="button"
                                         class="btn btn-secondary my-2"
                                         id="award"
-                                        onClick={(e) => onAwardBtnClick(e)}
+                                        onClick={(e) => onTempBtnClick(e)}
                                     >
                                         Add Awards
                                     </button>
@@ -386,24 +467,43 @@ const EditSchool = ({ editSchool, school }) => {
                                         {awards.length ? (
                                             awards.map((award) => (
                                                 <div
-                                                    key={Math.random()}
+                                                    key={award._id}
                                                     className="col-md-5"
                                                 >
                                                     <div className="card">
-                                                        <div className="card-body text-center">
-                                                            <img
-                                                                className="img-fluid"
-                                                                src={
-                                                                    award.photoUrl
-                                                                }
-                                                                alt="award"
-                                                            />
-
-                                                            <p className="card-title">
-                                                                {
-                                                                    award.awardTitle
-                                                                }
-                                                            </p>
+                                                        <div className="card-body p-1">
+                                                            <table className="table table-borderless">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                award.awardTitle
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            <span
+                                                                                aria-hidden="true"
+                                                                                className="close pointer"
+                                                                                onClick={() =>
+                                                                                    deleteTemp(
+                                                                                        award._id,
+                                                                                        'award'
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                &times;
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {
+                                                                                award.awardYear
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -418,7 +518,7 @@ const EditSchool = ({ editSchool, school }) => {
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
 
                 <div className="form-group">
                     <input
