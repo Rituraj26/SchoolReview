@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addSchool } from '../../../actions/schools';
 import { useHistory } from 'react-router';
+import { addSchool } from '../../../actions/schools';
 
 const initialState = {
     schoolName: '',
