@@ -25,12 +25,15 @@ const Schools = ({ getSchools, schools: { count, schoolData, loading } }) => {
 
                     <div className="col-md-8">
                         {/* Show all Schools */}
-                        {count > 0 || loading ? (
+
+                        {loading ? (
+                            <Spinner />
+                        ) : count > 0 ? (
                             schoolData.map((sch) => (
                                 <SchoolItem key={sch._id} school={sch} />
                             ))
                         ) : (
-                            <Spinner />
+                            <h4>No Schools Available</h4>
                         )}
 
                         {/* <!-- Pagination --> */}

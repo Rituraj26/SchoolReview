@@ -36,6 +36,8 @@ const Reviews = ({
                         reviewData.map((review) => (
                             <ReviewItem key={review._id} review={review} />
                         ))
+                    ) : loading ? (
+                        <Spinner />
                     ) : (
                         <p>No Reviews Available</p>
                     )}
