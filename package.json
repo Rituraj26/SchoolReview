@@ -4,7 +4,8 @@
     "description": "School Review System",
     "main": "index.js",
     "engines": {
-        "node": "12.16.2"
+        "node": "12.x",
+        "npm": "6.x"
     },
     "scripts": {
         "start": "node server",
