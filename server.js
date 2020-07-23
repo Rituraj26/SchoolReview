@@ -9,7 +9,7 @@ const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const expressMongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
-const xssClean = require('xss-clean');
+// const xssClean = require('xss-clean');
 const expressRateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 
@@ -54,7 +54,7 @@ app.use(expressMongoSanitize());
 app.use(helmet());
 
 // Prevent Cross Site Scripting (XSS) attacks
-app.use(xssClean());
+// app.use(xssClean());
 
 // Rate Limiting
 const limiter = expressRateLimit({
