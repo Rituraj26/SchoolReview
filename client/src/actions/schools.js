@@ -209,7 +209,7 @@ export const addSchool = (formData, history) => async (dispatch) => {
             payload: res.data,
         });
 
-        history.push('/dashboard/school');
+        history.push('/dashboard/main');
 
         dispatch(setAlert('School has been added successfully', 'success'));
     } catch (err) {
@@ -280,7 +280,7 @@ export const editSchool = (formData, schoolId, history) => async (dispatch) => {
 
         dispatch(setAlert('School has been updated successfully', 'success'));
 
-        history.push('/dashboard/school');
+        history.push('/dashboard/main');
     } catch (err) {
         const errors = err.response.data.error;
 

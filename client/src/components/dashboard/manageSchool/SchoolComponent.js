@@ -32,6 +32,7 @@ const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
             <div className="card mb-3 mt-4">
                 <div className="row no-gutters">
                     <div className="col-md-4">
+						{console.log(school.schoolPhoto.photoPath)}
                         <img
                             src={school.schoolPhoto.photoPath}
                             className="card-img"

@@ -188,7 +188,7 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
         await School.findByIdAndUpdate(req.params.id, {
             schoolPhoto: {
                 photoName: file.name,
-                photoPath: `/uploads/${file.name}`,
+                photoPath: `../media/${file.name}`,
             },
         });
     });
