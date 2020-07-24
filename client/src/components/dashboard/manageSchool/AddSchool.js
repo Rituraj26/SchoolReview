@@ -40,8 +40,6 @@ const AddSchool = ({ addSchool }) => {
     const {
         schoolName,
         description,
-        // photoName,
-        // photoPath,
         address,
         phoneNo,
         email,
@@ -83,6 +81,20 @@ const AddSchool = ({ addSchool }) => {
                 ...tempData,
                 awardTitle: '',
                 awardYear: '',
+            });
+        }
+    };
+
+    const deleteTemp = (tempId, type) => {
+        if (type === 'topper') {
+            setFormData({
+                ...formData,
+                toppers: toppers.filter((topper) => topper._id !== tempId),
+            });
+        } else if (type === 'award') {
+            setFormData({
+                ...formData,
+                awards: awards.filter((award) => award._id !== tempId),
             });
         }
     };
@@ -369,6 +381,12 @@ const AddSchool = ({ addSchool }) => {
                                                                             <span
                                                                                 aria-hidden="true"
                                                                                 className="close pointer"
+                                                                                onClick={() =>
+                                                                                    deleteTemp(
+                                                                                        topper._id,
+                                                                                        'topper'
+                                                                                    )
+                                                                                }
                                                                             >
                                                                                 &times;
                                                                             </span>
@@ -471,6 +489,12 @@ const AddSchool = ({ addSchool }) => {
                                                                             <span
                                                                                 aria-hidden="true"
                                                                                 className="close pointer"
+                                                                                onClick={() =>
+                                                                                    deleteTemp(
+                                                                                        award._id,
+                                                                                        'award'
+                                                                                    )
+                                                                                }
                                                                             >
                                                                                 &times;
                                                                             </span>

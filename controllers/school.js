@@ -44,7 +44,7 @@ exports.addSchool = asyncHandler(async (req, res, next) => {
     // Add user to req.body
     req.body.user = req.user.id;
 
-    // Check for published school
+    // Check if publisher has already published school
     const publishedSchool = await School.findOne({ user: req.body.user });
 
     if (publishedSchool && req.user.role !== 'admin') {
