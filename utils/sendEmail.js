@@ -1,11 +1,6 @@
 const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
-const OAuth2 = google.auth.OAuth2;
 
-// async..await is not allowed in global scope, must use a wrapper
 const sendEmail = async (options) => {
-    // create reusable transporter object using the default SMTP transport
-    // console.log(options);
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -13,9 +8,6 @@ const sendEmail = async (options) => {
             pass: process.env.PASSWORD,
         },
     });
-    // console.log(transporter);
-
-    // send mail with defined transport object
 
     let info = await transporter.sendMail({
         from: process.env.FROM_EMAIL,

@@ -67,14 +67,14 @@ export default (state = initialState, action) => {
                 isAuthenticated: true,
                 loading: false,
             };
-        case UPLOAD_SCHOOL_PHOTO:
-            state.school.schoolPhoto.photoName = payload.data.fileName;
-            state.school.schoolPhoto.photoPath = payload.data.filePath;
-            return {
-                ...state,
-                isAuthenticated: true,
-                loading: false,
-            };
+        // case UPLOAD_SCHOOL_PHOTO:
+        //     state.school.schoolPhoto.photoName = payload.data.fileName;
+        //     state.school.schoolPhoto.photoPath = payload.data.filePath;
+        //     return {
+        //         ...state,
+        //         isAuthenticated: true,
+        //         loading: false,
+        //     };
         case SCHOOLS_ERROR:
         case GET_SCHOOLS_BY_RADIUS_ERROR:
         case GET_SCHOOLS_BY_RATING_AND_FOUNDED_ERROR:
