@@ -181,7 +181,7 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
 
     file.name = `photo_${school._id}${path.parse(file.name).ext}`;
 
-    file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+    file.mv(`./client/build/static/media/${file.name}`, async (err) => {
         if (err) {
             return next(new ErrorResponse(`Problem with the file upload`), 500);
         }
@@ -195,6 +195,6 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        data: { fileName: file.name, filePath: `/uploads/${file.name}` },
+        data: { fileName: file.name, filePath: `../media/${file.name}` },
     });
 });
