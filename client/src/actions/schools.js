@@ -327,7 +327,9 @@ export const deleteSchool = (schoolId) => async (dispatch, getState) => {
 
 // Upload Photo for a School
 
-export const schoolPhotoUpload = (schoolId, file) => async (dispatch) => {
+export const schoolPhotoUpload = (schoolId, file, history) => async (
+    dispatch
+) => {
     const config = {
         headers: { 'Content-Type': 'multipart/form-data' },
     };
@@ -343,6 +345,8 @@ export const schoolPhotoUpload = (schoolId, file) => async (dispatch) => {
         dispatch(
             setAlert('School Photo has been uploaded successfully', 'success')
         );
+
+        history.push('/dashboard/main');
     } catch (err) {
         const errors = err.response.data.error;
 

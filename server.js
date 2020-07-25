@@ -12,6 +12,7 @@ const helmet = require('helmet');
 // const xssClean = require('xss-clean');
 const expressRateLimit = require('express-rate-limit');
 const hpp = require('hpp');
+const cloudinary = require('cloudinary').v2;
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
@@ -21,6 +22,13 @@ const errorHandler = require('./middleware/error');
 
 // Connect Database
 connectDB();
+
+// Cloudinary Config
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Importing route files
 const auth = require('./routes/auth');
@@ -33,10 +41,10 @@ const reviews = require('./routes/review');
 app.use(express.json());
 
 // File upload middleware
-app.use(fileUpload());
+// app.use(fileUpload());
 
 // Set static folder
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './client/public')));
 
 // Cookie Parser middleware
 app.use(cookieParser());

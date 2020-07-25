@@ -23,7 +23,7 @@ const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
         const data = new FormData();
         data.append('file', file);
 
-        schoolPhotoUpload(school._id, data);
+        schoolPhotoUpload(school._id, data, history);
     };
 
     return (
@@ -32,7 +32,6 @@ const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
             <div className="card mb-3 mt-4">
                 <div className="row no-gutters">
                     <div className="col-md-4">
-						{console.log(school.schoolPhoto.photoPath)}
                         <img
                             src={school.schoolPhoto.photoPath}
                             className="card-img"
@@ -65,7 +64,11 @@ const SchoolComponent = ({ school, deleteSchool, schoolPhotoUpload }) => {
                     </div>
                 </div>
             </div>
-            <form className="mb-4" onSubmit={(e) => onSubmit(e)}>
+            <form
+                className="mb-4"
+                onSubmit={(e) => onSubmit(e)}
+                enctype="multipart/form-data"
+            >
                 <div className="form-group">
                     <label htmlFor="photo">Add School Image</label>
                     <input

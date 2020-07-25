@@ -4,6 +4,7 @@ const School = require('../models/School');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const geocoder = require('../utils/geocoder');
+const cloudinary = require('cloudinary');
 
 // @desc Get all schools
 // @route GET /schools
@@ -162,39 +163,23 @@ exports.uploadPhoto = asyncHandler(async (req, res, next) => {
         );
     }
 
-    if (!req.files) {
-        return next(new ErrorResponse(`Please upload a photo`), 400);
-    }
-
-    const file = req.files.file;
-
-    if (!file.mimetype.startsWith('image')) {
-        return next(new ErrorResponse(`Please upload an image file`), 400);
-    }
-
-    if (file.size > process.env.MAX_IMAGE_UPLOAD_SIZE) {
-        return next(
-            new ErrorResponse(`Please upload an image less than 1MB`),
-            400
-        );
-    }
-
-    file.name = `photo_${school._id}${path.parse(file.name).ext}`;
-
-    file.mv(`../media/${file.name}`, async (err) => {
-        if (err) {
+    cloudinary.uploader.upload(req.file.path, async (result, error) => {
+        if (error) {
             return next(new ErrorResponse(`Problem with the file upload`), 500);
         }
         await School.findByIdAndUpdate(req.params.id, {
             schoolPhoto: {
-                photoName: file.name,
-                photoPath: `../media/${file.name}`,
+                photoName: result.original_filename,
+                photoPath: result.url,
             },
         });
-    });
 
-    res.status(200).json({
-        success: true,
-        data: { fileName: file.name, filePath: `../media/${file.name}` },
+        res.status(200).json({
+            success: true,
+            data: {
+                fileName: result.original_filename,
+                filePath: result.url,
+            },
+        });
     });
 });
