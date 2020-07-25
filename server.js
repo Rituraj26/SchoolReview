@@ -44,7 +44,7 @@ app.use(express.json());
 // app.use(fileUpload());
 
 // Set static folder
-app.use(express.static(path.join(__dirname, './client/public')));
+// app.use(express.static(path.join(__dirname, './client/public')));
 
 // Cookie Parser middleware
 app.use(cookieParser());
